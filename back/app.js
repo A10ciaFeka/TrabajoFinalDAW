@@ -6,10 +6,10 @@ const myConnection = require('express-myconnection');
 const mysql = require('mysql');
 const dbConfig = require('./dbConfig')
 
-// importación de rutas
-const rutasUsuarios = require('./routes/usuario')
+// routes imports
+const userRoutes = require('./routes/user');
 
-// configuraciones
+// configurations
 app.set('port', process.env.PORT||3000);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -18,12 +18,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(morgan('dev'));
 app.use(myConnection(mysql,dbConfig,'single'));
 
-// rutas
-app.use('/', rutasUsuarios)
+// routes
+app.use('/user', userRoutes);
 
-// archivos estáticos
+// static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Server start
 app.listen(app.get('port'), () => {
-    console.log('Server en el puerto '+app.get('port'));
+    console.log('Server on port '+app.get('port'));
 });
