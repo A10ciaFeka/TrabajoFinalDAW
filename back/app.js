@@ -11,12 +11,12 @@ const userRoutes = require('./routes/user');
 
 // configurations
 app.set('port', process.env.PORT||3000);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 // Middlewares
 app.use(morgan('dev'));
 app.use(myConnection(mysql,dbConfig,'single'));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
 // routes
 app.use('/user', userRoutes);

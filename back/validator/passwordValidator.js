@@ -1,13 +1,15 @@
 const passwordValidator = {};
-const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
-passwordValidator.setPassword = async(user_password)=>{
-    const salt = await bcrypt.genSalt();
-    return await bcrypt.hash(user_password,salt);
-}
+passwordValidator.setPassword = (user_password)=>{ 
+    user_password = String(user_password);
+    return crypto.createHash('sha1').update(user_password).digest('hex');
+ }
 
-passwordValidator.comparePassword = async(pwdEntered,user_password)=>{
-    return bcrypt.compareSync(pwdEntered,user_password);
+passwordValidator.comparePassword = (pwdEntered,user_password)=>{ 
+    pwdEntered = String(pwdEntered);
+    pwdEntered = crypto.createHash('sha1').update(pwdEntered).digest('hex');
+    return pwdEntered == user_password;
 }
 
 module.exports = passwordValidator;
