@@ -8,6 +8,7 @@ const dbConfig = require('./dbConfig')
 
 // routes imports
 const userRoutes = require('./routes/user');
+const reviewRoutes = require('./routes/review');
 
 // configurations
 app.set('port', process.env.PORT||3000);
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended:false}));
 
 // routes
 app.use('/user', userRoutes);
+app.use('/review', reviewRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
