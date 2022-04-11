@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const reviewController = require('../controllers/reviewController')
 
 /**
  * 
@@ -8,7 +8,7 @@ const router = express.Router();
  * 
  */
 router.get('/:id_user', reviewController.reviewByUser);
-router.get('/:id_user&id_product', reviewController.reviewByUser);
+router.get('/:id_user/:id_product', reviewController.reviewByUserAndProduct);
 
  /**
  * 

@@ -1,15 +1,15 @@
 const reviewController = {};
 
-
+/** --- GET REQUESTS --- */
 /**
- * Review by users
+ * Review by user
  * 
  * @param {*} req 
  * @param {*} res 
  */ 
 reviewController.reviewByUser = (req,res) => { 
     const id_user = req.params.id_user;
-    const sql = 'SELECT * FROM review WHERE id_user='+id_user;
+    const sql = 'SELECT * FROM review WHERE id_user='+id_user+' ORDER BY date DESC';
 
     req.getConnection((err,conn)=>{
         try{
@@ -33,7 +33,7 @@ reviewController.reviewByUser = (req,res) => {
  * @param {*} req 
  * @param {*} res 
  */ 
- reviewController.reviewByUser = (req,res) => { 
+ reviewController.reviewByUserAndProduct = (req,res) => { 
     const id_user = req.params.id_user;
     const id_product = req.params.id_product;
     const sql = 'SELECT * FROM review WHERE id_user='+id_user+'AND id_product='+id_product;
@@ -53,7 +53,38 @@ reviewController.reviewByUser = (req,res) => {
     });
 };
 
+/**
+ * Get the latests reviews 
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+reviewController.getReviewByDate = (req,res) => {
+    const sql = "SELECT * FROM review ORDER BY date DESC LIMIT "+req.params.reviewNum;
 
+    req.getConnection((err,conn)=>{
+        try{
+            conn.query(sql, (err,review)=>{
+                if(err){
+                    res.json(err);
+                }else{
+                    res.json(review);
+                }
+            });
+        }catch(err){
+            res.json({'error': "Couldn't connect to db"})
+        }
+    });
+}
+
+
+/** --- POST REQUESTS --- */
+/**
+ * Create a new review
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 reviewController.createReview = (req, res) => {
 
     const {review_stars,review_name,review_body} = req.body;
@@ -66,7 +97,7 @@ reviewController.createReview = (req, res) => {
                 if(err) {
                     res.json(err);
                 } else {
-                    res.json({'succeed': true, 'id_review': review.insertId});
+                    res.json({'id_review': review.insertId});
                 }
             })
         }catch(err) {
