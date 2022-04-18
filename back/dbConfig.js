@@ -2,6 +2,6 @@ module.exports = {
     host: 'localhost',
     user: 'root',
     password: '',
-    port: 3305,
+    port: 3307,
     database: 'dbGameboxd'
 }

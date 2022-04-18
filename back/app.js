@@ -9,6 +9,7 @@ const dbConfig = require('./dbConfig')
 // routes imports
 const userRoutes = require('./routes/user');
 const reviewRoutes = require('./routes/review');
+const productRoutes = require('./routes/product');
 
 // configurations
 app.set('port', process.env.PORT||3000);
@@ -22,6 +23,7 @@ app.use(express.urlencoded({extended:false}));
 // routes
 app.use('/user', userRoutes);
 app.use('/review', reviewRoutes);
+app.use('/produc',productRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
