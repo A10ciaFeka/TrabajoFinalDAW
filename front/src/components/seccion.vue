@@ -1,13 +1,14 @@
 <script>
 export default {
   name:"seccion_general",
-  props:{
-    title: String,
-    imagens: Array
-  },
   data(){
     return{
-      tamMax: 5
+      tamMax: 5,
+      imagens: ['https://source.unsplash.com/random/150x200?sig=1',
+               'https://source.unsplash.com/random/150x200?sig=2',
+               'https://source.unsplash.com/random/150x200?sig=3',
+               'https://source.unsplash.com/random/150x200?sig=4',
+               'https://source.unsplash.com/random/150x200?sig=5']
     }
   }
 }
@@ -16,7 +17,7 @@ export default {
 <template>
   
   <div class="container">    
-  <h3>{{ title || 'Placeholder' }}</h3><br>
+  <h3>Los panas</h3><br>
   
   <div class="row" v-if="imagens.length>tamMax">
     <div class="col-sm-2 " v-for="i in (tamMax)" :key="i">
