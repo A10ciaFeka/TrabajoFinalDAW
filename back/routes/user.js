@@ -19,5 +19,4 @@ router.get('/:id_user', userController.getUserById);
  */
 router.post('/create', userController.createUser);
 
-
 module.exports = router;
