@@ -1,110 +1,140 @@
 const reviewController = {};
+const jsonDB = {'error': "No se ha podido conectar a la base de datos"};
 
 /** --- GET REQUESTS --- */
 /**
- * Review by user
+ * Obtener las reviews de un usuario
  * 
  * @param {*} req 
  * @param {*} res 
  */ 
-reviewController.reviewByUser = (req,res) => { 
-    const id_user = req.params.id_user;
-    const sql = 'SELECT * FROM review WHERE id_user='+id_user+' ORDER BY date DESC';
+reviewController.reviewByUsuario = (req,res) => { 
+    const id_usuario = req.params.id_usuario;
+    const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+' ORDER BY fecha DESC';
 
     req.getConnection((err,conn)=>{
-        try{
-            conn.query(sql, (err, review)=>{
+        if(err) {
+            res.json(...jsonDB,...err);
+        }else {
+            conn.query(sql, (err, resultado)=>{
                 if (err) {
                     res.json(err);
                 }else{
-                    res.json(review);
+                    res.json(resultado);
                 }
             });
-        }catch(err){
-            res.json({'error': "Couldn't connect to db"})
         }
     });
 };
 
 
 /**
- * Review by user and product
+ * Obtener la review de un producto específico y de un usuario específico
  * 
  * @param {*} req 
  * @param {*} res 
  */ 
- reviewController.reviewByUserAndProduct = (req,res) => { 
-    const id_user = req.params.id_user;
-    const id_product = req.params.id_product;
-    const sql = 'SELECT * FROM review WHERE id_user='+id_user+'AND id_product='+id_product;
+ reviewController.reviewByUsuarioAndProducto = (req,res) => { 
+    const id_usuario = req.params.id_usuario;
+    const id_producto = req.params.id_producto;
+    const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+'AND id_producto='+id_producto;
 
     req.getConnection((err,conn)=>{
-        try{
-            conn.query(sql, (err, review)=>{
+        if(err) {
+            res.json(...jsonDB,...err);
+        }else {
+            conn.query(sql, (err, resultado)=>{
                 if (err) {
                     res.json(err);
                 }else{
-                    res.json(review);
+                    res.json(resultado);
                 }
             });
-        }catch(err){
-            res.json({'error': "Couldn't connect to db"})
         }
     });
 };
 
 /**
- * Get the latests reviews 
+ * Obtener las últimas reviews según número a indicar por el cuerpo de la petición.
  * 
  * @param {*} req 
  * @param {*} res 
  */
-reviewController.getReviewByDate = (req,res) => {
-    const sql = "SELECT * FROM review ORDER BY date DESC LIMIT "+req.params.reviewNum;
+reviewController.getUltimasReviews = (req,res) => {
+    const sql = "SELECT * FROM review ORDER BY fecha DESC LIMIT "+req.body.numReviews;
 
     req.getConnection((err,conn)=>{
-        try{
-            conn.query(sql, (err,review)=>{
-                if(err){
+        if(err) {
+            res.json(...jsonDB,...err);
+        }else {
+            conn.query(sql, (err, resultado)=>{
+                if (err) {
                     res.json(err);
                 }else{
-                    res.json(review);
+                    res.json(resultado);
                 }
             });
-        }catch(err){
-            res.json({'error': "Couldn't connect to db"})
         }
     });
 }
 
 
-/** --- POST REQUESTS --- */
-/**
- * Create a new review
- * 
- * @param {*} req 
- * @param {*} res 
- */
-reviewController.createReview = (req, res) => {
+// /** --- POST REQUESTS --- */
+// /**
+//  * Crear una nueva review
+//  * 
+//  * @param {*} req 
+//  * @param {*} res 
+//  */
+// reviewController.createReview = (req, res) => {
+//     const id_producto = req.params;
+//     const {estrellas,nombre,cuerpo} = req.body;
+//     let fecha = new Date();
+//     const sql = `INSERT INTO review VALUES('','${estrellas}','${nombre}','${cuerpo}','${fecha}')`;
 
-    const {review_stars,review_name,review_body} = req.body;
-    let review_date = new Date();
-    const sql = `INSERT INTO review VALUES('','${review_stars}','${review_name}','${review_body}','${review_date}' '0')`;
+//     req.getConnection((err,conn) => {
+//         if(err) {
+//             res.json(...jsonDB,...err);
+//         } else {
 
-    req.getConnection((err,conn) => {
-        try{
-            conn.query(sql, (err,review)=>{
-                if(err) {
-                    res.json(err);
-                } else {
-                    res.json({'id_review': review.insertId});
-                }
-            })
-        }catch(err) {
-            res.json({'error': "Couldn't connect to db"})
-        }
-    });
-}
+//             conn.query(sql, (err,resultado)=>{
+//                 if(err) {
+//                     res.json(err);
+//                 } else {
+//                     res.json({'id_review':resultado.insertId});
+//                 }});
+//         }
+//     });
+// }
 
+
+// /** --- PUT REQUESTS --- */
+// /**
+//  * Actualizar los datos de una review.
+//  * 
+//  * @param {*} req 
+//  * @param {*} res 
+//  */
+//  reviewController.editarReview = (req,res) => {
+//     const id_review = req.params;
+//     const {nickname, password, email, verificado} = req.body;
+//     const hashedPwd = passwordValidator.setPassword(password);
+//     const sql = `UPDATE usuario SET ('${id_usuario}','${nickname}','${hashedPwd}','${email}', '${verificado}', '')`;
+
+//     req.getConnection((err,conn) => {
+//         if(err) {
+//             res.json(...jsonDB,...err);
+//         }else{
+//             conn.query(sql, (err)=>{
+//                 if(err) {
+//                     res.json(err);
+//                 } else {
+//                     res.json({'Resultado': 'Usuario actualizado con éxito'});
+//                 }
+//             })
+//         }
+        
+//     });
+// }
 
 module.exports = reviewController;

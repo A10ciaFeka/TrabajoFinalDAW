@@ -7,8 +7,9 @@ const reviewController = require('../controllers/reviewController')
  * GET ROUTES FOR REVIEWS
  * 
  */
-router.get('/:id_user', reviewController.reviewByUser);
-router.get('/:id_user/:id_product', reviewController.reviewByUserAndProduct);
+router.get('/:id_usuario', reviewController.reviewByUsuario);
+router.get('/:id_usuario/:id_producto', reviewController.reviewByUsuarioAndProducto);
+router.get('/recientes', reviewController.getUltimasReviews);
 
  /**
  * 
