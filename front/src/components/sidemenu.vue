@@ -1,224 +1,190 @@
+
+<style>
+:root {
+            --color-inactivo: #5f5050;
+            --color-hover: #ffa400;
+        }
+        .valoracion {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+        .valoracion button {
+            background-color: initial;
+            border: 0;
+            color: var(--color-inactivo);
+            transition: 1s all;
+        }
+        .valoracion button:hover {
+            cursor: pointer;
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+        button:nth-child(1):hover ~ button {
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+        button:nth-child(2):hover ~ button {
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+        button:nth-child(3):hover ~ button {
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+        button:nth-child(4):hover ~ button {
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+        button:nth-child(5):hover ~ button {
+            color: var(--color-hover);
+            transform: rotate(360deg);
+        }
+
+</style>
 <template>
     <div
   id="carouselMultiItemExample"
   class="carousel slide carousel-dark text-center"
   data-mdb-ride="carousel"
 >
-  <!-- Controls -->
-  <div class="d-flex justify-content-center mb-4">
-    <button
-      class="carousel-control-prev position-relative"
-      type="button"
-      data-mdb-target="#carouselMultiItemExample"
-      data-mdb-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next position-relative"
-      type="button"
-      data-mdb-target="#carouselMultiItemExample"
-      data-mdb-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-  <!-- Inner -->
-  <div class="carousel-inner py-4">
-    <!-- Single item -->
-    <div class="carousel-item active">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-2">
             <div class="card">
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/181.webp"
+                src="https://source.unsplash.com/random/150x200?sig=2"
                 class="card-img-top"
                 alt="Waterfall"
               />
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <div class="valoracion">
+                  <!-- Estrella 1 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 2 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 3 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 4 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 5 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+              </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
+          <div class="col-lg-2">
             <div class="card">
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp"
+                src="https://source.unsplash.com/random/150x200?sig=3"
                 class="card-img-top"
                 alt="Sunset Over the Sea"
               />
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <div class="valoracion">
+                  <!-- Estrella 1 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 2 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 3 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 4 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 5 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+              </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4 d-none d-lg-block">
+          <div class="col-lg-2">
             <div class="card">
               <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/183.webp"
+                src="https://source.unsplash.com/random/150x200?sig=1"
                 class="card-img-top"
-                alt="Sunset over the Sea"
               />
               <div class="card-body">
                 <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
+                <div class="valoracion">
+                  <!-- Estrella 1 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 2 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 3 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 4 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+                  <!-- Estrella 5 -->
+                  <button>
+                      <i class="fas fa-star"></i>
+                  </button>
+              </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Single item -->
-    <div class="carousel-item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-12">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp"
-                class="card-img-top"
-                alt="Fissure in Sandstone"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/185.webp"
-                class="card-img-top"
-                alt="Storm Clouds"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/186.webp"
-                class="card-img-top"
-                alt="Hot Air Balloons"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Single item -->
-    <div class="carousel-item">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/187.webp"
-                class="card-img-top"
-                alt="Peaks Against the Starry Sky"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/188.webp"
-                class="card-img-top"
-                alt="Bridge Over Water"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block">
-            <div class="card">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/new/standard/nature/189.webp"
-                class="card-img-top"
-                alt="Purbeck Heritage Coast"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk
-                  of the card's content.
-                </p>
-                <a href="#!" class="btn btn-primary">Button</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Inner -->
 </div>
 </template>
 
 <script>
+
 export default {
   name: 'lateral_menu',
   props: {
     msg: String
+  },
+  data(){
+    return{
+      
+    }
+  },
+  mounted(){
+  const ratings = {
+    hotel_a : 2.8,
+    hotel_b : 3.3,
+    hotel_c : 1.9,
+    hotel_d : 4.3,
+    hotel_e : 4.74
+  };
+    const starTotal = 5;
+
+  for(const rating in ratings) {  
+    const starPercentage = (ratings[rating] / starTotal) * 100;
+    const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+    document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded; 
   }
-}
+    }
+  }
+
 </script>
