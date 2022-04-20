@@ -93,9 +93,9 @@ usuarioController.usuarioByNickname = (req,res) => {
  */
 usuarioController.crearUsuario = (req, res) => {
 
-    const {nickname,password,email} = req.body;
-    const hashedPwd = passwordValidator.setPassword(password);
-    const sql = `INSERT INTO users VALUES('','${nickname}','${hashedPwd}','${email}', '0', '')`;
+    const {usuario_apodo,usuario_contrasena,usuario_email} = req.body;
+    const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
+    const sql = `INSERT INTO users VALUES('','${usuario_apodo}','${hashedPwd}','${usuario_email}', '0', '','0')`;
     
     req.getConnection((err,conn) => {
         
@@ -124,9 +124,9 @@ usuarioController.crearUsuario = (req, res) => {
  */
 usuarioController.editarUsuario = (req,res) => {
     const id_usuario = req.params;
-    const {nickname, password, email, verificado} = req.body;
-    const hashedPwd = passwordValidator.setPassword(password);
-    const sql = `UPDATE usuario SET ('${id_usuario}','${nickname}','${hashedPwd}','${email}', '${verificado}', '')`;
+    const {usuario_apodo,usuario_contrasena,usuario_email} = req.body;
+    const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
+    const sql = `UPDATE usuario SET('${id_usuario}','${usuario_apodo}','${hashedPwd}','${usuario_email}', '0', '','0')`;
 
     req.getConnection((err,conn) => {
         if(err) {

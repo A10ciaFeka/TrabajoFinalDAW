@@ -10,7 +10,7 @@ const jsonDB = {'error': "No se ha podido conectar a la base de datos"};
  * @param {*} res 
  */
 productoController.listar =(req,res) => {
-    const sql = 'SELECT * FROM producto ORDER BY date DESC';
+    const sql = 'SELECT * FROM producto ORDER BY producto_fechaSalida DESC';
 
     req.getConnection((err,conn) => {
         
@@ -64,7 +64,7 @@ productoController.listar =(req,res) => {
  */
  productoController.productoByNombre =(req,res) => {
     const nombre = req.params.nombre;
-    const sql = 'SELECT * FROM producto WHERE nombre='+nombre;
+    const sql = 'SELECT * FROM producto WHERE producto_nombre='+nombre;
 
     req.getConnection((err,conn)=>{
         
@@ -91,8 +91,8 @@ productoController.listar =(req,res) => {
  * @param {*} res 
  */
 productoController.crearProducto = (req,res) => {
-    const {nombre, sinopsis, fecha_lanzamiento, lanzado} = req.body;
-    const sql = `INSERT INTO producto VALUES ('','${nombre}','${sinopsis}','${fecha_lanzamiento}','${lanzado}')`;
+    const {producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible,producto_plataforma} = req.body;
+    const sql = `INSERT INTO producto VALUES ('','${producto_nombre}','${producto_sinopsis}','${producto_fechaSalida}','${producto_disponible}','0','0.0','${producto_plataforma}','')`;
 
     req.getConnection((err,conn) => {
         
@@ -122,8 +122,8 @@ productoController.crearProducto = (req,res) => {
  */
  productoController.editarProducto = (req,res) => {
     const id_producto = req.params;
-    const {nombre, sinopsis, fecha_lanzamiento, lanzado} = req.body;
-    const sql = `UPDATE product SET ('${id_producto}','${nombre}','${sinopsis}','${fecha_lanzamiento}','${lanzado}')`;
+    const {producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible,producto_plataforma} = req.body;
+    const sql = `UPDATE product SET ('${id_producto}','${producto_nombre}','${producto_sinopsis}','${producto_fechaSalida}','${producto_disponible}','0','0.0','${producto_plataforma}','')`;
 
     req.getConnection((err,conn) => {
         if(err) {
