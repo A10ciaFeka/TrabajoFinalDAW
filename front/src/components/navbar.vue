@@ -19,18 +19,9 @@
     </div>
    
     <div class="navbar-nav flex-row d-none d-md-flex">
-      <form class="input-group w-auto my-auto d-none d-sm-flex">
-        <input
-          autocomplete="off"
-          type="search"
-          class="form-control rounded"
-          placeholder="Search"
-          style="min-width: 200px;"
-        />
-        <span class="input-group-text border-0 d-none d-lg-flex"
-          ><i class="fas fa-search"></i
-        ></span>
-      </form>
+      <div class="form-outline">
+  <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
+</div>
     </div>
    
 
@@ -101,4 +92,5 @@ export default {
 .mmm{
     margin-left: 10px;
 }
+
 </style>

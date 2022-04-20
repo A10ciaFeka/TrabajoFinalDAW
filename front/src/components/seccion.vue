@@ -67,7 +67,7 @@ export default {
       </a>
     </div>
   </div>
-</div><br>
+</div>
   
 </template>
 
