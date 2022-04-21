@@ -1,5 +1,5 @@
 const productoController = {};
-const Producto = require('../models/Producto')
+const Producto = require('../models/Producto');
 
 mostrarResultados = (err,resultado,res)=>{
     if(err){  
@@ -15,9 +15,9 @@ mostrarResultados = (err,resultado,res)=>{
  * @param {*} req 
  * @param {*} res 
  */
-productoController.listar =(req,res) => {
+productoController.listar = (req,res) => {
     Producto.listarProductos(req,(err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 }
 
@@ -27,9 +27,9 @@ productoController.listar =(req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
- productoController.productoPorId =(req,res) => {
+ productoController.productoPorId = (req,res) => {
     Producto.productoPorId(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 }
 
@@ -39,10 +39,10 @@ productoController.listar =(req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
- productoController.productoByNombre =(req,res) => {
+ productoController.productoPorNombre = (req,res) => {
     Producto.productoPorNombre(req,(err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
-    })
+        mostrarResultados(err,resultado,res);
+    });
 }
 
 /** --- POST REQUEST --- */
@@ -54,8 +54,8 @@ productoController.listar =(req,res) => {
  */
 productoController.crearProducto = (req,res) => {
     Producto.crearProducto(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
-    })
+        mostrarResultados(err,resultado,res);
+    });
 }
 
 
@@ -68,7 +68,8 @@ productoController.crearProducto = (req,res) => {
  */
  productoController.editarProducto = (req,res) => {
     Producto.editarProducto(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
-    })
+        mostrarResultados(err,resultado,res);
+    });
 }
 
+module.exports = productoController;

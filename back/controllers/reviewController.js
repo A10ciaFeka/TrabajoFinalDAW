@@ -16,10 +16,10 @@ mostrarResultados = (err,resultado,res)=>{
  * @param {*} req 
  * @param {*} res 
  */ 
-reviewController.reviewByUsuario = (req,res) => { 
+reviewController.reviewPorUsuario = (req,res) => { 
     
     Review.reviewPorUsuario(req,(err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 };
 
@@ -30,10 +30,10 @@ reviewController.reviewByUsuario = (req,res) => {
  * @param {*} req 
  * @param {*} res 
  */ 
- reviewController.reviewByUsuarioAndProducto = (req,res) => { 
+ reviewController.reviewPorUsuarioYProducto = (req,res) => { 
     
     Review.reviewPorUsuarioYProducto(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 };
 
@@ -46,7 +46,7 @@ reviewController.reviewByUsuario = (req,res) => {
 reviewController.getUltimasReviews = (req,res) => {
    
     Review.getUltimasReviews(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     })
 }
 
@@ -61,7 +61,7 @@ reviewController.getUltimasReviews = (req,res) => {
 reviewController.createReview = (req, res) => {
    
     Review.crearReview(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     })
 }
 
@@ -76,7 +76,7 @@ reviewController.createReview = (req, res) => {
  reviewController.editarReview = (req,res) => {
    
     Review.editarReview(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     })
 }
 

@@ -37,7 +37,8 @@ const Usuario = {
                     if (err) {
                         return callback(err);
                     }else{
-                        return resultado[0];
+                        console.log(resultado);
+                        return callback(resultado);
                     }
                 });
             }
@@ -48,7 +49,7 @@ const Usuario = {
 
     usuarioPorApodo: (req, callback) => {
         
-        const sql = `SELECT * FROM usuario WHERE id_usuario='${req.params.usuario_apodo}'`;
+        const sql = `SELECT * FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
 
         req.getConnection((err,conn)=>{
             
@@ -86,7 +87,7 @@ const Usuario = {
                     if (err) {
                         return callback(err);
                     }else{
-                        return resultado;
+                        return callback(resultado[0]);
                     }
                 });
             }

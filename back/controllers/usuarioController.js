@@ -20,7 +20,7 @@ mostrarResultados = (err,resultado,res)=>{
 usuarioController.listar = (req,res) => { 
 
     Usuario.listarUsuarios(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 };
 
@@ -33,7 +33,7 @@ usuarioController.listar = (req,res) => {
 usuarioController.usuarioById = (req,res) => {
     
     Usuario.usuarioPorId(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     })
 }
 
@@ -46,14 +46,14 @@ usuarioController.usuarioById = (req,res) => {
 usuarioController.usuarioPorApodo = (req,res) => {
     
     Usuario.usuarioPorApodo(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 }
 
 usuarioController.listarAmigos = (req,res) =>{
     
     Usuario.listarAmigos(req, (err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 }
 
@@ -67,7 +67,7 @@ usuarioController.listarAmigos = (req,res) =>{
 usuarioController.crearUsuario = (req, res) => {
 
     Usuario.crearUsuario(req,(err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     });
 
 }
@@ -83,7 +83,7 @@ usuarioController.crearUsuario = (req, res) => {
 usuarioController.editarUsuario = (req,res) => {
 
     Usuario.editarUsuario(req,(err,resultado)=>{
-        this.mostrarResultados(err,resultado,res);
+        mostrarResultados(err,resultado,res);
     })
 }
 

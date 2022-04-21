@@ -9,8 +9,8 @@ const productoController = require('../controllers/productoController');
  * 
  */
 router.get('/listar', productoController.listar);
-router.get('/:nombre', productoController.productoByNombre);
-router.get('/:id_producto', productoController.productoById);
+router.get('/nombre/:nombre', productoController.productoPorNombre);
+router.get('/:id_producto', productoController.productoPorId);
 
 /**
  * 
@@ -24,4 +24,7 @@ router.post('/crear', productoController.crearProducto);
  * PETICIONES PUT PARA PRODUCTOS
  * 
  */
-router.put('/:id_producto/editar', productController.updateProduct);
+router.put('/:id_producto/editar', productoController.editarProducto);
+
+// EXPORTAMOS EL MÓDULO
+module.exports = router;
