@@ -13,16 +13,15 @@
           style="margin-top: 2px;"
         />
       </a>
-
-      <!-- Search form -->
-
     </div>
-   
-    <div class="navbar-nav flex-row d-none d-md-flex">
-      <div class="form-outline">
-  <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
-</div>
+    <div class="navbar-nav flex-row d-none d-md-flex"> 
+      <!-- Aqui tengo que poner cosas -->
+    </div>  
+  <div class="navbar-nav flex-row d-none d-md-flex">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
     </div>
+  </div>
    
 
     <!-- Right elements -->
