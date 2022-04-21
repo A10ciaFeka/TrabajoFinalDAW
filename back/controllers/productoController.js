@@ -1,7 +1,13 @@
 const productoController = {};
-const jsonDB = {'error': "No se ha podido conectar a la base de datos"};
+const Producto = require('../models/Producto')
 
-
+mostrarResultados = (err,resultado,res)=>{
+    if(err){  
+        res.json(err);
+    }else{
+        res.json(resultado);
+    }
+}   
 /** --- GET REQUESTS --- */
 /**
  * Obtener todos los productos.
@@ -10,22 +16,8 @@ const jsonDB = {'error': "No se ha podido conectar a la base de datos"};
  * @param {*} res 
  */
 productoController.listar =(req,res) => {
-    const sql = 'SELECT * FROM producto ORDER BY producto_fechaSalida DESC';
-
-    req.getConnection((err,conn) => {
-        
-        if(err) {
-            res.json(...jsonDB,...err);
-        }else {
-            conn.query(sql, (err, resultado)=>{
-                if (err) {
-                    res.json(err);
-                }else{
-                    res.json(resultado);
-                }
-            });
-        }
-        
+    Producto.listarProductos(req,(err,resultado)=>{
+        this.mostrarResultados(err,resultado,res);
     });
 }
 
@@ -35,24 +27,9 @@ productoController.listar =(req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
- productoController.productoById =(req,res) => {
-    const id_producto = req.params.id_producto;
-    const sql = 'SELECT * FROM producto WHERE id_producto='+id_producto;
-
-    req.getConnection((err,conn)=>{
-        
-        if(err){
-            res.json(...jsonDB,...err);
-        }else{
-            conn.query(sql, (err, resultado)=>{
-                if (err) {
-                    res.json(err);
-                }else{
-                    res.json(resultado[0]);
-                }
-            });
-        }
-        
+ productoController.productoPorId =(req,res) => {
+    Producto.productoPorId(req, (err,resultado)=>{
+        this.mostrarResultados(err,resultado,res);
     });
 }
 
@@ -63,24 +40,9 @@ productoController.listar =(req,res) => {
  * @param {*} res 
  */
  productoController.productoByNombre =(req,res) => {
-    const nombre = req.params.nombre;
-    const sql = 'SELECT * FROM producto WHERE producto_nombre='+nombre;
-
-    req.getConnection((err,conn)=>{
-        
-        if(err){
-            res.json(...jsonDB,...err);
-        }else{
-            conn.query(sql, (err, resultado)=>{
-                if (err) {
-                    res.json(err);
-                }else{
-                    res.json(resultado[0]);
-                }
-            });
-        }
-        
-    });
+    Producto.productoPorNombre(req,(err,resultado)=>{
+        this.mostrarResultados(err,resultado,res);
+    })
 }
 
 /** --- POST REQUEST --- */
@@ -91,25 +53,9 @@ productoController.listar =(req,res) => {
  * @param {*} res 
  */
 productoController.crearProducto = (req,res) => {
-    const {producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible,producto_plataforma} = req.body;
-    const sql = `INSERT INTO producto VALUES ('','${producto_nombre}','${producto_sinopsis}','${producto_fechaSalida}','${producto_disponible}','0','0.0','${producto_plataforma}','')`;
-
-    req.getConnection((err,conn) => {
-        
-        if(err) {
-            res.json(...jsonDB,...err);
-        } else {
-
-            conn.query(sql, (err,resultado)=>{
-                if(err) {
-                    res.json(err);
-                } else {
-                    res.json({'id_producto':resultado.insertId});
-                }
-            });
-        }
-        
-    });
+    Producto.crearProducto(req, (err,resultado)=>{
+        this.mostrarResultados(err,resultado,res);
+    })
 }
 
 
@@ -121,23 +67,8 @@ productoController.crearProducto = (req,res) => {
  * @param {*} res 
  */
  productoController.editarProducto = (req,res) => {
-    const id_producto = req.params;
-    const {producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible,producto_plataforma} = req.body;
-    const sql = `UPDATE product SET ('${id_producto}','${producto_nombre}','${producto_sinopsis}','${producto_fechaSalida}','${producto_disponible}','0','0.0','${producto_plataforma}','')`;
-
-    req.getConnection((err,conn) => {
-        if(err) {
-            res.json(...err,jsonDB);
-        }else{
-            conn.query(sql, (err)=>{
-                if(err) {
-                    res.json(err);
-                } else {
-                    res.json({'Resultado': 'Producto actualizado con éxito'});
-                }
-            })
-        }
-        
-    });
+    Producto.editarProducto(req, (err,resultado)=>{
+        this.mostrarResultados(err,resultado,res);
+    })
 }
 

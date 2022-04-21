@@ -7,9 +7,9 @@ const mysql = require('mysql');
 const dbConfig = require('./dbConfig')
 
 // importaciones de las rutas.
-const usuarioRoutes = require('./routes/usuario');
-const reviewRoutes = require('./routes/review');
-const productoRoutes = require('./routes/producto');
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const productoRoutes = require('./routes/productoRoutes');
 
 // configuraciones
 app.set('port', process.env.PORT||3000);
