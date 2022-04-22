@@ -7,12 +7,17 @@
   width: 70%;
 }
 .derecha{
-  width: 25%;
+  width: 30%;
 }
 *{
   color: #fff;
 }
-
+.fondo{
+  background-image: url("assets/img/fondo.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>
 <template>
   <navbar_first/>
@@ -41,7 +46,7 @@ import first_menu from './components/firstmenu.vue'
 export default {
   name: 'App',
     beforeCreate () {
-    document.querySelector('body').setAttribute('style', 'background:#14181C')
+    document.querySelector('body').classList.add('fondo');
   },
   components: {
     navbar_first,
