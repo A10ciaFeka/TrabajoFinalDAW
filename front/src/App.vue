@@ -21,8 +21,6 @@
 </style>
 <template>
   <navbar_first/>
-  
-  <router-link to="/catalog">catalog</router-link><!-- Provisional para ir al catalogo -->
 
   <router-view /><!-- Donde se visualizan las vistas -->
   

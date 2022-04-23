@@ -18,7 +18,9 @@
     <div class="navbar-nav flex-row d-none d-md-flex"> 
       <!-- Aqui tengo que poner cosas -->
       <div class="mx-3">
+        <router-link to="/catalog">
         <span>Catalogo</span>
+        </router-link>
       </div>
       <div class="mx-3">
         <span>Reviews</span>
