@@ -1,15 +1,92 @@
 <style>
-.caca2{
-    text-align: center;
+.centrar{
+    display: flex;
+    vertical-align: middle;
+
+}
+.alinear{
+    display: flex;
+    justify-content: center;
+}
+.dr{
+    width: 70%;
+}
+.iz{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
 }
 </style>
 <template>
-    <div class="caca2 pt-3">
-        <h5>LISTA DE AMIGOS</h5>
+    <div class="container bcontent pt-3 ">
+    <h5>REVIEWS DE AMIGOS</h5>
+    <hr />
+    <div class="card mb-3 bg-dark" v-for="review in reviews" :key="review" >
+        <div class="alinear ">
+            <div class="iz">
+                <img class=" m-3 mb-1" v-bind:src="review.Url" width="60" height="85">
+                <span class="mx-3 pb-1">{{review.name}}</span>
+            </div>
+            <div class="dr">
+                <div class="card-body">
+                    <div class="centrar">
+                        <div class=""><h5 class="card-title">{{review.user}}</h5></div>
+                        <div class="mx-3"><star-rating :rating=review.rating :show-rating="false" :star-size="10" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating></div>
+                    </div>
+                    
+                    <span class="card-text">{{review.txt}}</span>
+
+                </div>
+            </div>
+        </div>
     </div>
+        <div class="caca2 pt-3">
+        <h5></h5>
+    </div>
+</div>
 </template>
 <script>
+import StarRating from 'vue-star-rating'
 export default {
-    name: 'right_menu'
+    name: 'right_menu',
+    components: {
+        StarRating
+    },
+    data(){
+        return{
+            reviews: [
+        {
+          name: 'Elden Ring',
+          rating: 4,
+          Url: 'https://uvejuegos.com/img/caratulas/62849/Elden-Ring-portada-uvejuegos.png',
+          txt: '"Un juego maravilloso"',
+          user: 'Selcus'
+        },
+        {
+          name: 'Lol',
+          rating: 0.5,
+          Url: 'https://as01.epimg.net/meristation/imagenes/2019/08/07/cover/719414081565191040.jpg',
+          txt: '"Me arruio la vida y ahora ni mi perro me quiere"',
+          user: 'AAAAAAAAA'
+        },
+        {
+          name: 'Sekiro',
+          rating: 4.5,
+          Url: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/04/hobby-consolas-334-venta-posters-sekiro-mortal-kombat-11_7.jpg?itok=8HyJ7OBS',
+          txt: '"Me dieron por el culo muy fuertemente"',
+          user:'A10cia'
+        },
+        {
+          name: 'Half-Life 2',
+          rating: 5,
+          Url: 'https://i0.wp.com/adxgames.net/wp-content/uploads/2020/02/half-life-2-pc-1.jpg?fit=330%2C410&ssl=1',
+          txt: '"El mejor juego existente"',
+          user: 'TheTroya'
+        }
+      ]
+        }
+    }
 }
 </script>

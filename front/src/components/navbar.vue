@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container-fluid justify-content-between">
     <!-- Left elements -->
     <div class="d-flex">
@@ -8,7 +8,6 @@
         <img
           src="../assets/img/logo.png"
           height="20"
-          alt="MDB Logo"
           loading="lazy"
           style="margin-top: 2px;"
         />
@@ -16,12 +15,20 @@
       <!-- Search form -->
 
     </div>
-   
-    <div class="navbar-nav flex-row d-none d-md-flex">
-      <div class="form-outline">
-  <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
-</div>
+    <div class="navbar-nav flex-row d-none d-md-flex"> 
+      <!-- Aqui tengo que poner cosas -->
+      <div class="mx-3">
+        <span>Catalogo</span>
+      </div>
+      <div class="mx-3">
+        <span>Reviews</span>
+      </div>
+    </div>  
+  <div class="navbar-nav flex-row d-none d-md-flex">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
     </div>
+  </div>
    
 
     <!-- Right elements -->
