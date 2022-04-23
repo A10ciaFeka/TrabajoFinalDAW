@@ -4,7 +4,7 @@
     <!-- Left elements -->
     <div class="d-flex">
       <!-- Brand -->
-      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+      <router-link class="navbar-brand me-2 mb-1 d-flex align-items-center" to="/">
         <img
           src="../assets/img/logo.png"
           height="20"
@@ -12,8 +12,7 @@
           loading="lazy"
           style="margin-top: 2px;"
         />
-      </a>
-
+      </router-link>
       <!-- Search form -->
 
     </div>

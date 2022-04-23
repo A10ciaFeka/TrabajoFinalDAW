@@ -16,27 +16,15 @@
 </style>
 <template>
   <navbar_first/>
-  <div class="contenedor">
-    <div class="izquierda">
-        <!-- <seccion/> -->
-      <first_menu/>
-    </div>
-    <div class="derecha">
-      <right_menu/>
-    </div>
-  </div>
   
+  <router-link to="/catalog">catalog</router-link><!-- Provisional para ir al catalogo -->
 
-
-  
+  <router-view /><!-- Donde se visualizan las vistas -->
   
 </template>
 
 <script>
 import navbar_first from './components/navbar.vue'
-import right_menu from './components/rightmenu.vue'
-// import seccion from './components/seccion.vue'
-import first_menu from './components/firstmenu.vue'
 
 export default {
   name: 'App',
@@ -44,11 +32,7 @@ export default {
     document.querySelector('body').setAttribute('style', 'background:#14181C')
   },
   components: {
-    navbar_first,
-    // seccion,
-    first_menu,
-    right_menu
+    navbar_first
   }
 }
 </script>
-
