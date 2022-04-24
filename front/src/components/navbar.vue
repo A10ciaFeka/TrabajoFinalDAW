@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid justify-content-between">
     <!-- Left elements -->
     <div class="d-flex">
@@ -13,25 +13,15 @@
           style="margin-top: 2px;"
         />
       </a>
-
-      <!-- Search form -->
-
     </div>
-   
-    <div class="navbar-nav flex-row d-none d-md-flex">
-      <form class="input-group w-auto my-auto d-none d-sm-flex">
-        <input
-          autocomplete="off"
-          type="search"
-          class="form-control rounded"
-          placeholder="Search"
-          style="min-width: 200px;"
-        />
-        <span class="input-group-text border-0 d-none d-lg-flex"
-          ><i class="fas fa-search"></i
-        ></span>
-      </form>
+    <div class="navbar-nav flex-row d-none d-md-flex"> 
+      <!-- Aqui tengo que poner cosas -->
+    </div>  
+  <div class="navbar-nav flex-row d-none d-md-flex">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
     </div>
+  </div>
    
 
     <!-- Right elements -->
@@ -91,6 +81,9 @@ export default {
           nombre: 'Eduardo',
           imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg'
       }
+  },
+  mounted(){
+    
   }
 }
 </script>
@@ -98,4 +91,5 @@ export default {
 .mmm{
     margin-left: 10px;
 }
+
 </style>
