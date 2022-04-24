@@ -58,7 +58,7 @@ reviewController.getUltimasReviews = (req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
-reviewController.createReview = (req, res) => {
+reviewController.crearReview = (req, res) => {
    
     Review.crearReview(req, (err,resultado)=>{
         mostrarResultados(err,resultado,res);

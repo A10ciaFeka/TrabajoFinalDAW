@@ -43,8 +43,8 @@ const Producto = {
     },
 
     productoPorNombre: (req, callback) => {
-        const nombre = req.params.nombre;
-        const sql = 'SELECT * FROM producto WHERE producto_nombre='+nombre;
+        console.log(req.params.producto_nombre);
+        const sql = `SELECT * FROM producto WHERE producto_nombre='${req.params.producto_nombre}'`;
 
         req.getConnection((err,conn)=>{
             
@@ -55,7 +55,7 @@ const Producto = {
                     if (err) {
                         return callback(err);
                     }else{
-                        return callback(resultado[0]);
+                        return callback(resultado);
                     }
                 });
             }

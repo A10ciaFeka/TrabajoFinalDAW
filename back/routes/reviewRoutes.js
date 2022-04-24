@@ -4,7 +4,7 @@ const reviewController = require('../controllers/reviewController')
 
 /**
  * 
- * GET ROUTES FOR REVIEWS
+ * PETICIONES GET PARA REVIEWS
  * 
  */
 router.get('/:id_usuario', reviewController.reviewPorUsuario);
@@ -13,10 +13,10 @@ router.get('/recientes', reviewController.getUltimasReviews);
 
  /**
  * 
- * POST ROUTES FOR REVIEWS
+ * PETICIONES POST PARA REVIEWS
  * 
  */
-router.post('/create', reviewController.createReview);
+router.post('/crear', reviewController.crearReview);
 
     
 module.exports = router;

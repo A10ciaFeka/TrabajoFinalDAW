@@ -9,7 +9,7 @@ const productoController = require('../controllers/productoController');
  * 
  */
 router.get('/listar', productoController.listar);
-router.get('/nombre/:nombre', productoController.productoPorNombre);
+router.get('/nombre/:producto_nombre', productoController.productoPorNombre);
 router.get('/:id_producto', productoController.productoPorId);
 
 /**

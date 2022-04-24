@@ -71,12 +71,10 @@ const Usuario = {
 
     listarAmigos: (req, callback) => {
 
-        const sql = `SELECT amigo.*
-                     FROM usuario usu
-                     INNER JOIN lista_amigo amigo
-                      on amigo.id_amigo = usu.id_usuario
-                     WHERE usu.id_usuario = ${req.params.id_usuario}  
-                     `;
+        const sql = `SELECT usu.*
+                        FROM usuario usu
+                        INNER JOIN lista_amigos amigo on amigo.id_amigo = usu.id_usuario
+                        WHERE amigo.id_usuario = ${req.params.id_usuario}`;
         
         req.getConnection((err,conn)=>{
 
@@ -87,7 +85,7 @@ const Usuario = {
                     if (err) {
                         return callback(err);
                     }else{
-                        return callback(resultado[0]);
+                        return callback(resultado);
                     }
                 });
             }
@@ -101,10 +99,10 @@ const Usuario = {
         const {usuario_apodo,
                usuario_contrasena,
                usuario_email} = req.body;
-
+        console.log();
         const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
 
-        const sql = `INSERT INTO users VALUES(
+        const sql = `INSERT INTO usuario VALUES(
                         '',
                         '${usuario_apodo}',
                         '${hashedPwd}',
@@ -125,7 +123,7 @@ const Usuario = {
                         return callback(err);
                     }else{
                         if(!valido){
-                            return res.json({ 'error': 'El nick de usuario ya está en uso' })
+                            return callback({ 'error': 'El nick de usuario ya está en uso' });
                         }else{
                             conn.query(sql, (err,resultado)=>{
                                 if(err) {
