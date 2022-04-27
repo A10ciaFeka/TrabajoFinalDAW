@@ -1,4 +1,21 @@
+<style>
+.pagination {
+  list-style-type: none;
+}
+
+.pagination-item {
+  display: inline-block;
+}
+button{
+  background-color:black;
+}
+.active {
+  background-color: #4AAE9B;
+}
+</style>
+
 <template>
+
   <ul class="pagination">
     <li class="pagination-item">
       <button
@@ -113,7 +130,7 @@ export default {
       const range = [];
 
       for (
-        let i = this.startPage;
+        let i = this.startPage+1;
         i <= Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
         i++
       ) {
@@ -149,18 +166,3 @@ export default {
 }
 </script>
 
-<style>
-.pagination {
-  list-style-type: none;
-}
-
-.pagination-item {
-  display: inline-block;
-}
-button{
-  background-color:black;
-}
-.active {
-  background-color: #4AAE9B;
-}
-</style>
