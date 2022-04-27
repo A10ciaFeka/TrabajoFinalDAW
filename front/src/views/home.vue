@@ -9,6 +9,7 @@
       </div>
       <div class="derecha">
         <right_menu/>
+        <news_menu/>
       </div>
     </div>
   </div> 
@@ -19,6 +20,7 @@ import right_menu from '@/components/rightmenu.vue'
 import seccion from '@/components/seccion.vue'
 import first_menu from '@/components/firstmenu.vue'
 import navbar_first from '@/components/navbar.vue'
+import news_menu from '@/components/newsmenu.vue'
 
 export default {
   name: 'Home-logged',
@@ -26,7 +28,8 @@ export default {
     seccion,
     first_menu,
     right_menu,
-    navbar_first
+    navbar_first,
+    news_menu
   }
 }
 </script>

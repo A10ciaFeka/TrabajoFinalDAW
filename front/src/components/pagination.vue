@@ -2,28 +2,43 @@
 .pagination {
   list-style-type: none;
 }
-
 .pagination-item {
   display: inline-block;
 }
 button{
-  background-color:black;
+  color: #f1f1f1;
+    background: linear-gradient(#3C373D,#21262A);
+    font-size: 20px;
+    font-weight: 600;
+    height: 2em;
+    width: 2em;
+    padding: 0;
+    margin-Right: 0.5em;
+    margin-top: 1em;
+    border: none;
+    border-radius: 50%;
 }
-.active {
-  background-color: #4AAE9B;
+button:hover:enabled{
+  color: #fff;
+  background: linear-gradient(#FA5100,#BC1F00);
+}
+.active{
+  color: #000;
+  background: #22e83a;
 }
 </style>
 
 <template>
 
-  <ul class="pagination">
+  <ul class="pagination justify-content-center">
     <li class="pagination-item">
       <button
+      
         type="button"
         @click="onClickFirstPage"
         :disabled="isInFirstPage"
       >
-        First
+        &#x3c;&#x3c;
       </button>
     </li>
 
@@ -33,7 +48,7 @@ button{
         @click="onClickPreviousPage"
         :disabled="isInFirstPage"
       >
-        Previous
+        &#x3c;
       </button>
     </li>
 
@@ -61,7 +76,7 @@ button{
         @click="onClickNextPage"
         :disabled="isInLastPage"
       >
-        Next
+        &#x3e;
       </button>
     </li>
 
@@ -71,7 +86,7 @@ button{
         @click="onClickLastPage"
         :disabled="isInLastPage"
       >
-        Last
+        &#x3e;&#x3e;
       </button>
     </li>
   </ul>
@@ -84,7 +99,7 @@ export default {
     maxVisibleButtons: {
       type: Number,
       required: false,
-      default: 3
+      default: 2
     },    
     totalPages: {
       type: Number,
@@ -104,7 +119,7 @@ export default {
       return this.currentPage === 1;
     },
     isInLastPage() {
-      return this.currentPage+1 > this.totalPages
+      return this.currentPage >= this.totalPages
     },
     startPage() {
       // When on the first page
@@ -120,17 +135,27 @@ export default {
 
         // When on the last page
         if (this.currentPage === this.totalPages) {
-          return this.totalPages - this.maxVisibleButtons;
+          return this.totalPages;
         }
 
         // When inbetween
-        return this.currentPage - 1;
+        return this.currentPage;
     },
     pages() {
       const range = [];
 
+      for(let j = this.startPage-this.maxVisibleButtons ;
+        j < this.startPage;
+        j++
+        ){
+          if(j>0){
+            range.push({
+            name: j
+          });
+        }
+      }
       for (
-        let i = this.startPage+1;
+        let i = this.startPage;
         i <= Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
         i++
       ) {
@@ -157,7 +182,7 @@ export default {
       this.$emit('pagechanged', this.currentPage + 1);
     },
     onClickLastPage() {
-      this.$emit('pagechanged', this.totalPages);
+      this.$emit('pagechanged', this.pages.length);
     },
     isPageActive(page) {
       return this.currentPage === page;

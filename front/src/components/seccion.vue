@@ -5,6 +5,14 @@
 .titulo{
   text-align: left;
 }
+.card-img-top{
+  width:200px;
+  height:255px;
+}
+.bg-image{
+  width:200px;
+  height:255px;
+}
 </style>
 
 <template>
@@ -17,9 +25,8 @@
           <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
           <div class="col-lg-2 p-2" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
             <div class="card text-white bg-dark">
-              <img v-bind:src="games[i-1].Url" class="card-img-top" alt="" width="200" height="255"/>
-              <div class="card-body">
-                <h5 class="card-title">{{games[i-1].name}}</h5>
+              <img v-bind:src="games[i-1].Url" class="card-img-top" alt=""/>
+              <div class="card-body align-self-center">
                 <star-rating :rating=games[i-1].rating :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
             </div>
           </div>
