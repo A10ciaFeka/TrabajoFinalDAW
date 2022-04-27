@@ -72,7 +72,7 @@ h3 {
     height: 40px;
     font-size: 16px;
     background: #22e83a;
-    color: #fff;
+    color: black;
     border-radius: 20px;
     cursor: pointer
 }
