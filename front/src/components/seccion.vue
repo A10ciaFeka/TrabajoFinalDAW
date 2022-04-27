@@ -1,3 +1,35 @@
+<style>
+.row>*{
+   width: auto !important;
+}
+.titulo{
+  text-align: left;
+}
+</style>
+
+<template>
+  
+  <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+      <div class="container pt-3">
+        <!-- titulo -->
+        <h5 class="titulo">Reseñas de amigos</h5>
+        <div class="row">
+          <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
+          <div class="col-lg-2 p-2" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
+            <div class="card text-white bg-dark">
+              <img v-bind:src="games[i-1].Url" class="card-img-top" alt="" width="200" height="255"/>
+              <div class="card-body">
+                <h5 class="card-title">{{games[i-1].name}}</h5>
+                <star-rating :rating=games[i-1].rating :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  
+</template>
+
 <script>
 import StarRating from 'vue-star-rating'
 export default {
@@ -53,36 +85,3 @@ export default {
   }
 }
 </script>
-
-<template>
-  
-
-  <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
-      <div class="container pt-3">
-        <!-- titulo -->
-        <h5 class="titulo">Reseñas de amigos</h5>
-        <div class="row">
-          <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
-          <div class="col-lg-2 p-2" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
-            <div class="card text-white bg-dark">
-              <img v-bind:src="games[i-1].Url" class="card-img-top" alt="" width="200" height="255"/>
-              <div class="card-body">
-                <h5 class="card-title">{{games[i-1].name}}</h5>
-                <star-rating :rating=games[i-1].rating :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-  
-</template>
-
-<style>
-.row>*{
-   width: auto !important;
-}
-.titulo{
-  text-align: left;
-}
-</style>
