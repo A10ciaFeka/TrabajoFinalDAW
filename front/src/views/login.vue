@@ -72,7 +72,7 @@ h3 {
     height: 40px;
     font-size: 16px;
     background: #22e83a;
-    color: #fff;
+    color: black;
     border-radius: 20px;
     cursor: pointer
 }
@@ -100,8 +100,12 @@ p {
          <!--Logo  -->
         <!-- <img class="user" src="" height="100px" width="100px">  -->
         <h3>Iniciar sesión</h3>
-        <form action="login.php" method="post">
-            <div class="inputBox"> <input id="uname" type="text" name="Usuario" placeholder="Usuario"> <input id="pass" type="password" name="Password" placeholder="Contraseña"> </div> <input type="submit" name="" value="Entrar">
+        <form v-on:submit.prevent="login">
+            <div class="inputBox"> 
+                <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
+                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
+            </div> 
+            <input type="submit" name="" value="Entrar">
         </form> <a href="#">¿Has olvidado la contraseña?<br> </a>
         <div class="text-center">
             <p style="color: #22e83a;">Registrarse</p>
@@ -110,9 +114,38 @@ p {
      
 </template>
 <script>
+    import axios from 'axios';
 export default {
-  name: 'login-firts',
-    
-  
+    name: 'login-firts',
+    components: {
+
+        },
+        data(){
+            return{
+                error: false,
+                usuario_apodo: '',
+                usuario_contrasena: '',
+            }
+        },
+        methods:{
+            login(){
+                let json ={
+                    "usuario_apodo" : this.usuario_apodo,
+                    "usuario_contrasena" : this.usuario_contrasena
+                };
+                axios.post('http://localhost:3000/inicio/sesion',json)
+                .then( data => {
+                    if(data.data.status == "ok"){
+                        console.log("Entra");
+                        localStorage.token = data.data.result.token;
+                        this.$router.push('home');
+                    }
+                    else{
+                        console.log("Falla")
+                        this.error = true;
+                    }
+                })
+            }
+        }  
 }
 </script>

@@ -3,5 +3,5 @@ module.exports = {
     user: 'root',
     password: '',
     port: 3305,
-    database: 'dbGameboxd'
+    database: 'dbgameboxd'
 }

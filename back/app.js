@@ -4,27 +4,31 @@ const morgan = require('morgan');
 const app = express();
 const myConnection = require('express-myconnection');
 const mysql = require('mysql');
-const dbConfig = require('./dbConfig')
+const dbConfig = require('./dbConfig');
 
-// routes imports
-const userRoutes = require('./routes/user');
+// importaciones de las rutas.
+const usuarioRoutes = require('./routes/usuarioRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const productoRoutes = require('./routes/productoRoutes');
 
-// configurations
+// configuraciones
 app.set('port', process.env.PORT||3000);
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 // Middlewares
 app.use(morgan('dev'));
 app.use(myConnection(mysql,dbConfig,'single'));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
 
-// routes
-app.use('/user', userRoutes);
+// rutas
+app.use('/usuario', usuarioRoutes);
+app.use('/review', reviewRoutes);
+app.use('/producto',productoRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Server start
 app.listen(app.get('port'), () => {
-    console.log('Server on port '+app.get('port'));
+    console.log('Server en puerto '+app.get('port'));
 });

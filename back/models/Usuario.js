@@ -1,0 +1,234 @@
+const passwordValidator = require('../validator/passwordValidator');
+const usuarioValidador = require('../validator/usuarioValidador');
+
+const Usuario = {
+
+    listarUsuarios: (req, callback) => {
+        
+        const sql = 'SELECT id_usuario, usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario';
+
+        req.getConnection((err,conn) => {
+            if(err) {
+                return callback(err);
+            } else {
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+                });
+            }
+
+        });
+
+    },
+
+    fotoPerfilPorId: (req, callback) =>{
+        const sql = "SELECT usuario_fotoPerfil WHERE id_usuario="+req.params.id_usuario;
+
+        req.getConnection((err,conn)=>{
+            
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+                });
+            }
+
+        });
+    },
+
+    usuarioPorId: (req, callback) => {
+        
+        const sql = "SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE id_usuario="+req.params.id_usuario;
+
+        req.getConnection((err,conn)=>{
+            
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+                });
+            }
+
+        });
+
+    },
+
+    usuarioPorApodo: (req, callback) => {
+        
+        const sql = `SELECT * FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
+
+        req.getConnection((err,conn)=>{
+            
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+                });
+            }
+
+        });
+
+    },
+
+    listarAmigos: (req, callback) => {
+
+        const sql = `SELECT usu.*
+                        FROM usuario usu
+                        INNER JOIN lista_amigos amigo on amigo.id_amigo = usu.id_usuario
+                        WHERE amigo.id_usuario = ${req.params.id_usuario}`;
+        
+        req.getConnection((err,conn)=>{
+
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+
+                });
+            }
+
+        });
+
+    },
+
+    crearUsuario: (req, callback) => {
+        
+        const {usuario_apodo,
+               usuario_contrasena,
+               usuario_email} = req.body;
+        console.log();
+        const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
+
+        const sql = `INSERT INTO usuario VALUES(
+                        '',
+                        '${usuario_apodo}',
+                        '${hashedPwd}',
+                        '${usuario_email}',
+                        '0',
+                        '',
+                        '0')`;
+        
+        req.getConnection((err,conn) => {
+            
+            // Error de conexión
+            if(err) {
+                return callback(err);
+            } else {
+                usuarioValidador.validarApodo(conn, usuario_apodo, (err, valido) => {
+                    
+                    if(err){
+                        return callback(err);
+                    }else{
+                        if(!valido){
+                            return callback({ 'error': 'El nick de usuario ya está en uso' });
+                        }else{
+                            conn.query(sql, (err,resultado)=>{
+                                
+                                return callback(err,{'id_usuario':resultado.insertId});
+                            });
+                        }
+                    }
+                })
+
+            }
+
+        });
+
+    },
+
+    editarUsuario: (req,callback) => {
+    
+        // cambio_apodo boolean para controlar si el usuario cambia o no de apodo, para que sea comprobado.
+        const {
+            id_usuario,
+            usuario_apodo,
+            usuario_contrasena,
+            usuario_email,
+            cambio_apodo} = req.body;
+              
+
+        const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
+
+        const sql = `UPDATE usuario 
+                        SET usuario_nombre = '${usuario_apodo}'
+                        usuario_contrasena = '${hashedPwd}'
+                        usuario_email = '${usuario_email}'
+                        WHERE id_usuario = ${id_usuario}`;
+
+        req.getConnection((err,conn) => {
+            if(err) {
+                return callback(err);
+            }else{
+                // Si se pasa a true es que el usuario quiere un apodo nuevo, por ello se ha de comprobar.
+                if(cambio_apodo) {
+
+                    usuarioValidador.validarApodo(conn,usuario_apodo,(err,valido)=>{
+                        if(err){
+                            return callback(err);
+                        }else{
+                            if(!valido){
+                                return callback({'error': 'El nick de usuario ya está en uso'});
+                            }else{
+                                conn.query(sql, (err)=>{
+                                    return callback(err,{'Resultado': 'Usuario actualizado con éxito'});
+                                });
+                            }
+                        }
+                    });
+                    
+                }else{
+
+                    conn.query(sql, (err)=>{
+                        return callback(err,{'Resultado': 'Usuario actualizado con éxito'});
+                    });
+                }
+
+            }
+            
+        });
+
+    },
+
+    login: (req, callback)=>{
+        const {apodo_form, contrasena_form} = req.body;
+
+        req.getConnection((err,conn)=>{
+            if(err){
+                return callback(err);
+            }else{
+
+                usuarioValidador.validarApodo(conn,apodo_form,(err,no_existe)=>{
+                    if(err){
+                        return callback(err);
+                    }else{
+
+                        if(no_existe){
+                            return callback({"Error": "El usuario no existe"});
+                        }else{
+                            this.usuarioPorApodo(req,(err,usuario)=>{
+                                if(err){
+                                    return callback(err);
+                                }else{
+                                    if(passwordValidator.comparePassword(contrasena_form,usuario.usuario_contrasena)){
+                                        return callback(null,usuario);
+                                    }else{
+                                        return callback({"Error": "Las contraseñas no coinciden"});
+                                    }
+                                }
+                            });
+                            
+                        }
+
+                    }
+                })
+
+            }
+        });
+    }
+
+}
+
+module.exports = Usuario;
