@@ -13,21 +13,21 @@
   color: #fff;
 }
 .fondo{
-  background-image: url("assets/img/fondo.png");
+  background-image: url("assets/img/fondo.svg");
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
 }
 </style>
 <template>
-  <navbar_first/>
+  
 
   <router-view /><!-- Donde se visualizan las vistas -->
   
 </template>
 
 <script>
-import navbar_first from './components/navbar.vue'
+
 
 export default {
   name: 'App',
@@ -35,7 +35,7 @@ export default {
     document.querySelector('body').classList.add('fondo');
   },
   components: {
-    navbar_first
+
   }
 }
 </script>

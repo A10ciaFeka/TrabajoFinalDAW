@@ -1,19 +1,21 @@
 <template>
-  
+<div>
+  <navbar_first/>
   <List/>
-  
+</div>
+
 </template>
 
 <script>
+import navbar_first from '@/components/navbar.vue'
 import List from '@/components/list.vue'
 
 export default {
   name: 'catalog-final',
-    beforeCreate () {
-    document.querySelector('body').setAttribute('style', 'background:#14181C')
-  },
+
   components: {
-    List
+    List,
+    navbar_first
   }
 }
 </script>
