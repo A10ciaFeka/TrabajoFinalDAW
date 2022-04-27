@@ -11,6 +11,7 @@ const usuarioController = require('../controllers/usuarioController');
  */
 router.get('/listar', usuarioController.listar);
 router.get('/:id_usuario', usuarioController.usuarioById);
+router.get('/:id_usuario/foto', usuarioController.fotoPerfilPorId);
 router.get('/apodo/:usuario_apodo', usuarioController.usuarioPorApodo);
 router.get('/:id_usuario/amigos', usuarioController.listarAmigos);
 

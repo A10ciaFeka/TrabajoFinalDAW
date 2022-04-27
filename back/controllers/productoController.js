@@ -8,6 +8,7 @@ mostrarResultados = (err,resultado,res)=>{
         res.json(resultado);
     }
 }   
+
 /** --- GET REQUESTS --- */
 /**
  * Obtener todos los productos.
@@ -17,7 +18,14 @@ mostrarResultados = (err,resultado,res)=>{
  */
 productoController.listar = (req,res) => {
     Producto.listarProductos(req,(err,resultado)=>{
-        mostrarResultados(err,resultado,res);
+        if(err) {
+            res.json(err);
+        }else {
+            for (const key in resultado) {
+                resultado[key].producto_imagen = `localhost:3000/producto/${resultado[key].id_producto}/imagen`;
+            }
+            res.json(resultado);
+        }
     });
 }
 
@@ -29,6 +37,18 @@ productoController.listar = (req,res) => {
  */
  productoController.productoPorId = (req,res) => {
     Producto.productoPorId(req, (err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    });
+}
+
+/**
+ * Obtener la imagen de un producto servida para el navegador
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+productoController.productoImagenPorId = (req,res) => {
+    Producto.productoImagenPorId(req, (err,resultado)=>{
         mostrarResultados(err,resultado,res);
     });
 }
@@ -54,6 +74,7 @@ productoController.listar = (req,res) => {
  */
 productoController.crearProducto = (req,res) => {
     Producto.crearProducto(req, (err,resultado)=>{
+        
         mostrarResultados(err,resultado,res);
     });
 }

@@ -18,5 +18,11 @@ router.get('/recientes', reviewController.getUltimasReviews);
  */
 router.post('/crear', reviewController.crearReview);
 
-    
+/**
+ * 
+ * PETICIONES PUT PARA REVIEWS
+ * 
+ */
+router.put('/:id_review/editar', reviewController.editarReview);
+
 module.exports = router;

@@ -5,18 +5,14 @@ const Usuario = {
 
     listarUsuarios: (req, callback) => {
         
-        const sql = 'SELECT * FROM usuario';
+        const sql = 'SELECT id_usuario, usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario';
 
         req.getConnection((err,conn) => {
             if(err) {
                 return callback(err);
             } else {
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(null,resultado);
-                    }
+                    return callback(err,resultado);
                 });
             }
 
@@ -24,9 +20,8 @@ const Usuario = {
 
     },
 
-    usuarioPorId: (req, callback) => {
-        
-        const sql = "SELECT * FROM usuario WHERE id_usuario="+req.params.id_usuario;
+    fotoPerfilPorId: (req, callback) =>{
+        const sql = "SELECT usuario_fotoPerfil WHERE id_usuario="+req.params.id_usuario;
 
         req.getConnection((err,conn)=>{
             
@@ -34,12 +29,24 @@ const Usuario = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        console.log(resultado);
-                        return callback(resultado);
-                    }
+                    return callback(err,resultado);
+                });
+            }
+
+        });
+    },
+
+    usuarioPorId: (req, callback) => {
+        
+        const sql = "SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE id_usuario="+req.params.id_usuario;
+
+        req.getConnection((err,conn)=>{
+            
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
                 });
             }
 
@@ -57,11 +64,7 @@ const Usuario = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(resultado[0]);
-                    }
+                    return callback(err,resultado);
                 });
             }
 
@@ -82,11 +85,8 @@ const Usuario = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(resultado);
-                    }
+                    return callback(err,resultado);
+
                 });
             }
 
@@ -126,11 +126,9 @@ const Usuario = {
                             return callback({ 'error': 'El nick de usuario ya está en uso' });
                         }else{
                             conn.query(sql, (err,resultado)=>{
-                                if(err) {
-                                    return callback(err);
-                                } else {
-                                    return callback({'id_usuario':resultado.insertId});
-                            }});
+                                
+                                return callback(err,{'id_usuario':resultado.insertId});
+                            });
                         }
                     }
                 })
@@ -143,39 +141,92 @@ const Usuario = {
 
     editarUsuario: (req,callback) => {
     
-        
+        // cambio_apodo boolean para controlar si el usuario cambia o no de apodo, para que sea comprobado.
         const {
             id_usuario,
             usuario_apodo,
             usuario_contrasena,
-            usuario_email} = req.body;
+            usuario_email,
+            cambio_apodo} = req.body;
               
+
         const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
 
-        const sql = `UPDATE usuario SET(
-                    '${id_usuario}',
-                    '${usuario_apodo}',
-                    '${hashedPwd}',
-                    '${usuario_email}',
-                    '0',
-                    '',
-                    '0')`;
+        const sql = `UPDATE usuario 
+                        SET usuario_nombre = '${usuario_apodo}'
+                        usuario_contrasena = '${hashedPwd}'
+                        usuario_email = '${usuario_email}'
+                        WHERE id_usuario = ${id_usuario}`;
 
         req.getConnection((err,conn) => {
             if(err) {
                 return callback(err);
             }else{
-                conn.query(sql, (err)=>{
-                    if(err) {
-                        return callback(err);
-                    } else {
-                        return callback({'Resultado': 'Usuario actualizado con éxito'});
-                    }
-                })
+                // Si se pasa a true es que el usuario quiere un apodo nuevo, por ello se ha de comprobar.
+                if(cambio_apodo) {
+
+                    usuarioValidador.validarApodo(conn,usuario_apodo,(err,valido)=>{
+                        if(err){
+                            return callback(err);
+                        }else{
+                            if(!valido){
+                                return callback({'error': 'El nick de usuario ya está en uso'});
+                            }else{
+                                conn.query(sql, (err)=>{
+                                    return callback(err,{'Resultado': 'Usuario actualizado con éxito'});
+                                });
+                            }
+                        }
+                    });
+                    
+                }else{
+
+                    conn.query(sql, (err)=>{
+                        return callback(err,{'Resultado': 'Usuario actualizado con éxito'});
+                    });
+                }
+
             }
             
         });
 
+    },
+
+    login: (req, callback)=>{
+        const {apodo_form, contrasena_form} = req.body;
+
+        req.getConnection((err,conn)=>{
+            if(err){
+                return callback(err);
+            }else{
+
+                usuarioValidador.validarApodo(conn,apodo_form,(err,no_existe)=>{
+                    if(err){
+                        return callback(err);
+                    }else{
+
+                        if(no_existe){
+                            return callback({"Error": "El usuario no existe"});
+                        }else{
+                            this.usuarioPorApodo(req,(err,usuario)=>{
+                                if(err){
+                                    return callback(err);
+                                }else{
+                                    if(passwordValidator.comparePassword(contrasena_form,usuario.usuario_contrasena)){
+                                        return callback(null,usuario);
+                                    }else{
+                                        return callback({"Error": "Las contraseñas no coinciden"});
+                                    }
+                                }
+                            });
+                            
+                        }
+
+                    }
+                })
+
+            }
+        });
     }
 
 }

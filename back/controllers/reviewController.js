@@ -1,5 +1,6 @@
 const reviewController = {};
 const Review = require('../models/Review')
+const Producto = require('../models/Producto');
 
 mostrarResultados = (err,resultado,res)=>{
     if(err){  
@@ -60,8 +61,14 @@ reviewController.getUltimasReviews = (req,res) => {
  */
 reviewController.crearReview = (req, res) => {
    
-    Review.crearReview(req, (err,resultado)=>{
-        mostrarResultados(err,resultado,res);
+    Review.crearReview(req, (err,review)=>{
+        if(err) {
+            res.json(err);
+        } else {
+            Producto.sumarNumeroReview(req,parseInt(review.id_producto),(err, resultado)=>{
+                mostrarResultados(err,resultado,res);
+            });
+        }
     })
 }
 

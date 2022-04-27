@@ -10,11 +10,7 @@ const Review = {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(resultado);
-                    }
+                    return callback(err, resultado);
                 });
             }
         });
@@ -32,11 +28,7 @@ const Review = {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(resultado);
-                    }
+                    return callback(err, resultado);
                 });
             }
         });
@@ -52,11 +44,7 @@ const Review = {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
-                    if (err) {
-                        return callback(err);
-                    }else{
-                        return callback(resultado);
-                    }
+                    return callback(err, resultado);
                 });
             }
         });
@@ -67,10 +55,10 @@ const Review = {
         
         const id_producto = req.params;
         
-        const {review_estrellas,
-               review_nombre,
-               review_texto,
-               id_usuario} = req.body;
+        const { review_estrellas,
+                review_nombre,
+                review_texto,
+                id_usuario } = req.body;
                
 
         const sql = `INSERT INTO review VALUES(
@@ -89,20 +77,43 @@ const Review = {
             } else {
 
                 conn.query(sql, (err,resultado)=>{
-                    if(err) {
-                        return callback(err);
-                    } else {
-                       return callback({'id_review':resultado.insertId});
-                    }});
+                    
+                    return callback(err,{'id_review':resultado.insertId, 'id_producto': id_producto});
+                });
             }
         });
 
     },
-
-    editarReview: (req, callback) => {
-        
-    }
     
+    editarReview: (req, callback) => {
+         
+        const id_review = req.params.id_review;
+
+        const { review_estrellas,
+                review_nombre,
+                review_texto,
+                review_likes} = req.body;
+            
+        const sql = `UPDATE review
+                        SET review_estrellas = ${review_estrellas}
+                        review_nombre='${review_nombre}'
+                        review_texto='${review_texto}'
+                        review_likes=${review_likes}`;
+        
+        req.getConnection((err,conn)=>{
+
+            if(err){
+                return callback(err);
+            }else{
+
+                conn.query(sql, (err)=>{
+                    return callback(err,{'Resultado': 'Review actualizada con éxito'});
+                });
+
+            }
+
+        });
+    }
 }
 
 module.exports = Review;
