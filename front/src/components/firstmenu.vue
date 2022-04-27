@@ -26,34 +26,55 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+import StarRating from 'vue-star-rating';
+import axios from 'axios';
 export default {
   name: 'first_menu',
   components: {
-  StarRating
+  StarRating,
   },
   props: {
     msg: String
   },
   data(){
     return{
-      productos:[],
+      productos:null
     }
   },
-  methods:{
-    async obtenerimg(){
-      try {
-        const res = await fetch('https://dog.ceo/api/breeds/image/random')
-        this.productos = await res.json()
-        console.log(this.productos);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  },
-  created(){
-    this.obtenerimg()
+  mounted () {
+    axios.get('http://localhost:3000/producto/listar').then((response) => (this.productos = response.data))
   }
+  // methods:{
+  //     async obtenerimg() {
+  //       try {
+  //         const res = await http.get("/producto/listar");
+  //         const result = {
+  //         status: res.status + "-" + res.statusText,
+  //         headers: res.headers,
+  //         data: res.data,
+  //       };
+  //         this.productos = await JSON.stringify(result);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  // },
+
+
+  // //   async obtenerimg(){
+  // //     try {
+  // //       const res = await fetch('http://localhost:3000/producto/listar')
+  // //       this.productos = await res.json()
+  // //       console.log(this.productos);
+  // //     } catch (error) {
+  // //       console.log(error);
+  // //     }
+  // //   }
+  // // },
+  // created(){
+  //   this.obtenerimg()
+  // }
+}
   
-  }
+  
 </script>

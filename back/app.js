@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const app = express();
 const myConnection = require('express-myconnection');
 const mysql = require('mysql');
-const dbConfig = require('./dbConfig')
+const dbConfig = require('./dbConfig');
 
 // importaciones de las rutas.
 const usuarioRoutes = require('./routes/usuarioRoutes');
