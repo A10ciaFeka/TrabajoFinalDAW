@@ -143,29 +143,37 @@ const Producto = {
 
     sumarNumeroReview: (req,id_producto,callback) => {
         
-        this.productoPorId(req,(err,producto)=>{
+
+        const sql = 'SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta FROM producto WHERE id_producto='+id_producto;
+
+        req.getConnection((err,conn)=>{
+            
             if(err){
                 return callback(err);
             }else{
+                conn.query(sql,(err,producto)=>{
 
-                const sql = `UPDATE product
-                                SET producto_numResenas = ${producto.producto_numResenas}+1
-                                WHERE id_producto = ${id_producto}`;
-        
-                req.getConnection((err,conn)=>{
-        
-                    if(err) {
-                        return callback(err);
-                    } else {
-                        conn.query(sql,(err)=>{
-                            
-                            return callback(err,{'Resultado': 'Transacción realizada con éxito'});
-                            
-                        });
-                    }
-        
+                    const sql = `UPDATE product
+                    SET producto_numResenas = ${producto[0].producto_numResenas}+1
+                    WHERE id_producto = ${id_producto}`;
+    
+                    req.getConnection((err,conn)=>{
+    
+                        if(err) {
+                            return callback(err);
+                        } else {
+                            conn.query(sql,(err)=>{
+                                
+                                return callback(err,{'Resultado': 'Transacción realizada con éxito'});
+                                
+                            });
+                        }
+    
+                    });
                 });
+
             }
+            
         });
 
     }

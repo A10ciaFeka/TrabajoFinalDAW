@@ -7,8 +7,12 @@ passwordValidator.setPassword = (user_password)=>{
  }
 
 passwordValidator.comparePassword = (pwdEntered,user_password)=>{ 
+
+    
     pwdEntered = String(pwdEntered);
     pwdEntered = crypto.createHash('sha1').update(pwdEntered).digest('hex');
+    console.log('pass del usu: '+user_password);
+    console.log('pass metida: '+pwdEntered);
     return pwdEntered == user_password;
 }
 

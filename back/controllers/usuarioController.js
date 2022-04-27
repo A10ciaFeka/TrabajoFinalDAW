@@ -11,6 +11,7 @@ mostrarResultados = (err,resultado,res)=>{
 }
 
 usuarioController.login = (req,res)=>{
+    console.log('llego');
     Usuario.login(req,(err,resultado)=>{
         if(err){
             res.json(err);
@@ -54,7 +55,7 @@ usuarioController.listar = (req,res) => {
 usuarioController.fotoPerfilPorId = (req,res) => {
     
     Usuario.fotoPerfilPorId(req, (err, resultado)=>{
-        mostrarResultados(err,resultado,res);
+        
     })
 }
 

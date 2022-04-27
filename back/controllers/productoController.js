@@ -49,7 +49,12 @@ productoController.listar = (req,res) => {
  */
 productoController.productoImagenPorId = (req,res) => {
     Producto.productoImagenPorId(req, (err,resultado)=>{
-        mostrarResultados(err,resultado,res);
+
+        if(err){
+            res.json(err);
+        }else{
+            
+        }
     });
 }
 
