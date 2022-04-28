@@ -103,7 +103,7 @@ p {
                 <input id="name" type="text" v-model="usuario_apodo" placeholder="Contraseña"> 
                 <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Repetir contraseña"> 
             </div> 
-            <input type="submit" name="" value="Registrase">
+            <input type="submit" name="" value="Registrarse">
         </form>
         <router-link to="/login"> 
             <a href="#">¿Ya tienes cuenta? Iniciar sesion<br></a>
