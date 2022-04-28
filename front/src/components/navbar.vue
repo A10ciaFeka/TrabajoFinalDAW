@@ -52,7 +52,7 @@
    
 
     <!-- Right elements -->
-      <ul class="navbar-nav flex-row">
+      <ul v-if="sesion" class="navbar-nav flex-row">
         <li class="nav-item d-sm-flex align-items-sm-center">
           <span  class="d-none d-sm-block ms-1">{{nombre}}</span>
         </li>
@@ -64,14 +64,8 @@
             </ul>
         </li>
     </ul>
-    <!-- <ul class="navbar-nav flex-row">
-      <li v-if="sesion" class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
-          <span  class="d-none d-sm-block ms-1">{{nombre}}</span>
-          <img v-bind:src="imagen" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
-        </a>
-      </li>
-      <li v-else class="nav-item me-3 me-lg-1">
+    <ul v-else class="navbar-nav flex-row">
+      <li  class="nav-item me-3 me-lg-1">
         <div class="nav-link d-sm-flex align-items-sm-center">
           <router-link to="/login" class="routerstyle">
             <a class="nav-link d-sm-flex align-items-sm-center" href="">Login</a>
@@ -82,8 +76,8 @@
           <img src="../assets/img/user.svg" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
         </div>
       </li>
-    </ul> -->
-    <!-- Right elements -->
+    </ul>
+
   </div>
 </nav>
 </template>
@@ -97,7 +91,7 @@ export default {
   data() {
       return{
         admin: true,
-        sesion: true,
+        sesion: false,
         nombre: 'Eduardo',
         imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg'
       }
