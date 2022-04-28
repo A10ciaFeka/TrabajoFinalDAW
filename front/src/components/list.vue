@@ -59,7 +59,6 @@ export default {
   },
   data(){
     return{
-      count: 0,
       perPage: 3,
       maxItems: 12,
       currentPage: 1,
