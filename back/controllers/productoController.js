@@ -53,7 +53,12 @@ productoController.productoImagenPorId = (req,res) => {
         if(err){
             res.json(err);
         }else{
-            
+            const file = Buffer.from(resultado,'binary');
+            res.writeHead(200,{
+                'Content-Type': 'image/jpeg',
+                'Content-Length': file.length
+            });
+            res.end(file);
         }
     });
 }

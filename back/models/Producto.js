@@ -29,7 +29,7 @@ const Producto = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
+                    return callback(err,resultado[0].producto_imagen);
 
                 });
             }

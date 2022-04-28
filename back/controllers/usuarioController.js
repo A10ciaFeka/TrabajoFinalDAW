@@ -55,7 +55,17 @@ usuarioController.listar = (req,res) => {
 usuarioController.fotoPerfilPorId = (req,res) => {
     
     Usuario.fotoPerfilPorId(req, (err, resultado)=>{
-        
+        if(err){
+            res.json(err);
+        }else{
+            const file = Buffer.from(resultado,'binary'); 
+            res.writeHead(200,{
+                'Content-Type': 'image/jpeg',
+                'Content-Length': file.length
+            });
+            
+            res.end(file);
+        }
     })
 }
 

@@ -28,8 +28,8 @@ const Usuario = {
             if(err){
                 return callback(err);
             }else{
-                conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
+                conn.query(sql, (err, blob)=>{
+                    return callback(err,blob[0].usuario_fotoPerfil);
                 });
             }
 
