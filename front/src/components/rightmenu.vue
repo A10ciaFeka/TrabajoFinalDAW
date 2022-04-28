@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 .centrar{
     display: flex;
     vertical-align: middle;
@@ -8,6 +8,13 @@
     display: flex;
     justify-content: center;
 }
+/*
+.card-text{
+    max-height: 45px !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap;
+    overflow: hidden;
+} */
 .dr{
     width: 70%;
 }
@@ -15,8 +22,24 @@
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    
+    justify-content: center;  
+}
+.bg-dark{
+  background-color: #000000F2 !important;
+}
+span{
+    width: 200px !important;
+
+    padding: 2px 5px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+}
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+}
+hr{
+    /* color: #22e83a; */
+    background-color: #22e83a; height: 1.5px; border: 0;
 }
 </style>
 <template>
@@ -26,8 +49,8 @@
     <div class="card mb-3 bg-dark" v-for="review in reviews" :key="review" >
         <div class="alinear ">
             <div class="iz">
-                <img class=" m-3 mb-1" v-bind:src="review.Url" width="60" height="85">
-                <span class="mx-3 pb-1">{{review.name}}</span>
+                <img class=" m-3 " v-bind:src="review.Url" width="60" height="85">
+                <!-- <span class="mx-3 pb-1">{{review.name}}</span> -->
             </div>
             <div class="dr">
                 <div class="card-body">
@@ -36,7 +59,7 @@
                         <div class="mx-3"><star-rating :rating=review.rating :show-rating="false" :star-size="10" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating></div>
                     </div>
                     
-                    <span class="card-text">{{review.txt}}</span>
+                    <span class="card-text overflow-ellipsis">{{review.txt}}</span>
 
                 </div>
             </div>

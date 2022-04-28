@@ -1,3 +1,16 @@
+<style scoped>
+.mmm{
+    margin-left: 10px;
+}
+.routerstyle{
+  text-decoration: none;
+}
+.navbar {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+</style>
 <template>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container-fluid justify-content-between">
@@ -18,12 +31,17 @@
     <div class="navbar-nav flex-row d-none d-md-flex"> 
       <!-- Aqui tengo que poner cosas -->
       <div class="mx-3">
-        <router-link to="/catalog">
+        <router-link to="/catalog" class="routerstyle">
         <span>Catalogo</span>
         </router-link>
       </div>
-      <div class="mx-3">
-        <span>Reviews</span>
+      <div v-if="sesion" class="mx-3">
+        <span>Amigos</span>
+      </div>
+      <div v-if="admin" class="mx-3">
+        <router-link to="/AdminPanel" class="routerstyle">
+          <span>Panel Administrador</span>
+        </router-link>
       </div>
     </div>  
   <div class="navbar-nav flex-row d-none d-md-flex">
@@ -34,46 +52,37 @@
    
 
     <!-- Right elements -->
-    <ul class="navbar-nav flex-row">
-          <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link" href="#">
-          <span><i class="fas fa-plus-circle fa-lg"></i></span>
-        </a>
-      </li>
-
-      <li class="nav-item dropdown me-3 me-lg-1">
-        <a
-          class="nav-link hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <font-awesome-icon icon="fa-solid fa-bell" />
-          <span class="badge rounded-pill badge-notification bg-danger">12</span>
-        </a>
-        
-      </li>
-      <li class="nav-item me-3 me-lg-1">
-        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
-          <strong class="d-none d-sm-block ms-1">{{nombre}}</strong>
-                    <img
-            v-bind:src="imagen"
-            class="rounded-circle mmm"
-            height="35"
-            width="35"
-            alt="No carga"
-            loading="lazy"
-            background-size="100% auto"
-            background-position="50%"
-            
-          />
-        </a>
-      </li>
-
-      
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item d-sm-flex align-items-sm-center">
+          <span  class="d-none d-sm-block ms-1">{{nombre}}</span>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHJ-TjQYkc0ETqiFHhZrQ63PL0cCHfdi1cew&usqp=CAU" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%" alt=""></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#!">Opciones</a></li>
+                <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
+            </ul>
+        </li>
     </ul>
+    <!-- <ul class="navbar-nav flex-row">
+      <li v-if="sesion" class="nav-item me-3 me-lg-1">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="#">
+          <span  class="d-none d-sm-block ms-1">{{nombre}}</span>
+          <img v-bind:src="imagen" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
+        </a>
+      </li>
+      <li v-else class="nav-item me-3 me-lg-1">
+        <div class="nav-link d-sm-flex align-items-sm-center">
+          <router-link to="/login" class="routerstyle">
+            <a class="nav-link d-sm-flex align-items-sm-center" href="">Login</a>
+          </router-link>
+          <router-link to="/register" class="routerstyle">
+            <a class="nav-link d-sm-flex align-items-sm-center" href="">Sing Up</a>
+          </router-link>
+          <img src="../assets/img/user.svg" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
+        </div>
+      </li>
+    </ul> -->
     <!-- Right elements -->
   </div>
 </nav>
@@ -87,8 +96,10 @@ export default {
   },
   data() {
       return{
-          nombre: 'Eduardo',
-          imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg'
+        admin: true,
+        sesion: true,
+        nombre: 'Eduardo',
+        imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg'
       }
   },
   mounted(){
@@ -96,9 +107,3 @@ export default {
   }
 }
 </script>
-<style>
-.mmm{
-    margin-left: 10px;
-}
-
-</style>

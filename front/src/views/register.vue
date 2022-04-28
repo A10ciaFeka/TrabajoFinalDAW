@@ -85,37 +85,37 @@ h3 {
     text-align: center;
     display: block
 }
-
-
 p {
     color: #22e83a
 }
-
 </style>
 <template>
     <div class="loginBox">
          <!--Logo  -->
         <!-- <img class="user" src="" height="100px" width="100px">  -->
-        <h3>Iniciar sesión</h3>
-        <form v-on:submit.prevent="login">
+        <h3>Registrarse</h3>
+        <form v-on:submit.prevent="register">
             <div class="inputBox"> 
                 <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
-                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
+                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Email"> 
             </div> 
-            <input type="submit" name="" value="Entrar">
+            <div class="inputBox"> 
+                <input id="name" type="text" v-model="usuario_apodo" placeholder="Contraseña"> 
+                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Repetir contraseña"> 
+            </div> 
+            <input type="submit" name="" value="Registrase">
         </form>
-        <router-link to="/register"> 
-            <a href="#">¿No tienes cuenta? Registrate<br></a>
+        <router-link to="/login"> 
+            <a href="#">¿Ya tienes cuenta? Iniciar sesion<br></a>
         </router-link>
     </div>
      
 </template>
 <script>
-    import axios from 'axios';
-export default {
-    name: 'login-firts',
-    components: {
 
+export default {
+    name: 'register-firts',
+    components: {
         },
         data(){
             return{
@@ -123,26 +123,6 @@ export default {
                 usuario_apodo: '',
                 usuario_contrasena: '',
             }
-        },
-        methods:{
-            login(){
-                let json ={
-                    "usuario_apodo" : this.usuario_apodo,
-                    "usuario_contrasena" : this.usuario_contrasena
-                };
-                axios.post('http://localhost:3000/inicio/sesion',json)
-                .then( data => {
-                    if(data.data.status == "ok"){
-                        console.log("Entra");
-                        localStorage.token = data.data.result.token;
-                        this.$router.push('home');
-                    }
-                    else{
-                        console.log("Falla")
-                        this.error = true;
-                    }
-                })
-            }
-        }  
+        }
 }
 </script>
