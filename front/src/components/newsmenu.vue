@@ -79,7 +79,6 @@ export default {
         },
         {
           name: 'Lol',
-          rating: 0.5,
           Url: 'https://as01.epimg.net/meristation/imagenes/2019/08/07/cover/719414081565191040.jpg',
           date: '4/3/2',
           platform: 'PS5'

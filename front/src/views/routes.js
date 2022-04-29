@@ -4,6 +4,7 @@ import Catalog from '@/views/catalog.vue'
 import Login from '@/views/login.vue'
 import Register from '@/views/register.vue'
 import AdminPanel from '@/views/adminPanel.vue'
+import review from '@/views/reviews.vue'
 
 const routes = [
     {
@@ -30,6 +31,11 @@ const routes = [
         path: '/adminPanel',
         name: 'AdminPanel',
         component: AdminPanel
+    },
+    {
+        path: '/review',
+        name: 'Review',
+        component: review
     }
 ]
 

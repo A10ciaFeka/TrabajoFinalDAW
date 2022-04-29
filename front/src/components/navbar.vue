@@ -91,7 +91,7 @@ export default {
   data() {
       return{
         admin: true,
-        sesion: false,
+        sesion: true,
         nombre: 'Eduardo',
         imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg'
       }
