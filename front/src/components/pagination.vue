@@ -143,8 +143,7 @@ export default {
     },
     pages() {
       const range = [];
-
-      for(let j = this.startPage-this.maxVisibleButtons ;
+      for(let j = this.startPage-((this.maxVisibleButtons/2).toFixed()-1) ;
         j < this.startPage;
         j++
         ){
@@ -156,7 +155,7 @@ export default {
       }
       for (
         let i = this.startPage;
-        i <= Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
+        i <= Math.min(this.startPage + ((this.maxVisibleButtons/2).toFixed()-1), this.totalPages);
         i++
       ) {
         range.push({

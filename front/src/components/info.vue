@@ -9,7 +9,7 @@
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
     <div class="container">
         <div class="row align-items-center">
-            <div class="card m-4 bg-dark d-flex flex-row">
+            <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
                 <div class="">
                     <img class="card-img-top m-3" v-bind:src="reviews[0].Url" alt="..." />
                 </div>
