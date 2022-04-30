@@ -22,6 +22,7 @@ router.get('/inicio/sesion', usuarioController.login);
  * 
  */
 router.post('/crear', usuarioController.crearUsuario);
+router.post('/seguir_usuario', usuarioController.seguirUnUsuario);
 
 /**
  * 

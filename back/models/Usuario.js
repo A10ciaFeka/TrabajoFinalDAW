@@ -229,6 +229,24 @@ const Usuario = {
 
             }
         });
+    },
+
+    seguirUnUsuario: (req,callback) => {
+        const {id_usuario, id_amigo} = req.body;
+
+        req.getConnection((err,conn)=>{
+            if(err){
+               return callback(err);
+            }else{
+                
+                const sql = `INSERT INTO lista_amigos VALUES(${id_usuario},${id_amigo})`;
+
+                conn.query(sql,(err,resultado)=>{
+                    return callback(err,{"Resultado": "Usuario actualizado con éxito"});
+                });
+            }
+        });
+
     }
 
 }

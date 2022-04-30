@@ -135,6 +135,12 @@ usuarioController.crearUsuario = (req, res) => {
 
 }
 
+usuarioController.seguirUnUsuario = (req, res) => {
+
+    Usuario.seguirUnUsuario(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    });
+}
 
 /** --- PUT REQUESTS --- */
 /**

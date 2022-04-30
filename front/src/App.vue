@@ -1,4 +1,9 @@
 <style>
+
+@font-face {
+  font-family: fuenteCuerpo;
+  src: url(assets/font/Futura\ Light\ Condensed\ Regular.otf);
+}
 .contenedor{
   display:flex;
   justify-content: space-between;
@@ -10,13 +15,14 @@
   width: 30%;
 }
 *{
+  font-family: fuenteCuerpo !important; 
+  font-size: 20px !important;
+  font-weight: lighter;
   color: #fff;
 }
 .fondo{
-  background-image: url("assets/img/fondo.svg");
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #63d471;
+  background-image: linear-gradient(315deg, #63d471 20%, #003c57 60%);
 }
 </style>
 <template>

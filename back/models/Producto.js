@@ -2,9 +2,12 @@
 const Producto = {
 
     listarProductos: (req, callback) => {
-        const sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
+        let sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
                         FROM producto
                         ORDER BY producto_fechaSalida DESC`;
+        if(req.params.num_productos!=null){
+            sql+=` LIMIT ${req.params.num_productos}`;
+        }
 
         req.getConnection((err,conn) => {
             
@@ -12,6 +15,7 @@ const Producto = {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
+                    console.log('llego');
                     return callback(err,resultado);
                 });
             }
