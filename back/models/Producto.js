@@ -2,9 +2,12 @@
 const Producto = {
 
     listarProductos: (req, callback) => {
-        const sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
+        let sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
                         FROM producto
                         ORDER BY producto_fechaSalida DESC`;
+        if(req.params.num_productos!=null){
+            sql+=` LIMIT ${req.params.num_productos}`;
+        }
 
         req.getConnection((err,conn) => {
             
@@ -12,6 +15,7 @@ const Producto = {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
+                    console.log('llego');
                     return callback(err,resultado);
                 });
             }
@@ -29,7 +33,7 @@ const Producto = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
+                    return callback(err,resultado[0].producto_imagen);
 
                 });
             }
@@ -143,29 +147,37 @@ const Producto = {
 
     sumarNumeroReview: (req,id_producto,callback) => {
         
-        this.productoPorId(req,(err,producto)=>{
+
+        const sql = 'SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta FROM producto WHERE id_producto='+id_producto;
+
+        req.getConnection((err,conn)=>{
+            
             if(err){
                 return callback(err);
             }else{
+                conn.query(sql,(err,producto)=>{
 
-                const sql = `UPDATE product
-                                SET producto_numResenas = ${producto.producto_numResenas}+1
-                                WHERE id_producto = ${id_producto}`;
-        
-                req.getConnection((err,conn)=>{
-        
-                    if(err) {
-                        return callback(err);
-                    } else {
-                        conn.query(sql,(err)=>{
-                            
-                            return callback(err,{'Resultado': 'Transacción realizada con éxito'});
-                            
-                        });
-                    }
-        
+                    const sql = `UPDATE product
+                    SET producto_numResenas = ${producto[0].producto_numResenas}+1
+                    WHERE id_producto = ${id_producto}`;
+    
+                    req.getConnection((err,conn)=>{
+    
+                        if(err) {
+                            return callback(err);
+                        } else {
+                            conn.query(sql,(err)=>{
+                                
+                                return callback(err,{'Resultado': 'Transacción realizada con éxito'});
+                                
+                            });
+                        }
+    
+                    });
                 });
+
             }
+            
         });
 
     }

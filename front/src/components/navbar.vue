@@ -5,81 +5,62 @@
 .routerstyle{
   text-decoration: none;
 }
-.navbar {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+.barra {
+  display: flex;
+  font-size: 40px !important;
 }
+
 
 </style>
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-  <div class="container-fluid justify-content-between">
-    <!-- Left elements -->
-    <div class="d-flex">
-      <!-- Brand -->
-      <router-link class="navbar-brand me-2 mb-1 d-flex align-items-center" to="/">
-        <img
-          src="../assets/img/logo.png"
-          height="20"
-          loading="lazy"
-          style="margin-top: 2px;"
-        />
-      </router-link>
-      <!-- Search form -->
-
-    </div>
-    <div class="navbar-nav flex-row d-none d-md-flex"> 
-      <!-- Aqui tengo que poner cosas -->
-      <div class="mx-3">
-        <router-link to="/catalog" class="routerstyle">
-        <span>Catalogo</span>
-        </router-link>
-      </div>
-      <div v-if="sesion" class="mx-3">
-        <span>Amigos</span>
-      </div>
-      <div v-if="admin" class="mx-3">
-        <router-link to="/AdminPanel" class="routerstyle">
-          <span>Panel Administrador</span>
-        </router-link>
-      </div>
-    </div>  
-  <div class="navbar-nav flex-row d-none d-md-flex">
-    <div class="form-outline">
-      <input type="search" id="form1" class="form-control" placeholder="Buscar..." aria-label="Search" />
-    </div>
-  </div>
-   
-
-    <!-- Right elements -->
-      <ul v-if="sesion" class="navbar-nav flex-row">
-        <li class="nav-item d-sm-flex align-items-sm-center">
-          <span  class="d-none d-sm-block ms-1">{{nombre}}</span>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHJ-TjQYkc0ETqiFHhZrQ63PL0cCHfdi1cew&usqp=CAU" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%" alt=""></a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#!">Opciones</a></li>
-                <li><a class="dropdown-item" href="#!">Cerrar sesión</a></li>
-            </ul>
-        </li>
-    </ul>
-    <ul v-else class="navbar-nav flex-row">
-      <li  class="nav-item me-3 me-lg-1">
-        <div class="nav-link d-sm-flex align-items-sm-center">
-          <router-link to="/login" class="routerstyle">
-            <a class="nav-link d-sm-flex align-items-sm-center" href="">Login</a>
-          </router-link>
-          <router-link to="/register" class="routerstyle">
-            <a class="nav-link d-sm-flex align-items-sm-center" href="">Sing Up</a>
-          </router-link>
-          <img src="../assets/img/user.svg" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid p-3">
+    <router-link class="navbar-brand me-2 mb-1 d-flex align-items-center" to="/">
+      <img
+        src="../assets/img/logo.png"
+        height="20"
+        loading="lazy"
+        style="margin-top: 2px;"
+      />
+    </router-link>
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="me-3">
+        <div class="form-white input-group" style="width: 250px;">
+          <input type="search" class="form-control rounded" placeholder="Buscar en Gameboxd "
+            aria-label="Search" aria-describedby="search-addon" />
         </div>
-      </li>
-    </ul>
-
+      </form>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item mt-2 p-2">
+          <router-link to="/catalog">
+            <span>Catalogo</span>
+          </router-link>
+        </li>
+        <li class="nav-item mt-2 p-2">
+          <router-link to="/catalog">
+            <span>Amigos</span>
+          </router-link>
+        </li>
+        <li class="nav-item mt-2 p-2">
+          <router-link to="/catalog">
+            <span>Listas</span>
+          </router-link>
+        </li>
+      </ul>
+      <ul class="navbar-nav d-flex flex-row ms-auto me-3">
+        <li class="nav-item me-3 me-lg-0 dropdown">
+          <div class="mdi mdi-account"></div>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+
 </template>
 
 <script>

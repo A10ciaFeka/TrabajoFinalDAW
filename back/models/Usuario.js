@@ -21,21 +21,21 @@ const Usuario = {
     },
 
     fotoPerfilPorId: (req, callback) =>{
-        const sql = "SELECT usuario_fotoPerfil WHERE id_usuario="+req.params.id_usuario;
+        const sql = "SELECT usuario_fotoPerfil FROM usuario WHERE id_usuario="+req.params.id_usuario;
 
         req.getConnection((err,conn)=>{
             
             if(err){
                 return callback(err);
             }else{
-                conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
+                conn.query(sql, (err, blob)=>{
+                    return callback(err,blob[0].usuario_fotoPerfil);
                 });
             }
 
         });
     },
-
+    
     usuarioPorId: (req, callback) => {
         
         const sql = "SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE id_usuario="+req.params.id_usuario;
@@ -56,7 +56,7 @@ const Usuario = {
 
     usuarioPorApodo: (req, callback) => {
         
-        const sql = `SELECT * FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
+        const sql = `SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
 
         req.getConnection((err,conn)=>{
             
@@ -153,8 +153,8 @@ const Usuario = {
         const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
 
         const sql = `UPDATE usuario 
-                        SET usuario_nombre = '${usuario_apodo}'
-                        usuario_contrasena = '${hashedPwd}'
+                        SET usuario_apodo = '${usuario_apodo}',
+                        usuario_contrasena = '${hashedPwd}',
                         usuario_email = '${usuario_email}'
                         WHERE id_usuario = ${id_usuario}`;
 
@@ -193,14 +193,14 @@ const Usuario = {
     },
 
     login: (req, callback)=>{
-        const {apodo_form, contrasena_form} = req.body;
+        const {usuario_apodo,usuario_contrasena} = req.body;
 
         req.getConnection((err,conn)=>{
             if(err){
                 return callback(err);
             }else{
 
-                usuarioValidador.validarApodo(conn,apodo_form,(err,no_existe)=>{
+                usuarioValidador.validarApodo(conn,usuario_apodo,(err,no_existe)=>{
                     if(err){
                         return callback(err);
                     }else{
@@ -208,12 +208,14 @@ const Usuario = {
                         if(no_existe){
                             return callback({"Error": "El usuario no existe"});
                         }else{
-                            this.usuarioPorApodo(req,(err,usuario)=>{
+                            const sql = `SELECT id_usuario, usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE usuario_apodo='${usuario_apodo}'`;
+                            conn.query(sql,(err,usuario)=>{
                                 if(err){
                                     return callback(err);
                                 }else{
-                                    if(passwordValidator.comparePassword(contrasena_form,usuario.usuario_contrasena)){
-                                        return callback(null,usuario);
+                                    console.log(usuario[0].usuario_contrasena);
+                                    if(passwordValidator.comparePassword(usuario_contrasena,usuario[0].usuario_contrasena)){
+                                        return callback(null,usuario[0]);
                                     }else{
                                         return callback({"Error": "Las contraseñas no coinciden"});
                                     }
@@ -227,6 +229,24 @@ const Usuario = {
 
             }
         });
+    },
+
+    seguirUnUsuario: (req,callback) => {
+        const {id_usuario, id_amigo} = req.body;
+
+        req.getConnection((err,conn)=>{
+            if(err){
+               return callback(err);
+            }else{
+                
+                const sql = `INSERT INTO lista_amigos VALUES(${id_usuario},${id_amigo})`;
+
+                conn.query(sql,(err,resultado)=>{
+                    return callback(err,{"Resultado": "Usuario actualizado con éxito"});
+                });
+            }
+        });
+
     }
 
 }
