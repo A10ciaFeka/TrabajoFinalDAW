@@ -1,4 +1,4 @@
-<style>
+<style scoped>
 .row>*{
    width: auto !important;
 }
@@ -13,6 +13,25 @@
   width:200px;
   height:255px;
 }
+@media (max-width: 576px){
+.card-img-top{
+  width:132px !important;
+  height:185px !important;
+  
+}
+.bg-image{
+  width:132px !important;
+  height:185px !important;
+  
+}
+}
+.row {
+    --bs-gutter-x: 0rem;
+    justify-content: space-around;
+}
+.margenabajo{
+  margin-bottom: 2em;
+}
 </style>
 
 <template>
@@ -23,7 +42,7 @@
         <h5 class="titulo">Reseñas de amigos</h5>
         <div class="row">
           <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
-          <div class="col-lg-2 p-2" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
+          <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
             <div class="card text-white bg-dark">
               <img v-bind:src="games[i-1].Url" class="card-img-top" alt=""/>
               <div class="card-body align-self-center">
