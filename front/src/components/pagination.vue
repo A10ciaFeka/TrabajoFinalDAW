@@ -55,16 +55,16 @@ button:hover:enabled{
     <!-- Visible Buttons Start -->
 
     <li class="pagination-item"
-      v-for="page in pages"
-      :key="page.name"
+      v-for="button in buttons"
+      :key="button.name"
     >
       <button
         type="button"
-        @click="onClickPage(page.name)"
-        :disabled="page.isDisabled"
-        :class="{ active: isPageActive(page.name) }"
+        @click="onClickPage(button.name)"
+        :disabled="button.isDisabled"
+        :class="{ active: isPageActive(button.name) }"
       >
-        {{ page.name }}
+        {{ button.name }}
       </button>
     </li>
 
@@ -123,7 +123,7 @@ export default {
     },
     startPage() {
       // When on the first page
-      if (this.currentPage === this.totalPages) {
+      if (!this.currentPage === this.totalPages) {
       const start = this.totalPages - (this.maxVisibleButtons - 1);
 
         if (start === 0) {
@@ -143,19 +143,9 @@ export default {
     },
     pages() {
       const range = [];
-      for(let j = this.startPage-((this.maxVisibleButtons/2).toFixed()-1) ;
-        j < this.startPage;
-        j++
-        ){
-          if(j>0){
-            range.push({
-            name: j
-          });
-        }
-      }
       for (
-        let i = this.startPage;
-        i <= Math.min(this.startPage + ((this.maxVisibleButtons/2).toFixed()-1), this.totalPages);
+        let i = 1;
+        i <= this.totalPages;
         i++
       ) {
         range.push({
@@ -165,6 +155,23 @@ export default {
       }
 
       return range;
+    },
+    buttons() {
+      const r = [];
+
+      for(let j = this.startPage-(Math.floor(this.maxVisibleButtons/2)) ;
+        j < this.startPage+ (Math.ceil(this.maxVisibleButtons/2));
+        j++
+        ){
+          if(j>0&&j<=this.totalPages){
+            r.push({
+            name: j,
+            isDisabled: (j<1)||(j === this.currentPage)
+          });
+        }
+      }
+
+      return r;
     }
   },
   methods: {
