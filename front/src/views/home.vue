@@ -5,6 +5,7 @@
 .contenedor{
   display:flex;
   justify-content: space-between;
+  padding-top: 2 em;
 }
 .izquierda{
   width: 70%;
