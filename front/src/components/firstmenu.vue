@@ -100,7 +100,7 @@ export default {
   },
   mounted () {
     axios.get('http://localhost:3000/producto/listar')
-      .then((response) => (this.productos = response.data))
+      .then((response) => (this.productos = response.data.resultados))
   }
   // methods:{
   //     async obtenerimg() {

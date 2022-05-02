@@ -21,8 +21,9 @@ productoController.listar = (req,res) => {
         if(err) {
             res.json(err);
         }else {
-            for (const key in resultado) {
-                resultado[key].producto_imagen = `localhost:3000/producto/${resultado[key].id_producto}/imagen`;
+            console.log(resultado);
+            for (const key in resultado.resultados) {
+                resultado.resultados[key].producto_imagen = `localhost:3000/producto/${resultado.resultados[key].id_producto}/imagen`;
             }
             res.json(resultado);
         }

@@ -8,7 +8,7 @@ const productoController = require('../controllers/productoController');
  * PETICIONES GET PARA PRODUCTOS
  * 
  */
-router.get('/listar/:num_productos?', productoController.listar);
+router.get('/listar/:num_productos?/:offset?', productoController.listar);
 router.get('/:id_producto/imagen', productoController.productoImagenPorId)
 router.get('/nombre/:producto_nombre', productoController.productoPorNombre);
 router.get('/:id_producto', productoController.productoPorId);

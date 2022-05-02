@@ -5,18 +5,30 @@ const Producto = {
         let sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
                         FROM producto
                         ORDER BY producto_fechaSalida DESC`;
-        if(req.params.num_productos!=null){
-            sql+=` LIMIT ${req.params.num_productos}`;
+        
+        const  sqlCount = `SELECT count(*) AS total FROM producto`
+        if(req.params.num_productos){
+            if(req.params.offset){
+                sql+=` LIMIT ${req.params.offset},${req.params.num_productos}`;                
+            }else{
+                sql+=` LIMIT ${req.params.num_productos}`;
+            }
         }
-
+        
         req.getConnection((err,conn) => {
             
             if(err) {
                 return callback(err);
             }else {
                 conn.query(sql, (err, resultado)=>{
-                    console.log('llego');
-                    return callback(err,resultado);
+                    if(err) return callback(err)
+                    conn.query(sqlCount, (err, resultCount) => {
+                        if(err) return callback(err)
+                        return callback(err,{
+                            resultados: resultado,
+                            total: resultCount.pop().total
+                        });
+                    })
                 });
             }
             
