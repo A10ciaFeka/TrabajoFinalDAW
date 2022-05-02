@@ -28,7 +28,7 @@
       
       <Pagination
         :totalPages="rows"
-        :maxVisibleButtons="perPage"
+        :maxVisibleButtons="3"
         :perPage="perPage"
         :currentPage="currentPage"
         @pagechanged="onPageChange"
@@ -52,24 +52,35 @@ export default {
   },
   data(){
     return{
-      perPage: 3,
-      maxItems: 10,
+      perPage: 8,
+      maxItems: 0,
       currentPage: 1,
       productos: null,
       prefijo: 'http://',
-      rows: null
+      rows: 0
     }
   },
   mounted() {
-    axios.get('http://localhost:3000/producto/listar')
-      .then((response)=>{
-        this.productos = response.data;
-        this.rows = ((this.productos.length/this.maxItems)+1).toFixed();
-      })
+    this.listarProducto();
   },
   methods: {
+    listarProducto(){
+      let offset = 0;  
+      if(this.currentPage>1){
+        offset = (this.currentPage-1)*this.perPage;
+      }
+      axios.get(`http://localhost:3000/producto/listar/${this.perPage}/${offset}`)
+        .then((response)=>{
+          this.productos = response.data.resultados;
+          this.maxItems = response.data.total;
+          this.rows = Math.ceil((this.maxItems/this.perPage));
+          console.log("Rows: ",this.rows);
+        })
+
+    },
     onPageChange(page) {
-      this.currentPage = page
+      this.currentPage = page;
+      this.listarProducto();
     }
   }
 }
