@@ -16,7 +16,7 @@
 }
 *{
   font-family: fuenteCuerpo !important; 
-  font-size: 20px !important;
+  font-size: 20px;
   font-weight: lighter;
   color: #fff;
 }

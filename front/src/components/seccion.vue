@@ -39,7 +39,7 @@
   <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
       <div class="container pt-3">
         <!-- titulo -->
-        <h5 class="titulo">Reseñas de amigos</h5>
+        <h4 class="titulo">Reseñas de amigos</h4>
         <div class="row">
           <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">

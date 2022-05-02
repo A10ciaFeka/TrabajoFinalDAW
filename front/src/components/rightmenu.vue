@@ -53,7 +53,7 @@ hr{
 </style>
 <template>
     <div class="container bcontent pt-3 ">
-    <h5>REVIEWS DE AMIGOS</h5>
+    <h4>REVIEWS DE AMIGOS</h4>
     <hr />
     <div class="card mb-3 bg-dark" v-for="review in reviews" :key="review" >
         <div class="alinear ">
