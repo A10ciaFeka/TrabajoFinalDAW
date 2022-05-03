@@ -7,7 +7,7 @@
     <div class="container rows">
       <info />
       <comments />
-
+      <p>{{gameId}}aa</p>
     </div>
     <futer /> 
   </div>
@@ -28,6 +28,12 @@ export default {
     comments,
     futer,
     navbar
+  },
+  props:{
+    gameId:{
+      type:Number,
+      required:true
+    }
   }
 }
  </script>

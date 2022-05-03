@@ -44,7 +44,9 @@
           <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
             <div class="card text-white bg-dark">
-              <img v-bind:src="games[i-1].Url" class="card-img-top" alt=""/>
+              <router-link to="/review/1">
+                <img v-bind:src="games[i-1].Url" class="card-img-top" alt=""/>
+              </router-link>
               <div class="card-body align-self-center">
                 <star-rating :rating=games[i-1].rating :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
             </div>

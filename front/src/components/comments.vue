@@ -32,7 +32,7 @@
 
                     <div class="col-10">
                         <p class="mb-1 bg-success col-2 text-center rounded"><strong>{{reviews[i-1 + (maxItems*(currentPage-1))].user}}</strong></p>
-                        <star-rating :rating="reviews[i-1 + (maxItems*(currentPage-1))].rating" :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+                        <star-rating :rating="reviews[i-1 + (maxItems*(currentPage))].rating" :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                         <p class="mt-3">{{reviews[i-1+ (maxItems*(currentPage-1))].txt}}</p>
                     </div>
                 </div>

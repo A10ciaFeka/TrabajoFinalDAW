@@ -52,7 +52,7 @@ export default {
   },
   data(){
     return{
-      perPage: 8,
+      perPage: 12,
       maxItems: 0,
       currentPage: 1,
       productos: null,
