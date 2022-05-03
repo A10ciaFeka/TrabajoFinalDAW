@@ -7,7 +7,6 @@
     <div class="container rows">
       <info />
       <comments />
-      <p>{{gameId}}aa</p>
     </div>
     <futer /> 
   </div>
@@ -29,11 +28,15 @@ export default {
     futer,
     navbar
   },
-  props:{
-    gameId:{
-      type:Number,
-      required:true
+  mounted(){
+    this.crearPagina();
+  },
+  methods:{
+    crearPagina(){
+      let id_producto=this.$route.query.id_producto;
+      console.log(id_producto);
     }
   }
+    
 }
  </script>

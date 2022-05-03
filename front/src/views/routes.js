@@ -33,7 +33,7 @@ const routes = [
         component: AdminPanel
     },
     {
-        path: '/review/:id',
+        path: '/producto',
         name: 'Review',
         component: review
     }
