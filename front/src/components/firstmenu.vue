@@ -61,7 +61,7 @@ span{
 }
 </style>
 <template>
-    <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+    <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
       <div class="container pt-3">
         <h4 class="caca ms-2">SALIDAS RECIENTES</h4>
         <div class="row">
@@ -82,57 +82,60 @@ span{
 </template>
 
 <script>
-import StarRating from 'vue-star-rating';
-import axios from 'axios';
-export default {
-  name: 'first_menu',
-  components: {
-  StarRating,
-  },
-  props: {
-    msg: String
-  },
-  data(){
-    return{
-      prefijo: 'http://',
-      productos: null
+  import StarRating from 'vue-star-rating';
+  import axios from 'axios';
+  export default {
+    name: 'first_menu',
+    components: {
+    StarRating,
+    },
+    props: {
+      msg: String
+    },
+    data(){
+      return{
+        prefijo: 'http://',
+        productos: null
+      }
+    },
+    mounted () {
+      axios.get('http://localhost:3000/producto/listar/6')
+        .then((response) => (this.productos = response.data.resultados));
+
+        console.log(      axios.get('http://localhost:3000/producto/listar/6')
+);
     }
-  },
-  mounted () {
-    axios.get('http://localhost:3000/producto/listar/6')
-      .then((response) => (this.productos = response.data.resultados))
+    // methods:{
+    //     async obtenerimg() {
+    //       try {
+    //         const res = await http.get("/producto/listar");
+    //         const result = {
+    //         status: res.status + "-" + res.statusText,
+    //         headers: res.headers,
+    //         data: res.data,
+    //       };
+    //         this.productos = await JSON.stringify(result);
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     }
+    // },
+
+
+    // //   async obtenerimg(){
+    // //     try {
+    // //       const res = await fetch('http://localhost:3000/producto/listar')
+    // //       this.productos = await res.json()
+    // //       console.log(this.productos);
+    // //     } catch (error) {
+    // //       console.log(error);
+    // //     }
+    // //   }
+    // // },
+    // created(){
+    //   this.obtenerimg()
+    // }
   }
-  // methods:{
-  //     async obtenerimg() {
-  //       try {
-  //         const res = await http.get("/producto/listar");
-  //         const result = {
-  //         status: res.status + "-" + res.statusText,
-  //         headers: res.headers,
-  //         data: res.data,
-  //       };
-  //         this.productos = await JSON.stringify(result);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  // },
-
-
-  // //   async obtenerimg(){
-  // //     try {
-  // //       const res = await fetch('http://localhost:3000/producto/listar')
-  // //       this.productos = await res.json()
-  // //       console.log(this.productos);
-  // //     } catch (error) {
-  // //       console.log(error);
-  // //     }
-  // //   }
-  // // },
-  // created(){
-  //   this.obtenerimg()
-  // }
-}
-  
+    
   
 </script>
