@@ -80,7 +80,9 @@ span{
             <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
             </router-link>
             <div class="card-body">
-              <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+              <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+              </router-link>  
               <star-rating :rating=producto.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
             </div>
           </div>
@@ -136,7 +138,6 @@ export default {
           this.productos = response.data.resultados;
           this.maxItems = response.data.total;
           this.rows = Math.ceil((this.maxItems/this.perPage));
-          console.log("Rows: ",this.rows);
         })
 
     },

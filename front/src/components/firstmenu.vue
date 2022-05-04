@@ -67,9 +67,13 @@ span{
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="card bg-dark">
-              <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
+              <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
+              </router-link>
               <div class="card-body">
-                <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+                <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                  <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+                </router-link>
                 <div class="card-body align-self-center">
                   <star-rating :rating=producto.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                 </div>
@@ -105,36 +109,6 @@ span{
         console.log(      axios.get('http://localhost:3000/producto/listar/6')
 );
     }
-    // methods:{
-    //     async obtenerimg() {
-    //       try {
-    //         const res = await http.get("/producto/listar");
-    //         const result = {
-    //         status: res.status + "-" + res.statusText,
-    //         headers: res.headers,
-    //         data: res.data,
-    //       };
-    //         this.productos = await JSON.stringify(result);
-    //       } catch (error) {
-    //         console.log(error);
-    //       }
-    //     }
-    // },
-
-
-    // //   async obtenerimg(){
-    // //     try {
-    // //       const res = await fetch('http://localhost:3000/producto/listar')
-    // //       this.productos = await res.json()
-    // //       console.log(this.productos);
-    // //     } catch (error) {
-    // //       console.log(error);
-    // //     }
-    // //   }
-    // // },
-    // created(){
-    //   this.obtenerimg()
-    // }
   }
     
   
