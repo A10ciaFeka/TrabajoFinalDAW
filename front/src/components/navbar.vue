@@ -30,7 +30,7 @@
     <div class="navbar-nav flex-row d-none d-md-flex"> 
       <!-- Aqui tengo que poner cosas -->
       <div class="mx-3">
-        <router-link to="/catalog" class="routerstyle">
+        <router-link to="/catalogo" class="routerstyle">
         <span>Catalogo</span>
         </router-link>
       </div>

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/home.vue'
-import Catalog from '@/views/catalog.vue'
+import Catalogo from '@/views/catalogo.vue'
 import Login from '@/views/login.vue'
 import Register from '@/views/register.vue'
 import AdminPanel from '@/views/adminPanel.vue'
-import review from '@/views/reviews.vue'
+import review from '@/views/review.vue'
 
 const routes = [
     {
@@ -13,9 +13,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/catalog',
-        name: 'Catalog',
-        component: Catalog
+        path: '/catalogo',
+        name: 'Catalogo',
+        component: Catalogo
     },
     {
         path: '/login',

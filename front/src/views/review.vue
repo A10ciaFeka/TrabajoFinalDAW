@@ -5,7 +5,7 @@
 
     <navbar />
     <div class="container rows">
-      <info :producto_id="this.crearPagina()" />
+      <review_info :producto_id="this.crearPagina()" />
       <comments />
     </div>
     <futer /> 
@@ -16,14 +16,14 @@
 <script>
 import navbar from '@/components/navbar.vue';
 import futer from '@/components/footer.vue';
-import info from '@/components/info.vue'
+import review_info from '@/components/review_info.vue'
 import comments from '@/components/comments.vue'
 
 export default {
   name: 'review_page',
   components: {
 
-    info,
+    review_info,
     comments,
     futer,
     navbar

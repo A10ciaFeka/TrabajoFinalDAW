@@ -32,11 +32,11 @@
   <navbar_first />
   <div class="contenedor margen">
     <div class="izquierda">
-      <first_menu/>
+      <home_recientes/>
       <seccion />
     </div>
     <div class="derecha">
-      <right_menu/>
+      <revAmigos/>
       <!-- <news_menu/> -->
     </div>
   </div>
@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import right_menu from '@/components/rightmenu.vue'
+import revAmigos from '@/components/revAmigos.vue'
 import seccion from '@/components/seccion.vue'
-import first_menu from '@/components/firstmenu.vue'
+import home_recientes from '@/components/home_recientes.vue'
 import navbar_first from '@/components/navbar.vue'
 // import news_menu from '@/components/newsmenu.vue'
 import footer_down from '@/components/footer.vue'
@@ -56,8 +56,8 @@ export default {
   name: 'Home-logged',
   components: {
     seccion,
-    first_menu,
-    right_menu,
+    home_recientes,
+    revAmigos,
     navbar_first,
     // news_menu,
     footer_down

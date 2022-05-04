@@ -1,7 +1,7 @@
 <template>
 <div>
   <navbar_first/>
-  <List/>
+  <catalogo_productos/>
   <div>
     <footer_down/>
   </div>
@@ -12,13 +12,13 @@
 
 <script>
 import navbar_first from '@/components/navbar.vue'
-import List from '@/components/list.vue'
+import catalogo_productos from '@/components/catalogo_productos.vue'
 import footer_down from '@/components/footer.vue'
 export default {
   name: 'catalog-final',
 
   components: {
-    List,
+    catalogo_productos,
     navbar_first,
     footer_down
   }
