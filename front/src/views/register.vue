@@ -97,11 +97,11 @@ p {
         <form v-on:submit.prevent="register">
             <div class="inputBox"> 
                 <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
-                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Email"> 
+                <input id="pass" type="password" v-model="usuario_email" placeholder="Email"> 
             </div> 
             <div class="inputBox"> 
-                <input id="name" type="text" v-model="usuario_apodo" placeholder="Contraseña"> 
-                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Repetir contraseña"> 
+                <input id="name" type="text" v-model="usuario_contrasena" placeholder="Contraseña"> 
+                <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña"> 
             </div> 
             <input type="submit" name="" value="Registrarse">
         </form>

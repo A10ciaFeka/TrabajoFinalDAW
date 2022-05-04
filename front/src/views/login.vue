@@ -130,11 +130,12 @@ export default {
                     "usuario_apodo" : this.usuario_apodo,
                     "usuario_contrasena" : this.usuario_contrasena
                 };
-                axios.post('http://localhost:3000/inicio/sesion',json)
-                .then( data => {
-                    if(data.data.status == "ok"){
+                axios.get('http://localhost:3000/usuario/inicio/sesion',json)
+                .then( response => {
+                    console.log(response);
+                    if(response.data.statusText == 'OK'){
                         console.log("Entra");
-                        localStorage.token = data.data.result.token;
+                        localStorage.token = response.data.result.token;
                         this.$router.push('home');
                     }
                     else{

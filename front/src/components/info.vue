@@ -11,7 +11,7 @@
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
                 <div class="">
-                    <img class="card-img-top m-3" v-bind:src="prefijo + url" alt="..." width="450" height="550"/>
+                    <img class="card-img-top m-3" v-bind:src="prefijo + item.producto_imagen" alt="..." width="450" height="550"/>
                 </div>
                 <div class="card-body ">
                     <h2 class="card-title mt-4">{{item.producto_nombre}}</h2>
@@ -21,7 +21,7 @@
 
                     <p class="mb-0">Etiqueta(s):</p>
                     <div class="row">
-                        <span class="bg-secondary me-4 mt-2 rounded-pill col-2 text-center" v-for="tag in this.item.producto_etiqueta" :key="tag">{{tag}}</span>
+                        <span class="bg-secondary me-4 mt-2 rounded-pill col-2 text-center" v-for="tag in tags" :key="tag">{{tag}}</span>
                     </div>
                     
                     <h5 class="mt-4">Sinopsis</h5>
@@ -35,6 +35,7 @@
 <script>
 
 import axios from 'axios';
+import moment from 'moment';
 
 export default {
   name: 'game_info',
@@ -45,28 +46,40 @@ export default {
         return{
             item:{},
             prefijo: 'http://',
-            url:null
+            url:null,
+            tags:{},
+            fecha: null
         }
     },
     mounted(){
         this.getProducto()
-        this.getImage()
+        // this.getImage()
+        
     },
     methods: {
         getProducto(){
         axios.get(`http://localhost:3000/producto/${this.producto_id}`)
             .then((response)=>{
-                
-                console.log(response.data[0]);
-            this.item=response.data[0];
+            this.item=response.data;
+            console.log(this.item.producto_etiqueta);
+            this.separar();
+            this.date();
             })
         },
-        getImage(){
-        axios.get(`http://localhost:3000/producto/${this.producto_id}/imagen`)
-            .then((response)=>{
-                this.url=response.data;
-            })
+        separar(){
+            this.tags = this.item.producto_etiqueta.split(',');
         },
+        date(){
+            this.fecha = moment(String(this.item.producto_fechasalida)).format('YYYY-MM-DD');
+            console.log(this.fecha);
+        },
+        // getImage(){
+        // axios.get(`http://localhost:3000/producto/${this.producto_id}/imagen`)
+        //     .then((response)=>{
+        //         this.url=response.data;
+        //         console.log(response);
+        //     })
+        // },
         onPageChange(page) {
         this.currentPage = page;
         this.listarProducto();

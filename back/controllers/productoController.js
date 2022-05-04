@@ -38,7 +38,13 @@ productoController.listar = (req,res) => {
  */
  productoController.productoPorId = (req,res) => {
     Producto.productoPorId(req, (err,resultado)=>{
-        mostrarResultados(err,resultado,res);
+        if(err){
+            res.json(err)
+        }
+        else{
+            resultado.producto_imagen = `localhost:3000/producto/${resultado.id_producto}/imagen`
+            res.json(resultado);
+        }
     });
 }
 
