@@ -15,26 +15,19 @@
                 </div>
                 <div class="card-body">
                     <h2 class="card-title mt-4 ">{{item.producto_nombre}}</h2>
-                    <div class="small text-muted mb-3">Fecha salida: {{item.producto_fechaSalida}}</div>
+                    <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
                     <p>Platatormas: {{item.producto_plataforma}}</p>
 
-                    <p class="mb-0">Etiqueta(s):</p>
-                    <div class="row">
-                        <span class="bg-secondary me-2 mt-2 rounded-pill col-2 text-center" v-for="tag in tags" :key="tag">{{tag}}</span>
+                    <div class="d-flex flex-xl-row flex-column">
+                        <span class="me-2">Etiqueta(s):</span>
+                        <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
                     </div>
                     <div class="border-bottom">
                         <h5 class="mt-4">Sinopsis</h5>
                         <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                     </div>
-
-                    <button 
-                    :class="buttonClass()" 
-                    :disabled="isButtonDisabled()"
-                    :data-trigger="buttonAttributes('hover')" :data-toggle="buttonAttributes('popover')" 
-                    :data-plecement="buttonAttributes('top')" :data-html="buttonAttributes('true')" 
-                    :data-content="buttonAttributes('Este producto no esta disponible')"
-                    >Escribir Review
-                    </button>
+                    <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-4" value="Escribir review">
+                    <input v-else type="button" disabled class="btn btn-light mt-3" value="Escribir review">
                 </div>
             </div>
         </div>
@@ -44,12 +37,12 @@
 <script>
 
 import axios from 'axios';
-//import moment from 'moment';
-
+import moment from 'moment';
+ 
 export default {
   name: 'game_info',
   components: {
-
+    
   },
     data(){
         return{
@@ -61,51 +54,28 @@ export default {
         }
     },
     mounted(){
-        this.getProducto()
-        
+        this.getProducto();
     },
     methods: {
         getProducto(){
         axios.get(`http://localhost:3000/producto/${this.producto_id}`)
             .then((response)=>{
-            this.item=response.data;
-            console.log(this.item.producto_etiqueta);
-            this.separar();
-            this.date();
+                this.item=response.data;
+                this.separar();
+                this.date();
             })
         },
         separar(){
             this.tags = this.item.producto_etiqueta.split(',');
         },
-        //date(){
-        //    this.fecha = moment(String(this.item.producto_fechasalida)).format('YYYY-MM-DD');
-        //    console.log(this.fecha);
-        //},
+        date(){
+           this.fecha = moment(this.item.producto_fechasalida).format('DD-MM-YYYY');
+        },
         onPageChange(page) {
         this.currentPage = page;
         this.listarProducto();
         },
-        isButtonDisabled(){
-            console.log(this.item.producto_disponible==0);
-            return (this.item.producto_disponible==0)
-        },
-        buttonClass(){
-            if (!this.isButtonDisabled()) {
-                return "col-2 rounded btn btn-dark";
-            }
-            else{
-                return "col-2 rounded btn btn-light";
-            }
-        },
-        buttonAttributes(text){
-
-            if (this.isButtonDisabled()) {
-                return text;
-            }
-            else{
-                return "";
-            }
-        }
+    
     },
     props:{
         producto_id: Number
