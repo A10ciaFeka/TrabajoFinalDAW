@@ -11,22 +11,21 @@
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
                 <div class="">
-                    <img class="card-img-top m-3" v-bind:src="reviews[0].Url" alt="..." />
+                    <img class="card-img-top m-3" v-bind:src="prefijo + url" alt="..." width="450" height="550"/>
                 </div>
-                
                 <div class="card-body ">
-                    <h2 class="card-title mt-4">{{reviews[0].name}}</h2>
-                    <div class="small text-muted mb-3">Fecha salida: {{reviews[0].date}}</div>
-                    <p>Platatormas: {{reviews[0].platform}}</p>
-                    <p>Disponible: {{reviews[0].disponible==true ? 'Si' : 'No'}}</p>
+                    <h2 class="card-title mt-4">{{item.producto_nombre}}</h2>
+                    <div class="small text-muted mb-3">Fecha salida: {{item.producto_fechaSalida}}</div>
+                    <p>Platatormas: {{item.producto_plataforma}}</p>
+                    <p>Disponible: {{item.producto_disponible == 1 ? 'Si' : 'No'}}</p>
 
                     <p class="mb-0">Etiqueta(s):</p>
                     <div class="row">
-                        <span class="bg-secondary me-4 mt-2 rounded-pill" v-for="tag in reviews[0].tags" :key="tag">{{tag}}</span>
+                        <span class="bg-secondary me-4 mt-2 rounded-pill col-2 text-center" v-for="tag in this.item.producto_etiqueta" :key="tag">{{tag}}</span>
                     </div>
                     
                     <h5 class="mt-4">Sinopsis</h5>
-                    <p class="card-text">{{reviews[0].text}}</p>
+                    <p class="card-text">{{item.producto_sinopsis}}</p>
                 </div>
             </div>
         </div>
@@ -35,6 +34,7 @@
 
 <script>
 
+import axios from 'axios';
 
 export default {
   name: 'game_info',
@@ -43,19 +43,37 @@ export default {
   },
     data(){
         return{
-            reviews: [
-        {
-          name: 'Elden Ring',
-          rating: 4,
-          Url: 'https://uvejuegos.com/img/caratulas/62849/Elden-Ring-portada-uvejuegos.png',
-          date: '4/3/2',
-          platform: 'PS5',
-          disponible:true,
-          tags:['Sexy','Difisi','Pegarse','Comer abuelas','ع ظ ط ض','ejemplo','relleno','AAAAAA','Placeholder'],
-          text:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!'
+            item:{},
+            prefijo: 'http://',
+            url:null
         }
-      ]
+    },
+    mounted(){
+        this.getProducto()
+        this.getImage()
+    },
+    methods: {
+        getProducto(){
+        axios.get(`http://localhost:3000/producto/${this.producto_id}`)
+            .then((response)=>{
+                
+                console.log(response.data[0]);
+            this.item=response.data[0];
+            })
+        },
+        getImage(){
+        axios.get(`http://localhost:3000/producto/${this.producto_id}/imagen`)
+            .then((response)=>{
+                this.url=response.data;
+            })
+        },
+        onPageChange(page) {
+        this.currentPage = page;
+        this.listarProducto();
         }
+    },
+    props:{
+        producto_id: Number
     }
 }
 </script>
