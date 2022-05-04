@@ -67,7 +67,9 @@ span{
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="card bg-dark">
+              <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
               <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
+              </router-link>
               <div class="card-body">
                 <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                 <div class="card-body align-self-center">
