@@ -1,11 +1,11 @@
-<style>
+<style scoped>
 .pagination {
   list-style-type: none;
 }
 .pagination-item {
   display: inline-block;
 }
-button{
+/* button{
   color: #f1f1f1;
     background: linear-gradient(#3C373D,#21262A);
     font-size: 20px;
@@ -21,11 +21,11 @@ button{
 button:hover:enabled{
   color: #fff;
   background: linear-gradient(#FA5100,#BC1F00);
-}
+}*/
 .active{
   color: #000;
-  background: #22e83a;
-}
+  background: #00ffff;
+} 
 </style>
 
 <template>
@@ -33,7 +33,7 @@ button:hover:enabled{
   <ul class="pagination justify-content-center">
     <li class="pagination-item">
       <button
-      
+        class="btn mx-2 btn-success btn-rounded"
         type="button"
         @click="onClickFirstPage"
         :disabled="isInFirstPage"
@@ -43,7 +43,7 @@ button:hover:enabled{
     </li>
 
     <li class="pagination-item">
-      <button
+      <button class="btn mx-1 btn-success btn-rounded"
         type="button"
         @click="onClickPreviousPage"
         :disabled="isInFirstPage"
@@ -59,6 +59,7 @@ button:hover:enabled{
       :key="button.name"
     >
       <button
+        class="btn mx-1 btn-success btn-rounded"
         type="button"
         @click="onClickPage(button.name)"
         :disabled="button.isDisabled"
@@ -72,6 +73,7 @@ button:hover:enabled{
 
     <li class="pagination-item">
       <button
+      class="btn mx-1 btn-success btn-rounded"
         type="button"
         @click="onClickNextPage"
         :disabled="isInLastPage"
@@ -82,6 +84,7 @@ button:hover:enabled{
 
     <li class="pagination-item">
       <button
+      class="btn mx-2 btn-success btn-rounded"
         type="button"
         @click="onClickLastPage"
         :disabled="isInLastPage"

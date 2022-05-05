@@ -1,9 +1,20 @@
 <style scoped>
-
+.card-img-top{
+    width: 350px;
+    height: 450px;
+}
+@media (max-width: 991px){
     .card-img-top{
-        width: 450px;
-        height: 550px;
+        width:250px !important;
+        height:350px !important;
     }
+}
+@media (max-width: 576px){
+    .card-img-top{
+        width:140px !important;
+        height:185px !important;
+    }
+}
 </style>
 <template>
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
@@ -18,7 +29,7 @@
                     <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
                     <p>Platatormas: {{item.producto_plataforma}}</p>
 
-                    <div class="d-flex flex-xl-row flex-column">
+                    <div class="d-flex justify-content-around">
                         <span class="me-2">Etiqueta(s):</span>
                         <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
                     </div>

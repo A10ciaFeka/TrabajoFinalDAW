@@ -5,8 +5,8 @@
 }
 
 .listausu{
-  width: 1000px;
-  height: 500px;
+  width: 1100px;
+  height: 600px;
   margin: 2em;
   overflow-y: scroll;
   scrollbar-width: thin;  
@@ -26,8 +26,8 @@
   border: 3px solid #42F3FA; 
 }
 .listaproduct{
-  width: 1000px;
-  height: 500px;
+  width: 1100px;
+  height: 600px;
   margin: 2em;
   overflow-y: scroll;
   scrollbar-width: thin;  
@@ -76,6 +76,19 @@
   display: flex;
   flex-direction: column;
   margin-left: 6em;
+
+}
+.modal{
+
+  display: block !important;
+  margin: 5rem ;
+  width: 1450px ;
+  height: 815px;
+  background-color: #FF3CAC;
+  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+
+
+  color: black !important;
 }
 /* .partir1{
   display: flex;
@@ -88,6 +101,16 @@
 </style>
 <template>
 <div>
+                                  <!-- -------- -->
+
+      <div class="modal fade show "  tabindex="-1" v-if="create">
+        <div>
+          <span>{{objeto.id_producto}}</span>
+          <span>{{objeto.producto_nombre}}</span>
+        </div>
+      </div>
+
+      <!-- -------- --> 
   <navbar_first />
   <div class="container-fluid p-0 m-0">
     <div class="row flex-nowrap">
@@ -115,7 +138,8 @@
           </ul>
         </div>
       </div>
-      <div class="partir">  
+
+      <div class="partir"> 
         <div class="partir1">
           <div class="flex" v-show="vistausu">
             <div class="listausu bg-dark text-white">
@@ -135,11 +159,19 @@
                 </li>
                 <li class="nav-item admin">
                   <span>Administrador: {{lista.usuario_administrador}}</span>
-                </li>            
+                </li>    
+                <li class="nav-item id">
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                      <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                    </svg>
+                  </span>
+                </li>       
               </ul>
             </div>
           </div>
         </div>
+
         <div class="partir2" v-show="vistaproduct">
           <div class="col" >
             <div class="listaproduct bg-dark text-white">
@@ -165,70 +197,18 @@
                 </li>
                 <li class="nav-item admin">
                   <span>Plataforma: {{producto.producto_plataforma}}</span>
-                </li>                
+                </li>   
+                <li class="nav-item id">
+                  <span class="puntero" v-on:click="modal(producto.id_producto)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                      <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                    </svg>
+                  </span>
+                </li>               
               </ul>
             </div>
           </div>
-          <div class="formulario">
-            <form>
-              <!-- 2 column grid layout with text inputs for the first and last names -->
-              <div class="row mb-4">
-                <div class="col">
-                  <div class="form-outline">
-                    <input type="text" id="form6Example1" class="form-control" />
-                    <label class="form-label" for="form6Example1">First name</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="form-outline">
-                    <input type="text" id="form6Example2" class="form-control" />
-                    <label class="form-label" for="form6Example2">Last name</label>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Text input -->
-              <div class="form-outline mb-4">
-                <input type="text" id="form6Example3" class="form-control" />
-                <label class="form-label" for="form6Example3">Company name</label>
-              </div>
-
-              <!-- Text input -->
-              <div class="form-outline mb-4">
-                <input type="text" id="form6Example4" class="form-control" />
-                <label class="form-label" for="form6Example4">Address</label>
-              </div>
-
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input type="email" id="form6Example5" class="form-control" />
-                <label class="form-label" for="form6Example5">Email</label>
-              </div>
-
-              <!-- Number input -->
-              <div class="form-outline mb-4">
-                <input type="number" id="form6Example6" class="form-control" />
-                <label class="form-label" for="form6Example6">Phone</label>
-              </div>
-
-              <!-- Message input -->
-              <div class="form-outline mb-4">
-                <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-                <label class="form-label" for="form6Example7">Additional information</label>
-              </div>
-
-              <!-- Checkbox -->
-              <div class="form-check d-flex justify-content-center mb-4">
-                <input class="form-check-input me-2" type="checkbox" value="" id="form6Example8" checked />
-                <label class="form-check-label" for="form6Example8"> Create an account? </label>
-              </div>
-
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4">Place order</button>
-            </form>
-          </div>
         </div>
-        
       </div>
     </div>
     </div>
@@ -248,7 +228,9 @@
                 listas: null,
                 productos: null,
                 vistausu: true,
-                vistaproduct: false
+                vistaproduct: false,
+                create: false,
+                objeto: null
             }
         },
         mounted () {
@@ -257,6 +239,8 @@
 
           axios.get('http://localhost:3000/producto/listar')
           .then((response) => (this.productos = response.data.resultados));
+
+          
         },
         methods:{
           cambio(value){
@@ -267,6 +251,24 @@
             else if(value == "producto"){
               this.vistausu = false;
               this.vistaproduct = true;
+            }
+          },
+          modal(valor){
+            console.log(valor);
+            if(this.create){
+              this.create = false;
+              console.log(this.create);
+            }
+            else{
+              this.create = true;
+              console.log(this.create);
+            }
+            for (let producto in this.productos) {
+              
+             if(this.productos[producto].id_producto == valor){
+               this.objeto = this.productos[producto]
+               console.log(this.objeto);
+             }
             }
           }
         }
