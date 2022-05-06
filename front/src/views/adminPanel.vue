@@ -81,13 +81,10 @@
 .modal{
 
   display: block !important;
-  margin: 5rem ;
-  width: 1450px ;
-  height: 815px;
-  background-color: #FF3CAC;
-  background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
-
-
+  /* margin: 5rem ; */
+  
+}
+.negro{
   color: black !important;
 }
 /* .partir1{
@@ -103,10 +100,38 @@
 <div>
                                   <!-- -------- -->
 
-      <div class="modal fade show "  tabindex="-1" v-if="create">
-        <div>
-          <span>{{objeto.id_producto}}</span>
-          <span>{{objeto.producto_nombre}}</span>
+      <div class="modal"  tabindex="-1" v-if="create">
+        <div  class="modal-dialog">
+          <div class="modal-content">
+            <div class="titulo">
+              <h2 class="negro text-center" >Editar</h2>
+            </div>
+            <div class="cuerpo">
+              <form action="#!">
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">NOMBRE: </label>
+                  <input class="negro" type="text" :placeholder="objeto.producto_nombre">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">FECHA SALIDA: </label>
+                  <input class="negro" type="date" :placeholder="objeto.producto_fechaSalida">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">DISPONIBILIDAD: </label>
+                  <input class="negro" type="text" :placeholder="objeto.producto_nombre">
+                </div>
+              </form>
+              <span class="negro">{{objeto.id_producto}}</span>
+              <span class="negro">{{objeto.producto_nombre}}</span>
+            </div>
+            <div class="mb-3 p-1">
+              <label class="negro" for="">RESEÑA: </label>
+              <input class="negro" type="text" :placeholder="objeto.producto_sinopsis">
+            </div>
+            <div class="final">
+              <button class="btn mx-1  btn-dark btn-rounded" v-on:click="modal()">SALIR</button>
+            </div>
+          </div>
         </div>
       </div>
 
