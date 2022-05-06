@@ -9,6 +9,9 @@
   overflow: hidden !important;
   max-width: 150px !important;
 }
+.routerstyle{
+  text-decoration: none;
+}
 .row {
   margin-top: 1em;
     --bs-gutter-x: 0rem;
@@ -59,6 +62,9 @@ span{
   text-overflow: ellipsis;
   max-width: 200px !important;
 }
+@media (max-width: 1100px){
+
+}
 </style>
 <template>
     <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
@@ -67,11 +73,11 @@ span{
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="card bg-dark">
-              <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+              <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
               <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
               </router-link>
               <div class="card-body">
-                <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                   <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                 </router-link>
                 <div class="card-body align-self-center">

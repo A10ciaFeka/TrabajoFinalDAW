@@ -13,12 +13,19 @@
 .derecha{
   width: 30%;
 }
-@media (max-width: 576px){
+/* @media (max-width: 576px){
+.contenedor{
+  display:flex;
+  justify-content: space-between;
+  flex-direction: column;
+} */
+@media (max-width: 1100px){
 .contenedor{
   display:flex;
   justify-content: space-between;
   flex-direction: column;
 }
+
 .izquierda{
   width: 100%;
 }
