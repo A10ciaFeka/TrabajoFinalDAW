@@ -82,6 +82,7 @@
 
   display: block !important;
   /* margin: 5rem ; */
+  background: rgba(125, 125, 125, .8) 
   
 }
 .negro{
@@ -95,6 +96,9 @@
   display: flex;
   justify-content: center;
 } */
+label{
+  width: 115px;
+}
 </style>
 <template>
 <div>
@@ -117,19 +121,35 @@
                   <input class="negro" type="date" :placeholder="objeto.producto_fechaSalida">
                 </div>
                 <div class="mb-3 p-1">
-                  <label class="negro" for="">DISPONIBILIDAD: </label>
+                  <label class="negro" for="">SINOPSIS: </label>
                   <input class="negro" type="text" :placeholder="objeto.producto_nombre">
                 </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">RESEÑA: </label>
+                  <input class="negro" type="text" :placeholder="objeto.producto_sinopsis">
+                </div>
+                <div class="mb-3 p-1 negro" >
+                  <label class="negro" for="">Disponibilidad: {{objeto.producto_disponible}} </label>
+                  <select class="negro" v-model="selected">
+                    <option class="negro" disabled value="">{{objeto.producto_disponible}}</option>
+                    <option class="negro">1</option>
+                    <option class="negro">0</option>
+                  </select>
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">Plataformas: </label>
+                  <input class="negro" type="text" :placeholder="objeto.producto_plataforma">
+                </div>
               </form>
-              <span class="negro">{{objeto.id_producto}}</span>
-              <span class="negro">{{objeto.producto_nombre}}</span>
             </div>
-            <div class="mb-3 p-1">
-              <label class="negro" for="">RESEÑA: </label>
-              <input class="negro" type="text" :placeholder="objeto.producto_sinopsis">
-            </div>
-            <div class="final">
-              <button class="btn mx-1  btn-dark btn-rounded" v-on:click="modal()">SALIR</button>
+
+            <div class="final d-flex">
+              <div>
+                <button class="btn mx-1  btn-danger " v-on:click="modal()">X</button>
+              </div>
+              <div>
+                <button type="submit" class="btn mx-1  btn-success" v-on:click="modal()">ACTUALIZAR</button>
+              </div>
             </div>
           </div>
         </div>
