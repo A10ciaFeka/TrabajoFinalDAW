@@ -106,51 +106,48 @@ label{
 
       <div class="modal"  tabindex="-1" v-if="create">
         <div  class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content p-4">
             <div class="titulo">
               <h2 class="negro text-center" >Editar</h2>
             </div>
             <div class="cuerpo">
-              <form action="#!">
+              <form @submit="onSubmit">
                 <div class="mb-3 p-1">
-                  <label class="negro" for="">NOMBRE: </label>
-                  <input class="negro" type="text" :placeholder="objeto.producto_nombre">
+                  <label class="negro" for="nombre">NOMBRE: </label>
+                  <input class="negro" name="nombre" v-model="nombre" type="text" :placeholder="objeto.producto_nombre">
                 </div>
                 <div class="mb-3 p-1">
-                  <label class="negro" for="">FECHA SALIDA: </label>
-                  <input class="negro" type="date" :placeholder="objeto.producto_fechaSalida">
+                  <label class="negro" for="fecha_salida">FECHA SALIDA: </label>
+                  <input class="negro" type="date" name="fecha_salida" v-model="fecha_salida">
                 </div>
                 <div class="mb-3 p-1">
-                  <label class="negro" for="">SINOPSIS: </label>
-                  <input class="negro" type="text" :placeholder="objeto.producto_nombre">
-                </div>
-                <div class="mb-3 p-1">
-                  <label class="negro" for="">RESEÑA: </label>
-                  <input class="negro" type="text" :placeholder="objeto.producto_sinopsis">
+                  <label class="negro" for="sinopsis">SINOPSIS: </label>
+                  <textarea name="sinopsis" class="negro" cols="40" rows="5" v-model="sinopsis"></textarea>
                 </div>
                 <div class="mb-3 p-1 negro" >
-                  <label class="negro" for="">Disponibilidad: {{objeto.producto_disponible}} </label>
+                  <label class="negro" for="">Disponibilidad: </label>
                   <select class="negro" v-model="selected">
-                    <option class="negro" disabled value="">{{objeto.producto_disponible}}</option>
-                    <option class="negro">1</option>
-                    <option class="negro">0</option>
+                    <option class="negro" value="1">Si</option>
+                    <option class="negro" value="0">No</option>
                   </select>
                 </div>
                 <div class="mb-3 p-1">
                   <label class="negro" for="">Plataformas: </label>
-                  <input class="negro" type="text" :placeholder="objeto.producto_plataforma">
+                  <input class="negro" type="text" v-model="plataforma" :placeholder="objeto.producto_plataforma">
+                </div>
+                <div class="final d-flex">
+                  <div>
+                    <input type="submit" class="btn mx-1  btn-success" value="Actualizar">
+                  </div>
+                  <div>
+                    <button class="btn mx-1  btn-danger " @click="modal()">X</button>
+                  </div>
+                  
                 </div>
               </form>
             </div>
 
-            <div class="final d-flex">
-              <div>
-                <button class="btn mx-1  btn-danger " v-on:click="modal()">X</button>
-              </div>
-              <div>
-                <button type="submit" class="btn mx-1  btn-success" v-on:click="modal()">ACTUALIZAR</button>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -272,10 +269,15 @@ label{
             return{
                 listas: null,
                 productos: null,
-                vistausu: true,
-                vistaproduct: false,
+                vistausu: false,
+                vistaproduct: true,
                 create: false,
-                objeto: null
+                objeto: null,
+                nombre: null,
+                sinopsis: null,
+                selected: null,
+                plataforma: null,
+                fecha_salida: null
             }
         },
         mounted () {
@@ -312,9 +314,28 @@ label{
               
              if(this.productos[producto].id_producto == valor){
                this.objeto = this.productos[producto]
-               console.log(this.objeto);
              }
             }
+          },
+
+          onSubmit(e){
+            e.preventDefault();
+          
+            let updatedProducto = {
+              "producto_nombre": this.nombre==undefined || this.nombre=='' ? this.objeto.producto_nombre : this.nombre,
+              "producto_sinopsis": this.sinopsis==undefined || this.sinopsis=='' ? this.objeto.producto_sinopsis : this.sinopsis,
+              "producto_disponible": this.selected==undefined || this.selected=='' ? this.objeto.producto_disponible : this.selected,
+              "producto_fechaSalida": this.fecha_salida==undefined || this.fecha_salida=='' ? this.objeto.producto_fechaSalida : this.fecha_salida,
+              "producto_numResenas": this.objeto.producto_numResenas,
+              "producto_notaMedia": this.objeto.producto_puntuacionMedia,
+              "producto_plataforma": this.plataforma==undefined || this.plataforma=='' ? this.objeto.producto_plataforma : this.plataforma
+            }
+            axios.put(`http://localhost:3000/producto/${this.objeto.id_producto}/editar`, updatedProducto)
+              .then((response)=>{
+                console.log(response.data)
+                this.$router.go();
+              });
+            
           }
         }
   }

@@ -124,23 +124,25 @@ const Producto = {
 
     editarProducto: (req, callback) => {
         
-        const id_producto = req.params;
+        const id_producto = req.params.id_producto;
 
         const {
             producto_nombre,
             producto_sinopsis,
             producto_disponible,
+            producto_fechaSalida,
             producto_numResenas,
             producto_notaMedia,
             producto_plataforma} = req.body;
 
-        const sql = `UPDATE product 
+        const sql = `UPDATE producto 
                         SET producto_nombre = '${producto_nombre}',
-                        producto_sinopsis = '${producto_sinopsis}',
-                        producto_disponible = ${producto_disponible},
-                        producto_numResenas = ${producto_numResenas}',
-                        producto_notaMedia = ${producto_notaMedia},
-                        producto_plataforma = '${producto_plataforma}'
+                            producto_sinopsis = '${producto_sinopsis}',
+                            producto_disponible = ${producto_disponible},
+                            producto_fechaSalida = '${producto_fechaSalida}',
+                            producto_numResenas = ${producto_numResenas},
+                            producto_puntuacionMedia = ${producto_notaMedia},
+                            producto_plataforma = '${producto_plataforma}'
                         WHERE id_producto=${id_producto}`;
 
         req.getConnection((err,conn) => {
