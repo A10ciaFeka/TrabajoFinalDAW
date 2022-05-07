@@ -142,8 +142,8 @@ const Usuario = {
     editarUsuario: (req,callback) => {
     
         // cambio_apodo boolean para controlar si el usuario cambia o no de apodo, para que sea comprobado.
+        const id_usuario = req.params.id_usuario;
         const {
-            id_usuario,
             usuario_apodo,
             usuario_contrasena,
             usuario_email,

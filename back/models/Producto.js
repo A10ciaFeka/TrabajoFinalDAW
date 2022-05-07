@@ -95,17 +95,20 @@ const Producto = {
             producto_sinopsis,
             producto_fechaSalida,
             producto_disponible,
-            producto_plataforma} = req.body;
+            producto_plataforma,
+            producto_etiqueta} = req.body;
 
         const sql = `INSERT INTO producto VALUES (
                         '',
                         '${producto_nombre}',
                         '${producto_sinopsis}',
                         '${producto_fechaSalida}',
-                        '${producto_disponible}',
+                        ${producto_disponible},
                         '0',
                         '0.0',
-                        '${producto_plataforma}','')`;
+                        '${producto_plataforma}',
+                        '',
+                        '${producto_etiqueta}')`;
 
         req.getConnection((err,conn) => {
             
