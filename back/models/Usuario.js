@@ -193,8 +193,7 @@ const Usuario = {
     },
 
     login: (req, callback)=>{
-        const {usuario_apodo,usuario_contrasena} = req.body;
-
+        const {usuario_apodo,usuario_contrasena} = req.params;
         req.getConnection((err,conn)=>{
             if(err){
                 return callback(err);
@@ -213,7 +212,6 @@ const Usuario = {
                                 if(err){
                                     return callback(err);
                                 }else{
-                                    console.log(usuario[0].usuario_contrasena);
                                     if(passwordValidator.comparePassword(usuario_contrasena,usuario[0].usuario_contrasena)){
                                         return callback(null,usuario[0]);
                                     }else{

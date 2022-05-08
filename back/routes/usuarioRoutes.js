@@ -14,7 +14,7 @@ router.get('/:id_usuario', usuarioController.usuarioById);
 router.get('/:id_usuario/foto', usuarioController.fotoPerfilPorId);
 router.get('/apodo/:usuario_apodo', usuarioController.usuarioPorApodo);
 router.get('/:id_usuario/amigos', usuarioController.listarAmigos);
-router.get('/inicio/sesion', usuarioController.login);
+router.get('/login/:usuario_apodo/:usuario_password', usuarioController.login);
 
 /**
  * 

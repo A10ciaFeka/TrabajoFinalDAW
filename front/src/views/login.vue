@@ -126,23 +126,20 @@ export default {
         },
         methods:{
             login(){
-                let json ={
-                    "usuario_apodo" : this.usuario_apodo,
-                    "usuario_contrasena" : this.usuario_contrasena
-                };
-                axios.get('http://localhost:3000/usuario/inicio/sesion',json)
-                .then( response => {
-                    console.log(response);
-                    if(response.data.statusText == 'OK'){
-                        console.log("Entra");
-                        localStorage.token = response.data.result.token;
-                        this.$router.push('home');
-                    }
-                    else{
-                        console.log("Falla")
-                        this.error = true;
-                    }
-                })
+                axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
+                    .then((response) => {
+                        console.log(response);
+                        if(!response.data.Error){
+                            console.log("Entra");
+                            localStorage.token = response.data.token;
+                            this.$router.push('/');
+                        }
+                        else{
+                            console.log("Falla")
+                            alert('oye muchacho')
+                            this.error = true;
+                        }
+                    })
             }
         }  
 }
