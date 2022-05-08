@@ -120,8 +120,8 @@ export default {
         data(){
             return{
                 error: false,
-                usuario_apodo: '',
-                usuario_contrasena: '',
+                usuario_apodo: null,
+                usuario_contrasena: null,
             }
         },
         methods:{

@@ -153,6 +153,63 @@ label{
       </div>
 
       <!-- -------- --> 
+      <div class="modal"  tabindex="-1" v-if="aniadir">
+        <div  class="modal-dialog">
+          <div class="modal-content p-4">
+            <div class="titulo">
+              <h2 class="negro text-center" >CREAR</h2>
+            </div>
+            <div class="cuerpo">
+              <form @submit="enviar">
+                <div class="mb-3 p-1">
+                  <label class="negro" for="nombre">Nombre: </label>
+                  <input class="negro" name="nombre" v-model="nombre" type="text">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="fecha_salida">Fecha salida: </label>
+                  <input class="negro" type="date" name="fecha_salida" v-model="fecha_salida">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="sinopsis">Sinopsis: </label>
+                  <textarea name="sinopsis" class="negro" cols="50" rows="3" v-model="sinopsis"></textarea>
+                </div>
+                <div class="mb-3 p-1 negro" >
+                  <label class="negro" for="">Disponibilidad: </label>
+                  <select class="negro" v-model="selected">
+                    <option class="negro" value="1">Si</option>
+                    <option class="negro" value="0">No</option>
+                  </select>
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">Plataformas: </label>
+                  <input class="negro" type="text" v-model="plataforma">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="nombre">Etiqueta: </label>
+                  <input class="negro" name="nombre" v-model="etiqueta" type="text">
+                </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">Imagen: </label>
+                  <input type="file" accept="image/*" max-file-size="1024" name="filename">
+                </div>
+                <div class="final d-flex">
+                  <div>
+                    <input type="submit" class="btn mx-1  btn-success" value="Actualizar">
+                  </div>
+                  <div>
+                    <button class="btn mx-1  btn-danger " @click="crear()">X</button>
+                  </div>               
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- -------- --> 
+
+
+
   <navbar_first />
   <div class="container-fluid p-0 m-0">
     <div class="row flex-nowrap">
@@ -249,7 +306,9 @@ label{
                 </li>               
               </ul>
             </div>
+            <button class="btn mx-1  btn-dark" v-on:click="crear()">AÑADIR</button>
           </div>
+
         </div>
       </div>
     </div>
@@ -272,12 +331,14 @@ label{
                 vistausu: false,
                 vistaproduct: true,
                 create: false,
+                aniadir: false,
                 objeto: null,
                 nombre: null,
                 sinopsis: null,
                 selected: null,
                 plataforma: null,
-                fecha_salida: null
+                fecha_salida: null,
+                etiqueta:null
             }
         },
         mounted () {
@@ -336,7 +397,36 @@ label{
                 this.$router.go();
               });
             
+          },
+          crear(){
+            if(this.aniadir){
+              this.aniadir = false;
+              console.log(this.aniadir);
+            }
+            else{
+              this.aniadir = true;
+              console.log(this.aniadir);
+            }
           }
+        },
+        enviar(e){
+          e.preventDefault();
+
+          let crearProducto = {
+
+            "producto_nombre": this.nombre,
+            "producto_sinopsis":  this.sinopsis,
+            "producto_fechaSalida":  this.fecha_salida,
+            "producto_disponible":  this.selected,
+            "producto_plataforma": this.plataforma,
+            "producto_etiqueta":  this.etiqueta 
+          };
+          axios.put(`http://localhost:3000/producto/crearProducto`, crearProducto)
+          .then((response)=>{
+            console.log(response.data)
+            this.$router.go();
+          });
+          console.log(crearProducto);
         }
   }
 </script>

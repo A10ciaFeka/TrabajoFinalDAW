@@ -97,11 +97,11 @@ p {
         <form v-on:submit.prevent="register">
             <div class="inputBox"> 
                 <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
-                <input id="pass" type="password" v-model="usuario_email" placeholder="Email"> 
+                <input id="pass" type="text" v-model="usuario_email" placeholder="Email"> 
             </div> 
             <div class="inputBox"> 
-                <input id="name" type="text" v-model="usuario_contrasena" placeholder="Contraseña"> 
-                <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña"> 
+                <input  type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
+                <!-- <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña">  -->
             </div> 
             <input type="submit" name="" value="Registrarse">
         </form>
@@ -112,7 +112,7 @@ p {
      
 </template>
 <script>
-
+    import axios from 'axios';
 export default {
     name: 'register-firts',
     components: {
@@ -122,7 +122,30 @@ export default {
                 error: false,
                 usuario_apodo: '',
                 usuario_contrasena: '',
+                usuario_email: ''
             }
-        }
+        },
+        methods:{
+            register(){
+                let json ={
+                    "usuario_apodo" : this.usuario_apodo,
+                    "usuario_contrasena" : this.usuario_contrasena,
+                    "usuario_email" : this.usuario_email
+                };
+                axios.post('http://localhost:3000/usuario/crear',json)
+                .then( response => {
+                    console.log(response);
+                    if(response.data.statusText == 'OK'){
+                        console.log("Entra");
+                        localStorage.token = response.data.result.token;
+                        this.$router.push('home');
+                    }
+                    else{
+                        console.log("Falla")
+                        this.error = true;
+                    }
+                })
+            }
+        } 
 }
 </script>
