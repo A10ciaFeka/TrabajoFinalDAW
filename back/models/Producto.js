@@ -1,3 +1,5 @@
+const { log } = require('console');
+var fs = require('fs');
 
 const Producto = {
 
@@ -107,7 +109,7 @@ const Producto = {
                         '0',
                         '0.0',
                         '${producto_plataforma}',
-                        '',
+                         '',
                         '${producto_etiqueta}')`;
 
         req.getConnection((err,conn) => {
@@ -115,7 +117,7 @@ const Producto = {
             if(err) {
                 return callback(err);
             } else {
-
+                
                 conn.query(sql, (err,resultado)=>{
                     return callback(err,resultado);
 
