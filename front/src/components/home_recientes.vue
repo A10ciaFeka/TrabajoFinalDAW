@@ -74,7 +74,7 @@ span{
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="card bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-              <img v-bind:src="prefijo + producto.producto_imagen" class="card-img-top" alt="" width="200" height="255"/>
+                <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt="" width="200" height="255"/>
               </router-link>
               <div class="card-body">
                 <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
@@ -104,17 +104,17 @@ span{
     },
     data(){
       return{
-        prefijo: 'http://',
         productos: null
       }
     },
     mounted () {
-      axios.get('http://localhost:3000/producto/listar/6')
-        .then((response) => (this.productos = response.data.resultados));
+      axios.get('http://localhost:3000/producto/listar')
+        .then((response) => {
+            this.productos = response.data.resultados;
+            console.log(this.productos);
+        });
 
-        console.log(      axios.get('http://localhost:3000/producto/listar/6')
-);
-    }
+    },
   }
     
   

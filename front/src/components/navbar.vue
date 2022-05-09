@@ -18,7 +18,7 @@
       <!-- Brand -->
       <router-link class="navbar-brand me-2 mb-1 d-flex align-items-center" to="/">
         <img
-          src="../assets/img/logo.png"
+          src="..\assets\img\logo.png"
           height="25"
           loading="lazy"
           style="margin-top: 2px;"

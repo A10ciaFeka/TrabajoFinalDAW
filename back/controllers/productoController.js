@@ -18,14 +18,7 @@ mostrarResultados = (err,resultado,res)=>{
  */
 productoController.listar = (req,res) => {
     Producto.listarProductos(req,(err,resultado)=>{
-        if(err) {
-            res.json(err);
-        }else {
-            for (const key in resultado.resultados) {
-                resultado.resultados[key].producto_imagen = `localhost:3000/producto/${resultado.resultados[key].id_producto}/imagen`;
-            }
-            res.json(resultado);
-        }
+        mostrarResultados(err,resultado,res);
     });
 }
 
@@ -37,35 +30,7 @@ productoController.listar = (req,res) => {
  */
  productoController.productoPorId = (req,res) => {
     Producto.productoPorId(req, (err,resultado)=>{
-        if(err){
-            res.json(err)
-        }
-        else{
-            resultado.producto_imagen = `localhost:3000/producto/${resultado.id_producto}/imagen`
-            res.json(resultado);
-        }
-    });
-}
-
-/**
- * Obtener la imagen de un producto servida para el navegador
- * 
- * @param {*} req 
- * @param {*} res 
- */
-productoController.productoImagenPorId = (req,res) => {
-    Producto.productoImagenPorId(req, (err,resultado)=>{
-
-        if(err){
-            res.json(err);
-        }else{
-            const file = Buffer.from(resultado,'binary');
-            res.writeHead(200,{
-                'Content-Type': 'image/jpeg',
-                'Content-Length': file.length
-            });
-            res.end(file);
-        }
+        mostrarResultados(err,resultado,res);
     });
 }
 

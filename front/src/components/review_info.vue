@@ -22,7 +22,9 @@
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
                 <div class="">
-                    <img class="card-img-top m-3" v-bind:src="prefijo + item.producto_imagen" alt="..." width="450" height="550"/>
+
+                    <img :src="`productos/${item.producto_imagen}`" class="card-img-top" alt="" width="450" height="555"/>
+
                 </div>
                 <div class="card-body">
                     <h2 class="card-title mt-4 ">{{item.producto_nombre}}</h2>
@@ -61,7 +63,7 @@ export default {
             prefijo: 'http://',
             url:null,
             tags:{},
-            fecha: null
+            fecha: null,
         }
     },
     mounted(){
@@ -82,9 +84,13 @@ export default {
         date(){
            this.fecha = moment(this.item.producto_fechasalida).format('DD-MM-YYYY');
         },
+        montarUrl(imagen){
+            console.log(imagen);
+            
+        },
         onPageChange(page) {
-        this.currentPage = page;
-        this.listarProducto();
+            this.currentPage = page;
+            this.listarProducto();
         },
     
     },

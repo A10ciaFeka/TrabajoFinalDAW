@@ -4,9 +4,7 @@ var fs = require('fs');
 const Producto = {
 
     listarProductos: (req, callback) => {
-        let sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta
-                        FROM producto
-                        ORDER BY producto_fechaSalida DESC`;
+        let sql = `SELECT * FROM producto ORDER BY producto_fechaSalida DESC`;
         
         const  sqlCount = `SELECT count(*) AS total FROM producto`
         if(req.params.num_productos){
@@ -37,27 +35,9 @@ const Producto = {
         });
     },
 
-    productoImagenPorId: (req, callback) => {
-        const id_producto = req.params.id_producto;
-        const sql = 'SELECT producto_imagen FROM producto WHERE id_producto='+id_producto;
-
-        req.getConnection((err,conn)=>{
-            
-            if(err){
-                return callback(err);
-            }else{
-                conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado[0].producto_imagen);
-
-                });
-            }
-            
-        });
-    },
 
     productoPorId: (req, callback) => {
-        const id_producto = req.params.id_producto;
-        const sql = 'SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta FROM producto WHERE id_producto='+id_producto;
+        const sql = 'SELECT * FROM producto WHERE id_producto='+req.params.id_producto;
 
         req.getConnection((err,conn)=>{
             
@@ -75,7 +55,7 @@ const Producto = {
 
     productoPorNombre: (req, callback) => {
         console.log(req.params.producto_nombre);
-        const sql = `SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta FROM producto WHERE producto_nombre='${req.params.producto_nombre}'`;
+        const sql = `SELECT * FROM producto WHERE producto_nombre='${req.params.producto_nombre}'`;
 
         req.getConnection((err,conn)=>{
             
@@ -98,6 +78,7 @@ const Producto = {
             producto_fechaSalida,
             producto_disponible,
             producto_plataforma,
+            producto_imagen,
             producto_etiqueta} = req.body;
 
         const sql = `INSERT INTO producto VALUES (
@@ -107,9 +88,8 @@ const Producto = {
                         '${producto_fechaSalida}',
                         ${producto_disponible},
                         '0',
-                        '0.0',
                         '${producto_plataforma}',
-                         '',
+                        '${producto_imagen}',
                         '${producto_etiqueta}')`;
 
         req.getConnection((err,conn) => {
@@ -167,7 +147,7 @@ const Producto = {
     sumarNumeroReview: (req,id_producto,callback) => {
         
 
-        const sql = 'SELECT id_producto, producto_nombre, producto_sinopsis, producto_fechaSalida, producto_disponible, producto_numResenas, producto_puntuacionMedia, producto_plataforma, producto_etiqueta FROM producto WHERE id_producto='+id_producto;
+        const sql = 'SELECT * FROM producto WHERE id_producto='+id_producto;
 
         req.getConnection((err,conn)=>{
             

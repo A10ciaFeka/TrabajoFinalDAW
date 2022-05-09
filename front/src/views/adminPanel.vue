@@ -190,7 +190,7 @@ label{
                 </div>
                 <div class="mb-3 p-1">
                   <label class="negro" for="">Imagen: </label>
-                  <input type="file" accept="image/*" max-file-size="2048" @change="onFileSelected" name="filename">
+                  <input type="file" accept="image/*" max-file-size="2048" @change="cogerImagen" name="filename">
                 </div>
                 <div class="final d-flex">
                   <div>
@@ -339,7 +339,7 @@ label{
                 plataforma: null,
                 fecha_salida: null,
                 etiqueta:null,
-                selectedFile: null
+                imagen: null
             }
         },
         mounted () {
@@ -417,6 +417,7 @@ label{
               "producto_fechaSalida":  this.fecha_salida,
               "producto_disponible":  this.selected,
               "producto_plataforma": this.plataforma,
+              "producto_imagen": this.imagen,
               "producto_etiqueta":  this.etiqueta 
             };
             axios.post(`http://localhost:3000/producto/crear`, crearProducto)
@@ -428,6 +429,9 @@ label{
               console.log(error);
             });
             console.log(crearProducto);
+          },
+          cogerImagen(e){
+            this.imagen = e.target.files[0].name;
           }
         }
         
