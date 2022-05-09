@@ -38,36 +38,10 @@ usuarioController.listar = (req,res) => {
         if(err){
             res.json(err);
         } else {
-            for (const key in resultado) {
-                resultado[key].usuario_fotoPerfil = `localhost:3000/usuario/${resultado[key].id_usuario}/foto`;
-            }
             res.json(resultado);
         }
     });
 };
-
-/**
- * Obtener la foto de un usuario por su id.
- * 
- * @param {*} req 
- * @param {*} res 
- */
-usuarioController.fotoPerfilPorId = (req,res) => {
-    
-    Usuario.fotoPerfilPorId(req, (err, resultado)=>{
-        if(err){
-            res.json(err);
-        }else{
-            const file = Buffer.from(resultado,'binary'); 
-            res.writeHead(200,{
-                'Content-Type': 'image/jpeg',
-                'Content-Length': file.length
-            });
-            
-            res.end(file);
-        }
-    })
-}
 
 /**
  * Obtener un usuario por su id
@@ -81,9 +55,7 @@ usuarioController.usuarioById = (req,res) => {
         if(err){
             res.json(err);
         }else{
-            // Metemos la foto
-            resultado.usuario_fotoPerfil = `localhost:3000/usuario/${resultado.id_usuario}/foto`;
-            res.json(resultado);
+            res.json(resultado.pop());
         }
     })
 }
@@ -101,7 +73,6 @@ usuarioController.usuarioPorApodo = (req,res) => {
             res.json(err);
         }else{
             // Metemos la foto
-            resultado.usuario_fotoPerfil = `localhost:3000/usuario/${resultado.id_usuario}/foto`;
             res.json(resultado);
         }
     });

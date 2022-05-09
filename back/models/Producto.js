@@ -87,7 +87,7 @@ const Producto = {
                         '${producto_sinopsis}',
                         '${producto_fechaSalida}',
                         ${producto_disponible},
-                        '0',
+                        '0.0',
                         '${producto_plataforma}',
                         '${producto_imagen}',
                         '${producto_etiqueta}')`;
@@ -116,8 +116,8 @@ const Producto = {
             producto_sinopsis,
             producto_disponible,
             producto_fechaSalida,
-            producto_numResenas,
-            producto_notaMedia,
+            producto_puntuacionMedia,
+            producto_imagen,
             producto_plataforma} = req.body;
 
         const sql = `UPDATE producto 
@@ -125,8 +125,8 @@ const Producto = {
                             producto_sinopsis = '${producto_sinopsis}',
                             producto_disponible = ${producto_disponible},
                             producto_fechaSalida = '${producto_fechaSalida}',
-                            producto_numResenas = ${producto_numResenas},
-                            producto_puntuacionMedia = ${producto_notaMedia},
+                            producto_puntuacionMedia = ${producto_puntuacionMedia},
+                            producto_imagen = '${producto_imagen}',
                             producto_plataforma = '${producto_plataforma}'
                         WHERE id_producto=${id_producto}`;
 

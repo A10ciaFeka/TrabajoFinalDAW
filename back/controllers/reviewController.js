@@ -24,6 +24,18 @@ reviewController.reviewPorUsuario = (req,res) => {
     });
 };
 
+/**
+ * Obtener las reviews de un producto
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+reviewController.reviewPorProducto =  (req,res) => { 
+    
+    Review.reviewPorProducto(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    });
+};
 
 /**
  * Obtener la review de un producto específico y de un usuario específico
@@ -60,15 +72,8 @@ reviewController.getUltimasReviews = (req,res) => {
  * @param {*} res 
  */
 reviewController.crearReview = (req, res) => {
-   
     Review.crearReview(req, (err,review)=>{
-        if(err) {
-            res.json(err);
-        } else {
-            Producto.sumarNumeroReview(req,parseInt(review.id_producto),(err, resultado)=>{
-                mostrarResultados(err,resultado,res);
-            });
-        }
+        mostrarResultados(err,review,res);
     })
 }
 

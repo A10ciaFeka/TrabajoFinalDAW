@@ -135,6 +135,10 @@ label{
                   <label class="negro" for="">Plataformas: </label>
                   <input class="negro" type="text" v-model="plataforma" :placeholder="objeto.producto_plataforma">
                 </div>
+                <div class="mb-3 p-1">
+                  <label class="negro" for="">Imagen: </label>
+                  <input type="file" accept="image/*" max-file-size="2048" @change="cogerImagen" name="filename">
+                </div>
                 <div class="final d-flex">
                   <div>
                     <input type="submit" class="btn mx-1  btn-success" value="Actualizar">
@@ -382,14 +386,13 @@ label{
 
           onSubmit(e){
             e.preventDefault();
-            console.log('hola');
             let updatedProducto = {
               "producto_nombre": this.nombre==undefined || this.nombre=='' ? this.objeto.producto_nombre : this.nombre,
               "producto_sinopsis": this.sinopsis==undefined || this.sinopsis=='' ? this.objeto.producto_sinopsis : this.sinopsis,
               "producto_disponible": this.selected==undefined || this.selected=='' ? this.objeto.producto_disponible : this.selected,
               "producto_fechaSalida": this.fecha_salida==undefined || this.fecha_salida=='' ? this.objeto.producto_fechaSalida : this.fecha_salida,
-              "producto_numResenas": this.objeto.producto_numResenas,
-              "producto_notaMedia": this.objeto.producto_puntuacionMedia,
+              "producto_puntuacionMedia": this.objeto.producto_puntuacionMedia,
+              "producto_imagen": this.imagen==undefined ? this.objeto.producto_imagen : this.imagen,
               "producto_plataforma": this.plataforma==undefined || this.plataforma=='' ? this.objeto.producto_plataforma : this.plataforma
             }
             axios.put(`http://localhost:3000/producto/${this.objeto.id_producto}/editar`, updatedProducto)
