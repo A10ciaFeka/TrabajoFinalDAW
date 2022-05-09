@@ -44,32 +44,14 @@ export default {
   },
   setup() {
     const store = useStore()
-    // store.commit('USER', "Manolo")
-    // console.log(store.getters.user);
+    store.commit('USER', "Manolo")
+    console.log(store.getters.user);
   },
   components: {
 
   },
   methods:{
-    getuserinfo(e){
-      
-      axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
-      .then( response => {
-
-      console.log(response);
-
-      if(!response.data.Error){
-          console.log("Entra");
-          localStorage.token = response.data.token;
-          this.$router.push('/');
-      }
-      else{
-          console.log("Falla")
-          alert('oye muchacho')
-          this.error = true;
-      }
-      })
-    }
+    
   }
 }
 </script>
