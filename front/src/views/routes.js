@@ -5,6 +5,7 @@ import Login from '@/views/login.vue'
 import Register from '@/views/register.vue'
 import AdminPanel from '@/views/adminPanel.vue'
 import review from '@/views/review.vue'
+import profile from '@/views/profile.vue'
 
 const routes = [
     {
@@ -36,6 +37,12 @@ const routes = [
         path: '/producto',
         name: 'Review',
         component: review
+    }
+    ,
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: profile
     }
 ]
 

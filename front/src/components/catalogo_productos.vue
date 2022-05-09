@@ -62,10 +62,14 @@ span{
 .router-link{
   text-decoration: none;
 }
+.bajar{
+  min-height: 950px;
+  max-height: 1100px;
+}
 </style>
 
 <template>
-  <div class="overflow-auto text-center">
+  <div class="overflow-auto text-center bajar">
     <div class="container pt-3">
       
       <div class="row">

@@ -15,10 +15,90 @@
         height:185px !important;
     }
 }
+.modal{
+
+  display: block !important;
+  /* margin: 5rem ; */
+  background: rgba(125, 125, 125, .8) 
+  
+}
+p {
+  text-align: left;
+}
+
+#form label {
+  font-size: 20px;
+}
+
+.clasificacion input[type="radio"] {
+  display: none;
+}
+
+.clasificacion label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.clasificacion label:hover,
+.clasificacion label:hover ~ label {
+  color: orange;
+}
+
+.clasificacion input[type="radio"]:checked ~ label {
+  color: orange;
+}
+
 </style>
 <template>
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
-    <div class="container">
+    <div>
+        <div class="modal"  tabindex="-1" v-if="escribir">
+        <div  class="modal-dialog">
+          <div class="modal-content bg-dark p-4">
+            <div class="titulo">
+              <h2 class="negro text-center" >Review</h2>
+            </div>
+            <div class="cuerpo">
+              <form @submit="enviar">
+                <div class="d-flex">
+                    <span>Puntuación: </span>
+                    <p class="clasificacion mx-2">
+                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                        --><label for="radio1">★</label><!--
+                        --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                        --><label for="radio2">★</label><!--
+                        --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                        --><label for="radio3">★</label><!--
+                        --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                        --><label for="radio4">★</label><!--
+                        --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                        --><label for="radio5">★</label>
+                    </p>
+                </div>
+                <div class="form-outline form-white">
+                    <label class="form-label" for="textAreaExample">Review</label>
+                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                    
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <div>
+                        <button class="btn mx-1  btn-danger " @click="crear()">Cancelar</button>
+                    </div>
+                    <div>
+                        <input type="submit" class="btn mx-1  btn-success" value="Guardar">
+                    </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
                 <div class="">
@@ -38,11 +118,13 @@
                         <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                     </div>
                     <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-4" value="Escribir review">
-                    <input v-else type="button" disabled class="btn btn-light mt-3" value="Escribir review">
+                    <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" @click="crear()">
                 </div>
             </div>
         </div>
     </div>
+    </div>
+    
 </template>
 
 <script>
@@ -61,7 +143,8 @@ export default {
             prefijo: 'http://',
             url:null,
             tags:{},
-            fecha: null
+            fecha: null,
+            escribir: false
         }
     },
     mounted(){
@@ -86,6 +169,16 @@ export default {
         this.currentPage = page;
         this.listarProducto();
         },
+        crear(){
+            if(this.escribir){
+              this.escribir = false;
+              console.log(this.escribir);
+            }
+            else{
+              this.escribir = true;
+              console.log(this.escribir);
+            }
+        }
     
     },
     props:{
