@@ -36,9 +36,9 @@ const Usuario = {
         });
     },
     
-    usuarioPorId: (req, callback) => {
+    usuarioPorId: (req,callback) => {
         
-        const sql = "SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE id_usuario="+req.params.id_usuario;
+        let sql = "SELECT * FROM usuario WHERE id_usuario="+req.params.id_usuario;
 
         req.getConnection((err,conn)=>{
             

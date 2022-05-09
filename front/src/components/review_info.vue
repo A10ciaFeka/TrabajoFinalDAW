@@ -58,33 +58,38 @@ p {
     <div>
         <div class="modal"  tabindex="-1" v-if="escribir">
         <div  class="modal-dialog">
-          <div class="modal-content bg-dark p-4">
+          <div class="modal-content bg-dark p-5">
             <div class="titulo">
               <h2 class="negro text-center" >Review</h2>
             </div>
             <div class="cuerpo">
               <form @submit="enviar">
-                <div class="d-flex">
+                <div class="d-flex pt-2">
                     <span>Puntuación: </span>
                     <p class="clasificacion mx-2">
-                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                        <input id="radio1" type="radio" name="estrellas" value="5" required><!--
                         --><label for="radio1">★</label><!--
-                        --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                        --><input id="radio2" type="radio" name="estrellas" value="4" required><!--
                         --><label for="radio2">★</label><!--
-                        --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                        --><input id="radio3" type="radio" name="estrellas" value="3" required><!--
                         --><label for="radio3">★</label><!--
-                        --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                        --><input id="radio4" type="radio" name="estrellas" value="2" required><!--
                         --><label for="radio4">★</label><!--
-                        --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                        --><input id="radio5" type="radio" name="estrellas" value="1" required><!--
                         --><label for="radio5">★</label>
                     </p>
                 </div>
-                <div class="form-outline form-white">
-                    <label class="form-label" for="textAreaExample">Review</label>
+                
+                <div class="form-outline form-white  mt-2">
+                    <label class="form-label" for="inputReview">Título</label>
+                    <input type="text" name="inputReview" class="form-control" required>
+                </div>
+                <div class="form-outline form-white  mt-4">
+                    <label class="form-label" for="textAreaExample">Cuerpo</label>
                     <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
                     
                 </div>
-                <div class="d-flex justify-content-between mt-3">
+                <div class="d-flex justify-content-between mt-5">
                     <div>
                         <button class="btn mx-1  btn-danger " @click="crear()">Cancelar</button>
                     </div>
@@ -107,11 +112,15 @@ p {
 
                 </div>
                 <div class="card-body">
-                    <h2 class="card-title mt-4 ">{{item.producto_nombre}}</h2>
+                    <div class="d-flex">
+
+                        <h2 class="card-title mt-4 me-3">{{item.producto_nombre}}</h2> 
+                        <star-rating :rating=item.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" class="mt-2"></star-rating>
+                    </div>
                     <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
                     <p>Platatormas: {{item.producto_plataforma}}</p>
 
-                    <div class="d-flex justify-content-around">
+                    <div class="d-flex">
                         <span class="me-2">Etiqueta(s):</span>
                         <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
                     </div>
@@ -119,8 +128,8 @@ p {
                         <h5 class="mt-4">Sinopsis</h5>
                         <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                     </div>
-                    <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-4" value="Escribir review">
-                    <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" @click="crear()">
+                    <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-4" value="Escribir review" @click="crear()">
+                    <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
                 </div>
             </div>
         </div>
@@ -133,11 +142,13 @@ p {
 
 import axios from 'axios';
 import moment from 'moment';
+import StarRating from 'vue-star-rating';
+
  
 export default {
   name: 'game_info',
   components: {
-    
+    StarRating
   },
     data(){
         return{
@@ -165,7 +176,7 @@ export default {
             this.tags = this.item.producto_etiqueta.split(',');
         },
         date(){
-           this.fecha = moment(this.item.producto_fechasalida).format('DD-MM-YYYY');
+           this.fecha = moment(this.item.producto_fechaSalida).format('DD-MM-YYYY');
         },
         montarUrl(imagen){
             console.log(imagen);
@@ -173,22 +184,22 @@ export default {
         },
         onPageChange(page) {
             this.currentPage = page;
-            this.listarProducto();
+            this.listarReviews();
         },
         crear(){
-            if(this.escribir){
-              this.escribir = false;
-              console.log(this.escribir);
-            }
-            else{
-              this.escribir = true;
-              console.log(this.escribir);
-            }
-        }
+          if(this.escribir){
+            this.escribir = false;
+            console.log(this.escribir);
+          }
+          else{
+            this.escribir = true;
+            console.log(this.escribir);
+          }
+      }
     
     },
     props:{
-        producto_id: Number
+      producto_id: Number
     }
 }
 </script>

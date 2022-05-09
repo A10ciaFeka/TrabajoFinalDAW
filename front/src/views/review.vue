@@ -6,7 +6,7 @@
     <navbar />
     <div class="container rows">
       <review_info :producto_id="this.crearPagina()" />
-      <comments />
+      <comments :producto_id="this.crearPagina()" />
     </div>
     <futer /> 
   </div>
@@ -33,8 +33,7 @@ export default {
   },
   methods:{
     crearPagina(){
-      let id_producto=this.$route.query.id_producto;
-      return id_producto;
+      return this.$route.query.id_producto;
     }
   }
     
