@@ -5,9 +5,7 @@
 .routerstyle{
   text-decoration: none;
 }
-.navbar {
 
-}
 
 </style>
 <template>
