@@ -39,6 +39,7 @@ h3 {
     height: 40px;
     color: #fff;
     background: transparent;
+    font-size: 16px;
     padding-left: 20px;
     box-sizing: border-box
 }
@@ -69,6 +70,7 @@ h3 {
     border: none;
     outline: none;
     height: 40px;
+    font-size: 16px;
     background: #22e83a;
     color: black;
     border-radius: 20px;
@@ -76,8 +78,9 @@ h3 {
 }
 
 .loginBox a {
-    color: #ffff;
-
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
     text-align: center;
     display: block
@@ -124,11 +127,13 @@ export default {
         methods:{
             login(){
                 axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
-                    .then((response) => {
-                        console.log(response);
+                .then( response => {
+                    
+                    console.log(response);
+                    
                         if(!response.data.Error){
                             console.log("Entra");
-                            localStorage.token = response.data.token;
+                            localStorage.info = response.data;
                             this.$router.push('/');
                         }
                         else{
@@ -136,7 +141,7 @@ export default {
                             alert('oye muchacho')
                             this.error = true;
                         }
-                    })
+                })
             }
         }  
 }

@@ -33,6 +33,8 @@
 </template>
 
 <script>
+  // import {USER} from './store'
+  import { useStore } from 'vuex'
 
 
 export default {
@@ -40,8 +42,34 @@ export default {
     beforeCreate () {
     document.querySelector('body').classList.add('fondo');
   },
+  setup() {
+    const store = useStore()
+    // store.commit('USER', "Manolo")
+    // console.log(store.getters.user);
+  },
   components: {
 
+  },
+  methods:{
+    getuserinfo(e){
+      
+      axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
+      .then( response => {
+
+      console.log(response);
+
+      if(!response.data.Error){
+          console.log("Entra");
+          localStorage.token = response.data.token;
+          this.$router.push('/');
+      }
+      else{
+          console.log("Falla")
+          alert('oye muchacho')
+          this.error = true;
+      }
+      })
+    }
   }
 }
 </script>
