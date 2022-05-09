@@ -118,7 +118,8 @@ const Producto = {
             producto_fechaSalida,
             producto_puntuacionMedia,
             producto_imagen,
-            producto_plataforma} = req.body;
+            producto_plataforma,
+            producto_etiqueta} = req.body;
 
         const sql = `UPDATE producto 
                         SET producto_nombre = '${producto_nombre}',
@@ -127,7 +128,8 @@ const Producto = {
                             producto_fechaSalida = '${producto_fechaSalida}',
                             producto_puntuacionMedia = ${producto_puntuacionMedia},
                             producto_imagen = '${producto_imagen}',
-                            producto_plataforma = '${producto_plataforma}'
+                            producto_plataforma = '${producto_plataforma}',
+                            producto_etiqueta = '${producto_etiqueta}'
                         WHERE id_producto=${id_producto}`;
 
         req.getConnection((err,conn) => {

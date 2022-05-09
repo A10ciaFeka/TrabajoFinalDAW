@@ -1,3 +1,4 @@
+const moment = require('moment');
 
 const Review = {
 
@@ -19,7 +20,10 @@ const Review = {
 
     reviewPorProducto: (req, callback) => {
 
-        let sql = 'SELECT * FROM review WHERE id_producto='+req.params.id_producto+' ORDER BY review_fecha DESC';
+        let sql = `SELECT rev.*, usu.usuario_apodo, usu.usuario_fotoPerfil FROM review rev
+                    INNER JOIN usuario usu ON usu.id_usuario = rev.id_usuario 
+                    WHERE rev.id_producto=${req.params.id_producto}
+                    ORDER BY rev.review_fecha DESC`;
 
         const sqlCount = `SELECT count(*) AS total FROM review WHERE id_producto=${req.params.id_producto}`;
 
@@ -31,14 +35,17 @@ const Review = {
             }
         }
 
+
         req.getConnection((err,conn)=>{
             if(err) {
                 return callback(err);
             }else {
+
                 conn.query(sql, (err, resultado)=>{
                     if(err) return callback(err)
                     conn.query(sqlCount, (err,resultCount)=>{
                         if(err) return callback(err);
+                        
                         return callback(err,{
                             resultados: resultado,
                             total: resultCount.pop().total
@@ -93,7 +100,8 @@ const Review = {
                 id_producto,
                 id_usuario } = req.body;
                
-
+        let fecha = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+        
         const sql = `INSERT INTO review VALUES(
                         '',
                         '${review_estrellas}',
@@ -102,7 +110,7 @@ const Review = {
                         '0', 
                         '${id_producto}',
                         '${id_usuario}',
-                        '${new Date()}')`;
+                        '${fecha}')`;
         
         req.getConnection((err,conn) => {
             if(err) {
