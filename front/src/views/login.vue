@@ -39,6 +39,7 @@ h3 {
     height: 40px;
     color: #fff;
     background: transparent;
+    font-size: 16px;
     padding-left: 20px;
     box-sizing: border-box
 }
@@ -69,6 +70,7 @@ h3 {
     border: none;
     outline: none;
     height: 40px;
+    font-size: 16px;
     background: #22e83a;
     color: black;
     border-radius: 20px;
@@ -76,8 +78,9 @@ h3 {
 }
 
 .loginBox a {
-    color: #ffff;
-
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
     text-align: center;
     display: block
@@ -108,7 +111,9 @@ p {
      
 </template>
 <script>
+
     import axios from 'axios';
+
 export default {
     name: 'login-firts',
     components: {
@@ -124,20 +129,26 @@ export default {
         methods:{
             login(){
                 axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
-                    .then((response) => {
-                        console.log(response);
+                .then( response => {
+                    let datos = response.data
+                    console.log(response.data);
                         if(!response.data.Error){
                             console.log("Entra");
-                            localStorage.token = response.data.token;
-                            this.$router.push('/');
+                            sessionStorage.setItem('info', JSON.stringify(response.data))
+                            var v= this
+                            setTimeout(function () {
+                                v.$router.push({path:'/', params: {datos}})
+                            },1000)
+                            // this.$router.push('/');
                         }
                         else{
                             console.log("Falla")
                             alert('oye muchacho')
                             this.error = true;
                         }
-                    })
+                })
             }
         }  
 }
+
 </script>

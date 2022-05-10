@@ -70,32 +70,7 @@ export default {
     },
     data(){
         return{
-            reviews: [
-        {
-          name: 'Elden Ring',
-          Url: 'https://uvejuegos.com/img/caratulas/62849/Elden-Ring-portada-uvejuegos.png',
-          date: '1 23 /5',
-          platform: 'Xbox'
-        },
-        {
-          name: 'Lol',
-          Url: 'https://as01.epimg.net/meristation/imagenes/2019/08/07/cover/719414081565191040.jpg',
-          date: '4/3/2',
-          platform: 'PS5'
-        },
-        {
-          name: 'Sekiro',
-          Url: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/04/hobby-consolas-334-venta-posters-sekiro-mortal-kombat-11_7.jpg?itok=8HyJ7OBS',
-          date: '1/2/3',
-          platform: 'Switch'
-        },
-        {
-          name: 'Half-Life 2',
-          Url: 'https://i0.wp.com/adxgames.net/wp-content/uploads/2020/02/half-life-2-pc-1.jpg?fit=330%2C410&ssl=1',
-          date: 'E/r/w',
-          platform: 'PC'
-        }
-      ]
+            
         }
     }
 }
