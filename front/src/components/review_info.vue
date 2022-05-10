@@ -52,6 +52,7 @@ p {
   color: orange;
 }
 
+
 </style>
 <template>
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
@@ -106,31 +107,30 @@ p {
       <div class="container">
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
-                <div class="">
+              <div class="card-body">
+                <img :src="`productos/${item.producto_imagen}`" class="mt-2" height="450" width="300"/>
+              </div>
 
-                    <img :src="`productos/${item.producto_imagen}`" class="card-img-top" alt="" width="450" height="555"/>
+              <div class="p-2 ms-2 ms-0">
+                  <div class="d-flex">
 
-                </div>
-                <div class="card-body">
-                    <div class="d-flex">
+                    <h2 class="card-title mt-4 me-3">{{item.producto_nombre}}</h2> 
+                    <star-rating :rating=item.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" class="mt-2"></star-rating>
+                  </div>
+                  <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
+                  <p>Platatormas: {{item.producto_plataforma}}</p>
 
-                        <h2 class="card-title mt-4 me-3">{{item.producto_nombre}}</h2> 
-                        <star-rating :rating=item.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" class="mt-2"></star-rating>
-                    </div>
-                    <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
-                    <p>Platatormas: {{item.producto_plataforma}}</p>
-
-                    <div class="d-flex">
-                        <span class="me-2">Etiqueta(s):</span>
-                        <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
-                    </div>
-                    <div class="border-bottom">
-                        <h5 class="mt-4">Sinopsis</h5>
-                        <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
-                    </div>
-                    <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-4" value="Escribir review" @click="crear()">
-                    <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
-                </div>
+                  <div class="d-flex">
+                      <span class="me-2">Etiqueta(s):</span>
+                      <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
+                  </div>
+                  <div class="border-bottom">
+                      <h5 class="mt-4">Sinopsis</h5>
+                      <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
+                  </div>
+                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-3" value="Escribir review" @click="crear()">
+                  <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
+              </div>
             </div>
         </div>
     </div>

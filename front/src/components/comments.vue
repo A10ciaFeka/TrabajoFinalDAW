@@ -8,15 +8,17 @@
 
         <div class="m-4 border-top" v-for="review in reviews" :key="review">
           <div class="mt-3 mb-4 d-flex flex-row">
-            <div class="col-1">
-                <span></span>
+            <div class="col-2">
+                <div class="mb-2 ms-3">
+                  <img :src="`usuarios/${review.usuario_fotoPerfil}`" height="50" width="50">
+                </div>
+                <p class="mb-1 bg-success col-6 text-center rounded">
+                  <strong>{{review.usuario_apodo}}</strong>
+                </p>
             </div>
 
             <div class="col-10">
-                <p class="mb-1 bg-success col-2 text-center rounded">
-                  <strong>{{obtenerUsuario(id_usuario)}}</strong>
-                </p>
-
+            
                 <p class="mt-2 d-flex">
                   <span class="me-2"><u class=" fs-5">{{review.review_nombre}}</u></span>
 
@@ -84,13 +86,6 @@ export default {
         this.currentPage = page
         this.listarReviews();
       },
-
-      async obtenerUsuario(id_usuario){
-        await axios.get(`http://localhost:3000/usuario/${id_usuario}`)
-          .then((response)=>{
-            return response.data.usuario_apodo;
-          });
-      }
 
     },
     props:{
