@@ -35,17 +35,32 @@
 <script>
   // import {USER} from './store'
   import { useStore } from 'vuex'
+  // import { defineComponent } from 'vue'
+  import { useComposition } from '@/views/home'
 
+  // export const defineComponent({
+  //   setup() {
+  //     const { message } = useComposition();
 
+  //     return { // make it available in <template>
+  //       message
+  //     }
+  //   },
+  // })
 export default {
   name: 'App',
     beforeCreate () {
     document.querySelector('body').classList.add('fondo');
   },
   setup() {
+    const { message } = useComposition();
+
     const store = useStore()
-    store.commit('USER', "Manolo")
+    store.commit('USER', message)
     console.log(store.getters.user);
+    return{
+      message
+    }
   },
   components: {
 

@@ -111,7 +111,9 @@ p {
      
 </template>
 <script>
+
     import axios from 'axios';
+
 export default {
     name: 'login-firts',
     components: {
@@ -128,13 +130,16 @@ export default {
             login(){
                 axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
                 .then( response => {
-                    
-                    console.log(response);
-                    
+                    let datos = response.data
+                    console.log(response.data);
                         if(!response.data.Error){
                             console.log("Entra");
-                            localStorage.info = response.data;
-                            this.$router.push('/');
+                            sessionStorage.setItem('info', JSON.stringify(response.data))
+                            var v= this
+                            setTimeout(function () {
+                                v.$router.push({path:'/', params: {datos}})
+                            },1000)
+                            // this.$router.push('/');
                         }
                         else{
                             console.log("Falla")
@@ -145,4 +150,5 @@ export default {
             }
         }  
 }
+
 </script>

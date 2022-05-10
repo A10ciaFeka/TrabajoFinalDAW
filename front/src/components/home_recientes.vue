@@ -113,6 +113,7 @@ span{
             this.productos = response.data.resultados;
             console.log(this.productos);
         });
+        console.log('hey' + this.$store.getters.user);
 
     },
   }
