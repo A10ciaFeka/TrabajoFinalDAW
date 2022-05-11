@@ -207,11 +207,13 @@ const Usuario = {
                         if(no_existe){
                             return callback({"Error": "El usuario no existe"});
                         }else{
-                            const sql = `SELECT id_usuario, usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE usuario_apodo='${usuario_apodo}'`;
+                            const sql = `SELECT * FROM usuario WHERE usuario_apodo='${usuario_apodo}'`;
                             conn.query(sql,(err,usuario)=>{
                                 if(err){
                                     return callback(err);
                                 }else{
+                                    console.log('pass metida: ',usuario_contrasena);
+                                    console.log('pass buena: ',usuario[0].usuario_contrasena);
                                     if(passwordValidator.comparePassword(usuario_contrasena,usuario[0].usuario_contrasena)){
                                         return callback(null,usuario[0]);
                                     }else{

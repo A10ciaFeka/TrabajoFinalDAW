@@ -26,4 +26,11 @@ router.post('/crear', reviewController.crearReview);
  */
 router.put('/:id_review/editar', reviewController.editarReview);
 
+/**
+ * 
+ * PETICIONES DELETE PARA REVIEWS
+ * 
+ */
+router.delete('/eliminar', reviewController.eliminarReview);
+
 module.exports = router;

@@ -1,4 +1,5 @@
 const moment = require('moment');
+const productoHelper = require('../helper/productoHelper');
 
 const Review = {
 
@@ -61,7 +62,7 @@ const Review = {
         
         const id_usuario = req.params.id_usuario;
         const id_producto = req.params.id_producto;
-        const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+'AND id_producto='+id_producto;
+        const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+' AND id_producto='+id_producto;
 
         req.getConnection((err,conn)=>{
             if(err) {
@@ -104,49 +105,23 @@ const Review = {
         
         const sql = `INSERT INTO review VALUES(
                         '',
-                        '${review_estrellas}',
+                        ${review_estrellas},
                         '${review_nombre}',
                         '${review_texto}',
                         '0', 
                         '${id_producto}',
                         '${id_usuario}',
                         '${fecha}')`;
-        
+        console.log(req.body);
         req.getConnection((err,conn) => {
             if(err) {
                 return callback(err);
             } else {
                 // Calculamos la nueva media para el producto
-                let puntuacionNuevaProducto = 0;
-
-                if(review_total==0){
-                    puntuacionNuevaProducto = review_estrellas;
-                    const sqlCambiarNotaPod = `UPDATE producto SET producto_puntuacionMedia=${puntuacionNuevaProducto} WHERE id_producto=${id_producto}`;
-                
-                    conn.query(sqlCambiarNotaPod,(err)=>{
-                        if(err) return callback(err);
-                    }); 
-                }else{
-                    const sqlMediaProd = `SELECT review_estrellas FROM review WHERE id_producto=${id_producto}`;
-                    conn.query(sqlMediaProd,(err,resultado)=>{
-                        if(err) return callback(err);
-
-                        let notasSumadas = 0;
-                        resultado.forEach(review => {
-                            for (const key in review) {
-                                notasSumadas += review[key];
-                            }
-                        });
-
-                        puntuacionNuevaProducto = (notasSumadas+review_estrellas)/(review_total+1);
-                        
-                        const sqlCambiarNotaPod = `UPDATE producto SET producto_puntuacionMedia=${puntuacionNuevaProducto} WHERE id_producto=${id_producto}`;
-                        
-                        conn.query(sqlCambiarNotaPod,(err)=>{
-                            if(err) return callback(err);
-                        });        
-                    });                   
-                }
+                                  
+                productoHelper.recalcularPuntuacion(true,conn,review_estrellas,review_total,id_producto,(err)=>{
+                    if (err) return callback(err);
+                })
                 
                 conn.query(sql, (err,resultado)=>{
                     return callback(err,resultado);
@@ -159,18 +134,18 @@ const Review = {
     
     editarReview: (req, callback) => {
          
-        const id_review = req.params.id_review;
-
         const { review_estrellas,
                 review_nombre,
                 review_texto,
-                review_likes} = req.body;
+                review_likes,
+                id_review} = req.body;
             
         const sql = `UPDATE review
                         SET review_estrellas = ${review_estrellas}
                         review_nombre='${review_nombre}'
                         review_texto='${review_texto}'
-                        review_likes=${review_likes}`;
+                        review_likes=${review_likes}
+                        WHERE id_review=${id_review}`;
         
         req.getConnection((err,conn)=>{
 
@@ -185,7 +160,30 @@ const Review = {
             }
 
         });
-    }
+    },
+
+    eliminarReview: (req,callback) => {
+        const {review_estrellas,
+                review_total,
+                id_producto,
+                id_review} = req.body;
+
+        const sql = `DELETE FROM review WHERE id_review=${id_review}`;
+        
+        req.getConnection((err,conn)=>{
+            if(err) return callback(err);
+
+            productoHelper.recalcularPuntuacion(false,conn,review_estrellas,review_total,id_producto,(err)=>{
+                if(err) return callback(err);
+            });
+
+            conn.query(sql,(err,resultado)=>{
+                return callback(err,{'Resultado': 'Review borrada'});
+            });
+        });
+    },
+
+    
 }
 
 module.exports = Review;

@@ -35,6 +35,27 @@ const Producto = {
         });
     },
 
+    
+    salidasRecientes: (req, callback) => {
+        let sql = `SELECT * FROM producto WHERE producto_disponible=1 ORDER BY producto_fechaSalida DESC`;
+        
+        if(req.params.num_productos){
+            sql+=` LIMIT ${req.params.num_productos}`;
+        }
+        
+        req.getConnection((err,conn) => {
+            
+            if(err) {
+                return callback(err);
+            }else {
+                conn.query(sql, (err, resultado)=>{
+                    if(err) return callback(err)
+                    return callback(err,resultado)
+                });
+            }
+            
+        });
+    },
 
     productoPorId: (req, callback) => {
         const sql = 'SELECT * FROM producto WHERE id_producto='+req.params.id_producto;

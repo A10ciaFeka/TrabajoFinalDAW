@@ -13,7 +13,7 @@ router.get('/listar', usuarioController.listar);
 router.get('/:id_usuario', usuarioController.usuarioById);
 router.get('/apodo/:usuario_apodo', usuarioController.usuarioPorApodo);
 router.get('/:id_usuario/amigos', usuarioController.listarAmigos);
-router.get('/login/:usuario_apodo/:usuario_password', usuarioController.login);
+router.get('/login/:usuario_apodo/:usuario_contrasena', usuarioController.login);
 
 /**
  * 

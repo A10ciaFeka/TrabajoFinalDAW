@@ -92,4 +92,18 @@ reviewController.crearReview = (req, res) => {
     })
 }
 
+/** --- DELETE REQUESTS --- */
+/**
+ * Eliminar una review.
+ * 
+ * @param {*} req
+ * @param {*} res
+ */
+reviewController.eliminarReview = (req,res)=>{
+    
+    Review.eliminarReview(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    });
+}
+
 module.exports = reviewController;

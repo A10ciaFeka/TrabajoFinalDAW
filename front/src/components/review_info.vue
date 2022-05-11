@@ -225,9 +225,9 @@ export default {
       enviar(e){
         e.preventDefault();
         let json = {
-          'review_estrellas': this.puntuacion,
+          'review_estrellas': parseInt(this.puntuacion),
           'review_nombre': this.titulo,
-          'review_texto,': this.texto,
+          'review_texto': this.texto,
           'review_total' : this.maxItems,
           'id_producto' : this.item.id_producto,
           'id_usuario' : this.usuario.id_usuario
