@@ -98,7 +98,7 @@ span{
                 <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>
               <div class="card bg-dark">
-                <div class="nombre">
+                <div class="nombre mt-3">
                   <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                   <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                   </router-link>
