@@ -130,14 +130,13 @@ export default {
             login(){
                 axios.get(`http://localhost:3000/usuario/login/${this.usuario_apodo}/${this.usuario_contrasena}`)
                 .then( response => {
-                    let datos = response.data
                     console.log(response.data);
                         if(!response.data.Error){
                             console.log("Entra");
                             sessionStorage.setItem('info', JSON.stringify(response.data))
                             var v= this
                             setTimeout(function () {
-                                v.$router.push({path:'/', params: {datos}})
+                                v.$router.push('/')
                             },1000)
                             // this.$router.push('/');
                         }

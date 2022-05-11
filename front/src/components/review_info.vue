@@ -68,26 +68,27 @@ p {
                 <div class="d-flex pt-2">
                     <span>Puntuación: </span>
                     <p class="clasificacion mx-2">
-                        <input id="radio1" type="radio" name="estrellas" value="5" required><!--
+                        <input id="radio1" type="radio" name="estrellas" value="5"  v-model="puntuacion" required><!--
                         --><label for="radio1">★</label><!--
-                        --><input id="radio2" type="radio" name="estrellas" value="4" required><!--
+                        --><input id="radio2" type="radio" name="estrellas" v-model="puntuacion" value="4" required><!--
                         --><label for="radio2">★</label><!--
-                        --><input id="radio3" type="radio" name="estrellas" value="3" required><!--
+                        --><input id="radio3" type="radio" name="estrellas" v-model="puntuacion" value="3" required><!--
                         --><label for="radio3">★</label><!--
-                        --><input id="radio4" type="radio" name="estrellas" value="2" required><!--
+                        --><input id="radio4" type="radio" name="estrellas" v-model="puntuacion" value="2" required><!--
                         --><label for="radio4">★</label><!--
-                        --><input id="radio5" type="radio" name="estrellas" value="1" required><!--
+                        --><input id="radio5" type="radio" name="estrellas" v-model="puntuacion" value="1" required><!--
                         --><label for="radio5">★</label>
                     </p>
+                    {{puntuacion}}
                 </div>
                 
                 <div class="form-outline form-white  mt-2">
                     <label class="form-label" for="inputReview">Título</label>
-                    <input type="text" name="inputReview" class="form-control" required>
+                    <input type="text" name="inputReview" v-model="titulo" class="form-control" required>
                 </div>
                 <div class="form-outline form-white  mt-4">
                     <label class="form-label" for="textAreaExample">Cuerpo</label>
-                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                    <textarea class="form-control" v-model="texto" name="texto" rows="4"></textarea>
                     
                 </div>
                 <div class="d-flex justify-content-between mt-5">
@@ -157,11 +158,36 @@ export default {
             url:null,
             tags:{},
             fecha: null,
-            escribir: false
+            escribir: false,
+            puntuacion: '',
+            titulo: null,
+            texto: null,
+            maxItems: null,
+            usuario: null,
+            sesion: false
+            
         }
     },
     mounted(){
         this.getProducto();
+        axios.get(`http://localhost:3000/review/producto/${this.producto_id}/0/0`)
+          .then((response)=>{
+            this.maxItems = response.data.total;
+            console.log(this.maxItems);
+          });
+
+        if(sessionStorage.info == null){
+          let v = this
+          setTimeout(function () {    
+            console.log('tu abuela');
+            v.comprobar();                       
+          },500)
+        }
+        else{
+          this.sesion = true
+          this.usuario = JSON.parse(sessionStorage.info)
+        }
+
     },
     methods: {
         getProducto(){
@@ -195,7 +221,37 @@ export default {
             this.escribir = true;
             console.log(this.escribir);
           }
+      },
+      enviar(e){
+        e.preventDefault();
+        let json = {
+          'review_estrellas': this.puntuacion,
+          'review_nombre': this.titulo,
+          'review_texto,': this.texto,
+          'review_total' : this.maxItems,
+          'id_producto' : this.item.id_producto,
+          'id_usuario' : this.usuario.id_usuario
+        }
+        axios.post(`http://localhost:3000/review/crear`, json)
+        .then((response)=>{
+          console.log(response);
+          this.$router.go();
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+      },
+      comprobar(){
+      console.log('lo intento');
+      if(sessionStorage.info == null){
+      console.log('fallo');
       }
+      else{
+        this.sesion = true
+        this.usuario = JSON.parse(sessionStorage.info)
+        console.log('Lo logre '+ this.usuario);
+      }
+    }
     
     },
     props:{

@@ -7,10 +7,12 @@
 }
 .card-title{
   overflow: hidden !important;
-  max-width: 150px !important;
+
 }
 .routerstyle{
   text-decoration: none;
+  padding: 0;
+  margin: 0;
 }
 .row {
   margin-top: 1em;
@@ -22,19 +24,37 @@
 }
 .card-img-top{
   width:200px;
-  height:255px;
+  height:270px;
 }
 .bg-image{
   width:200px;
-  height:255px;
+  height:270px;
 }
 .card{
   max-width: 255px !important;
 }
+.card-body{
+  padding: 0 1rem 1rem 1rem !important;
+}
+.nombre{
+  text-align: center;
+}
 @media (max-width: 576px){
+  h4{
+    text-align: center !important;
+  }
+  .card{
+    width: 140px !important;
+  }
+  .nombre{
+    display: none;
+  }
+  .card-body{
+  padding: 1rem 1rem !important;
+  }
   .card-img-top{
-    width:140px !important;
-    height:185px !important;
+    width:130px !important;
+    height:180px !important;
     
   }
   .bg-image{
@@ -65,6 +85,7 @@ span{
 @media (max-width: 1100px){
 
 }
+
 </style>
 <template>
     <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
@@ -74,12 +95,14 @@ span{
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="card bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt="" width="200" height="255"/>
+                <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>
-              <div class="card-body">
-                <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+              <div class="card bg-dark">
+                <div class="nombre">
+                  <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                   <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
-                </router-link>
+                  </router-link>
+                </div>
                 <div class="card-body align-self-center">
                   <star-rating :rating=producto.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                 </div>
@@ -111,10 +134,7 @@ span{
       axios.get('http://localhost:3000/producto/listar/6')
         .then((response) => {
             this.productos = response.data.resultados;
-            console.log(this.productos);
         });
-        console.log('hey' + this.$store.getters.user);
-
     },
   }
     

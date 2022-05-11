@@ -24,6 +24,7 @@
   height:185px !important;
   
 }
+
 }
 .row {
     --bs-gutter-x: 0rem;

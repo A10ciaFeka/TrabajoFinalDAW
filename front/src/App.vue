@@ -34,9 +34,9 @@
 
 <script>
   // import {USER} from './store'
-  import { useStore } from 'vuex'
+  // import { useStore } from 'vuex'
   // import { defineComponent } from 'vue'
-  import { useComposition } from '@/views/home'
+  
 
   // export const defineComponent({
   //   setup() {
@@ -53,14 +53,8 @@ export default {
     document.querySelector('body').classList.add('fondo');
   },
   setup() {
-    const { message } = useComposition();
+ 
 
-    const store = useStore()
-    store.commit('USER', message)
-    console.log(store.getters.user);
-    return{
-      message
-    }
   },
   components: {
 
