@@ -36,31 +36,35 @@
 </style>
 
 <template>
-  
-  <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+  <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
       <div class="container pt-3">
-        <!-- titulo -->
-        <h4 class="titulo">Reseñas de amigos</h4>
+        <h4 class="caca ms-2">MEJOR VALORADOS</h4>
         <div class="row">
-          <!-- for para colocar todos elementos. Hasta un maximo de 6 -->
-          <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="i in ((games.length>6) ? 6 : games.length)" :key="i">
-            <div class="card text-white bg-dark">
-              <router-link to="/review/1">
-                <img v-bind:src="games[i-1].Url" class="card-img-top" alt=""/>
+          <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
+            <div class="card bg-dark">
+              <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>
-              <div class="card-body align-self-center">
-                <star-rating :rating=games[i-1].rating :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+              <div class="card bg-dark">
+                <div class="nombre mt-3">
+                  <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                  <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+                  </router-link>
+                </div>
+                <div class="card-body align-self-center">
+                  <star-rating :rating=producto.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-</div>
-  
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+  import StarRating from 'vue-star-rating';
+  import axios from 'axios';
 export default {
   name:"seccion_general",
   components: {
@@ -68,49 +72,27 @@ export default {
   },
   data(){
     return{
-      games: [
-        {
-          name: 'Elden Ring',
-          rating: 4,
-          Url: 'https://uvejuegos.com/img/caratulas/62849/Elden-Ring-portada-uvejuegos.png'
-        },
-        {
-          name: 'Peppa pig',
-          rating: 5,
-          Url: 'https://fr.web.img3.acsta.net/pictures/20/03/30/12/25/1591799.jpg'
-        },
-        {
-          name: 'Pierde vidas',
-          rating: 0.5,
-          Url: 'https://as01.epimg.net/meristation/imagenes/2019/08/07/cover/719414081565191040.jpg'
-        },
-        {
-          name: 'Sekiro',
-          rating: 4.5,
-          Url: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/04/hobby-consolas-334-venta-posters-sekiro-mortal-kombat-11_7.jpg?itok=8HyJ7OBS'
-        },
-        {
-          name: 'Sekiro2',
-          rating: 5,
-          Url: 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2019/04/hobby-consolas-334-venta-posters-sekiro-mortal-kombat-11_7.jpg?itok=8HyJ7OBS'
-        },
-        {
-          name: 'Pierde vidas2',
-          rating: 0,
-          Url: 'https://as01.epimg.net/meristation/imagenes/2019/08/07/cover/719414081565191040.jpg'
-        },
-        {
-          name: 'Peppa pig2',
-          rating: 2.5,
-          Url: 'https://fr.web.img3.acsta.net/pictures/20/03/30/12/25/1591799.jpg'
-        },
-        {
-          name: 'Elden Ring2',
-          rating: 5,
-          Url: 'https://uvejuegos.com/img/caratulas/62849/Elden-Ring-portada-uvejuegos.png'
-        }
-      ]
+      productos: null,
+      objeto: null
     }
-  }
+  },
+    mounted () {
+      axios.get('http://localhost:3000/producto/listar/30/0')
+        .then((response) => {
+            this.productos = response.data.resultados; 
+            console.log(this.productos);
+        });
+      // this.productos.producto_puntuacionMedia.sort(function (a, b) {
+      //   if (a.name > b.name) {
+      //     return 1;
+      //   }
+      //   if (a.name < b.name) {
+      //     return -1;
+      //   }
+      //   // a must be equal to b
+      //   return 0;
+      // });
+      // console.log(this.productos);
+    }
 }
 </script>

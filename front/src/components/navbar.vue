@@ -87,10 +87,9 @@ export default {
   },
   data() {
       return{
-        admin: true,
+        admin: false,
         sesion: false,
-        imagen: 'https://static.scientificamerican.com/espanol/cache/file/AF74ADFC-11A1-4BE8-8C6D050938F3CD40_source.jpg',
-        usuario: null,
+        usuario: null
       }
   },
   mounted(){
@@ -102,8 +101,11 @@ export default {
       },500)
       }
       else{
-        this.sesion = true
-        this.usuario = JSON.parse(sessionStorage.info)
+        this.sesion = true;
+        this.usuario = JSON.parse(sessionStorage.info);
+        if(this.usuario.usuario_administrador == 0){
+          this.admin = true;
+        }
       }
     
 
@@ -115,8 +117,11 @@ export default {
       console.log('fallo');
       }
       else{
-        this.sesion = true
-        this.usuario = JSON.parse(sessionStorage.info)
+        this.sesion = true;
+        this.usuario = JSON.parse(sessionStorage.info);
+        if(this.usuario.usuario_administrador == 0){
+          this.admin = true;
+        }
         console.log('Lo logre '+ this.usuario);
       }
     }
