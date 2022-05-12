@@ -131,9 +131,9 @@ span{
       }
     },
     mounted () {
-      axios.get('http://localhost:3000/producto/listar/6')
+      axios.get('http://localhost:3000/producto/listar_recientes/6')
         .then((response) => {
-            this.productos = response.data.resultados;
+            this.productos = response.data; 
         });
     },
   }

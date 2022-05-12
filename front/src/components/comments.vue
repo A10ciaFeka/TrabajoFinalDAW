@@ -1,13 +1,24 @@
 <style scoped>
+  
+  .comentario{
+    background-color: rgb(33, 27, 27);
+    border: 1px solid rgb(84, 84, 84);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 2px 2px rgb(96, 96, 96);
+  }
 
 </style>
 <template>
     
     <section class="container mb-3 bg-dark">
-        <p class="text-center p-3"><strong>Reviews: {{this.maxItems}}</strong></p>
+        <div class="mt-2">
+          <h4 class="p-2 text-center">Reviews: {{this.maxItems}}</h4>
+        </div>
+
 
         <div class="m-4 border-top" v-for="review in reviews" :key="review">
-          <div class="mt-3 mb-4 d-flex flex-row">
+          <div class="mt-3 mb-4 d-flex flex-row comentario">
             <div class="col-2">
                 <div class="mb-2 ms-3">
                   <img :src="`usuarios/${review.usuario_fotoPerfil}`" height="50" width="50">

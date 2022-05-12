@@ -23,6 +23,18 @@ productoController.listar = (req,res) => {
 }
 
 /**
+ * Obtener los productos que salieron recientemente.
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+productoController.salidasRecientes = (req,res)=>{
+    Producto.salidasRecientes(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    })
+}
+
+/**
  * Obtener un producto por su id
  * 
  * @param {*} req 

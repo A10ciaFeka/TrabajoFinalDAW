@@ -62,7 +62,7 @@ const Review = {
         
         const id_usuario = req.params.id_usuario;
         const id_producto = req.params.id_producto;
-        const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+'AND id_producto='+id_producto;
+        const sql = 'SELECT * FROM review WHERE id_usuario='+id_usuario+' AND id_producto='+id_producto;
 
         req.getConnection((err,conn)=>{
             if(err) {
