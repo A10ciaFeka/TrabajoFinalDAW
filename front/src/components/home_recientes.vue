@@ -7,6 +7,7 @@
 }
 .card-title{
   overflow: hidden !important;
+  
 
 }
 .routerstyle{
@@ -30,8 +31,15 @@
   width:200px;
   height:270px;
 }
-.card{
+.cards{
   max-width: 255px !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cards:hover{
+
+  box-shadow: 5px 6px 6px 2px #151515;
+  transform: scale(1.1);
 }
 .card-body{
   padding: 0 1rem 1rem 1rem !important;
@@ -93,7 +101,7 @@ span{
         <h4 class="caca ms-2">SALIDAS RECIENTES</h4>
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
-            <div class="card bg-dark">
+            <div class="cards bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                 <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>

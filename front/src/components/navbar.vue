@@ -15,6 +15,15 @@
   max-height: 500px;
   overflow: hidden;
 }
+.cards{
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cards:hover{
+
+  box-shadow: 5px 6px 6px 2px #151515;
+  transform: scale(1.05);
+}
 hr{
   margin: 0;
 }
@@ -26,7 +35,7 @@ hr{
 <div class="modal mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
   <div  class="modal-dialog mt-5">
     <div class="modal-content bg-dark p-3 ms-4 mt-5">
-      <div class=" bg-dark" v-for="item in items" v-bind:key="item.id" >
+      <div class="cards bg-dark" v-for="item in items" v-bind:key="item.id" >
         <div class="d-flex">
           <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:item.id_producto}}">
             <div>
@@ -157,7 +166,7 @@ export default {
       }
   },
   mounted(){
-    axios.get('http://localhost:3000/producto/listar/999/0')
+    axios.get('http://localhost:3000/producto/listar')
         .then((response) => {
             this.products = response.data.resultados; 
         });

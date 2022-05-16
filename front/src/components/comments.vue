@@ -118,11 +118,11 @@ export default {
               }
             
           });
-          axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos_id`)
-            .then((response)=>{
-              this.idamigos = response.data
-              console.log(this.idamigos);
-          });
+          // axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos_id`)
+          //   .then((response)=>{
+          //     this.idamigos = response.data
+          //     console.log(this.idamigos);
+          // });
       },
       onPageChange(page) {
         this.currentPage = page
