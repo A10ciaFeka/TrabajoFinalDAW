@@ -35,6 +35,19 @@ productoController.salidasRecientes = (req,res)=>{
 }
 
 /**
+ * Obtener los productos con mayor puntuación.
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+ productoController.mejoresValorados = (req,res)=>{
+    Producto.mejoresValorados(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    })
+}
+
+
+/**
  * Obtener un producto por su id
  * 
  * @param {*} req 

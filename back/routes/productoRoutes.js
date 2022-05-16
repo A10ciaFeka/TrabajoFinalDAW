@@ -10,6 +10,7 @@ const productoController = require('../controllers/productoController');
  */
 router.get('/listar/:num_productos?/:offset?', productoController.listar);
 router.get('/listar_recientes/:num_productos?', productoController.salidasRecientes);
+router.get('/listar_mejores/:num_productos?', productoController.mejoresValorados);
 router.get('/nombre/:producto_nombre', productoController.productoPorNombre);
 router.get('/:id_producto', productoController.productoPorId);
 

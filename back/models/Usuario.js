@@ -76,6 +76,30 @@ const Usuario = {
 
     },
 
+    listarIdAmigos: (req, callback) => {
+
+        const sql = `SELECT usu.id_usuario
+                        FROM usuario usu
+                        INNER JOIN lista_amigos amigo on amigo.id_amigo = usu.id_usuario
+                        WHERE amigo.id_usuario = ${req.params.id_usuario}`;
+        
+        req.getConnection((err,conn)=>{
+
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    if(err) return callback(err);
+                    resultado.unshift({"id_usuario": parseInt(req.params.id_usuario)});
+                    return callback(err,resultado);
+
+                });
+            }
+
+        });
+
+    },
+
     crearUsuario: (req, callback) => {
         
         const {usuario_apodo,
