@@ -131,7 +131,7 @@ span{
       }
     },
     mounted () {
-      axios.get('http://localhost:3000/producto/listar_recientes/6')
+      axios.get('http://localhost:3000/producto/listar_recientes/5')
         .then((response) => {
             this.productos = response.data; 
         });

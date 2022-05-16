@@ -215,11 +215,9 @@ export default {
         crear(){
           if(this.escribir){
             this.escribir = false;
-            console.log(this.escribir);
           }
           else{
             this.escribir = true;
-            console.log(this.escribir);
           }
       },
       enviar(e){
@@ -242,14 +240,12 @@ export default {
         });
       },
       comprobar(){
-      console.log('lo intento');
       if(sessionStorage.info == null){
-      console.log('fallo');
+        console.log();
       }
       else{
         this.sesion = true
         this.usuario = JSON.parse(sessionStorage.info)
-        console.log('Lo logre '+ this.usuario);
       }
     }
     
