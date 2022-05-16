@@ -26,9 +26,12 @@
 }
 
 .routerstyle{
+  text-decoration-line: none !important;
   text-decoration: none !important;
 }
-
+a{
+  text-decoration: none !important;
+}
 }
 .row {
     --bs-gutter-x: 0rem;
@@ -62,7 +65,7 @@
               <div class="card bg-dark">
                 <div class="nombre mt-3">
                   <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                  <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+                  <span>{{producto.producto_nombre}}</span>
                   </router-link>
                 </div>
                 <div class="card-body align-self-center">

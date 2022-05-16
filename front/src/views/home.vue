@@ -33,10 +33,60 @@
   width: 100%;
 }
 }
+section{
+  background: linear-gradient(rgba(255,255,255,0) 20%,
+              rgb(0, 0, 0)), url('../../public/productos/eldenPortada.jpg');
+  /* background-image: url('../../public/productos/eldenPortada.jpg'); */
+  background-position: center;
+
+}
+.routerstyle{
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+.titulo{
+  font-family: fuenteElden !important;
+  letter-spacing: 5px;
+  font-size: 100px;
+  font-weight: bold;
+  background-image: linear-gradient(
+    to right,
+    #462523 0,
+    #cb9b51 22%, 
+    #f6e27a 45%,
+    #f6f2c0 50%,
+    #f6e27a 55%,
+    #cb9b51 78%,
+    #462523 100%
+    );
+  color:transparent;
+  -webkit-background-clip:text;
+}
 </style>
 <template>
 <div>
   <navbar_first />
+    <section class="pt-5  pb-5 mt-0  d-flex row bg-dark" style="height:65vh; background-size: cover;;">
+      <div class="d-flex justify-content-center">
+        <img :src="`productos/elden.png`" alt="" height="100">
+      </div>
+      <div class="container-fluid">
+        <div class="row  justify-content-center align-items-end d-flex text-center h-100">
+          <div>
+            
+          </div>
+          <div class="col-12 col-md-8  h-50 mt-5 pt-5">
+              <p class="lead mt-5 text-light mb-3">El nuevo juego de Hidetaka Miyazaki y George R.R Martin</p>
+              <p>
+                <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:36}}">
+                  <a href="" class="btn bg-success mt-1 shadow-lg btn-round text-light btn-lg btn-rised">Saber mas</a>
+                </router-link>
+              </p>  
+          </div>
+        </div>
+      </div>
+    </section>
   <div class="contenedor margen">
     <div class="izquierda">
       <home_recientes/>
