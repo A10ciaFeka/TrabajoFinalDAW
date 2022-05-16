@@ -5,50 +5,32 @@ const Usuario = {
 
     listarUsuarios: (req, callback) => {
         
-        const sql = 'SELECT id_usuario, usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario';
+        const sql = 'SELECT * FROM usuario';
 
         req.getConnection((err,conn) => {
-            if(err) {
-                return callback(err);
-            } else {
-                conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
-                });
-            }
+            if(err) return callback(err);
+            conn.query(sql, (err, resultado)=>{
+                if(err) return callback(err);
+                return callback(err,resultado);
+            });
 
         });
 
-    },
-
-    fotoPerfilPorId: (req, callback) =>{
-        const sql = "SELECT usuario_fotoPerfil FROM usuario WHERE id_usuario="+req.params.id_usuario;
-
-        req.getConnection((err,conn)=>{
-            
-            if(err){
-                return callback(err);
-            }else{
-                conn.query(sql, (err, blob)=>{
-                    return callback(err,blob[0].usuario_fotoPerfil);
-                });
-            }
-
-        });
     },
     
-    usuarioPorId: (req,callback) => {
+    usuarioPorId: (req, callback) => {
         
         let sql = "SELECT * FROM usuario WHERE id_usuario="+req.params.id_usuario;
 
         req.getConnection((err,conn)=>{
             
-            if(err){
-                return callback(err);
-            }else{
-                conn.query(sql, (err, resultado)=>{
-                    return callback(err,resultado);
-                });
-            }
+            if(err) return callback(err);
+
+            conn.query(sql, (err, resultado)=>{
+                if(err) return callback(err);
+                return callback(err,resultado);
+            });
+        
 
         });
 
@@ -56,7 +38,7 @@ const Usuario = {
 
     usuarioPorApodo: (req, callback) => {
         
-        const sql = `SELECT usuario_apodo, usuario_contrasena, usuario_email, usuario_verificado, usuario_administrador FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
+        const sql = `SELECT * FROM usuario WHERE usuario_apodo='${req.params.usuario_apodo}'`;
 
         req.getConnection((err,conn)=>{
             
@@ -85,6 +67,30 @@ const Usuario = {
                 return callback(err);
             }else{
                 conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+
+                });
+            }
+
+        });
+
+    },
+
+    listarIdAmigos: (req, callback) => {
+
+        const sql = `SELECT usu.id_usuario
+                        FROM usuario usu
+                        INNER JOIN lista_amigos amigo on amigo.id_amigo = usu.id_usuario
+                        WHERE amigo.id_usuario = ${req.params.id_usuario}`;
+        
+        req.getConnection((err,conn)=>{
+
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    if(err) return callback(err);
+                    resultado.unshift({"id_usuario": parseInt(req.params.id_usuario)});
                     return callback(err,resultado);
 
                 });

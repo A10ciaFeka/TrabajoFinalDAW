@@ -48,7 +48,7 @@ usuarioController.listar = (req,res) => {
  */
 usuarioController.usuarioById = (req,res) => {
     
-    Usuario.usuarioPorId(req, null, (err,resultado)=>{
+    Usuario.usuarioPorId(req, (err,resultado)=>{
         if(err){
             res.json(err);
         }else{
@@ -66,12 +66,7 @@ usuarioController.usuarioById = (req,res) => {
 usuarioController.usuarioPorApodo = (req,res) => {
     
     Usuario.usuarioPorApodo(req, (err,resultado)=>{
-        if(err){
-            res.json(err);
-        }else{
-            // Metemos la foto
-            res.json(resultado);
-        }
+        mostrarResultados(err,resultado,res);
     });
 }
 
@@ -86,6 +81,19 @@ usuarioController.listarAmigos = (req,res) =>{
     Usuario.listarAmigos(req, (err,resultado)=>{
         mostrarResultados(err,resultado,res);
     });
+}
+
+usuarioController.listarIdAmigos = (req,res) => {
+
+    Usuario.listarIdAmigos(req, (err,resultado)=>{
+        if(err) res.json(err);
+
+        let arrayId = [];
+        resultado.forEach(usuario => {
+            arrayId.push(usuario.id_usuario);
+        });
+        res.json(arrayId);
+    })
 }
 
 /** --- POST REQUESTS --- */

@@ -25,6 +25,10 @@
   
 }
 
+.routerstyle{
+  text-decoration: none !important;
+}
+
 }
 .row {
     --bs-gutter-x: 0rem;
@@ -33,6 +37,16 @@
 .margenabajo{
   margin-bottom: 2em;
 }
+.cards{
+  max-width: 255px !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cards:hover{
+
+  box-shadow: 5px 6px 6px 2px #151515;
+  transform: scale(1.05);
+} 
 </style>
 
 <template>
@@ -41,7 +55,7 @@
         <h4 class="caca ms-2">MEJOR VALORADOS</h4>
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
-            <div class="card bg-dark">
+            <div class="cards bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                 <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>
@@ -77,22 +91,8 @@ export default {
     }
   },
     mounted () {
-      axios.get('http://localhost:3000/producto/listar/30/0')
-        .then((response) => {
-            this.productos = response.data.resultados; 
-            console.log(this.productos);
-        });
-      // this.productos.producto_puntuacionMedia.sort(function (a, b) {
-      //   if (a.name > b.name) {
-      //     return 1;
-      //   }
-      //   if (a.name < b.name) {
-      //     return -1;
-      //   }
-      //   // a must be equal to b
-      //   return 0;
-      // });
-      // console.log(this.productos);
+      axios.get('http://localhost:3000/producto/listar_mejores/5')
+        .then((response) => this.productos = response.data);
     }
 }
 </script>
