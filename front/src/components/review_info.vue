@@ -129,7 +129,7 @@ p {
                       <h5 class="mt-4">Sinopsis</h5>
                       <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                   </div>
-                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-3" value="Escribir review" @click="crear()">
+                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-success mt-3" value="Escribir review" @click="crear()">
                   <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
               </div>
             </div>

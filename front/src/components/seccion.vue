@@ -26,7 +26,6 @@
 }
 
 .routerstyle{
-  text-decoration-line: none !important;
   text-decoration: none !important;
 }
 a{
@@ -47,9 +46,12 @@ a{
 }
 .cards:hover{
 
-  box-shadow: 5px 6px 6px 2px #151515;
+  box-shadow: 9px 10px 10px 5px #151515;
   transform: scale(1.05);
 } 
+.bg-dark{
+  background-color: #445566 !important;
+}
 </style>
 
 <template>
@@ -65,7 +67,7 @@ a{
               <div class="card bg-dark">
                 <div class="nombre mt-3">
                   <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                  <span>{{producto.producto_nombre}}</span>
+                    <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                   </router-link>
                 </div>
                 <div class="card-body align-self-center">

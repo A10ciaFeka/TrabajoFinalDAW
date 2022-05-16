@@ -18,7 +18,7 @@
 .cards{
   transition: all 0.2s ease;
   cursor: pointer;
-}
+} 
 .cards:hover{
 
   box-shadow: 5px 6px 6px 2px #151515;

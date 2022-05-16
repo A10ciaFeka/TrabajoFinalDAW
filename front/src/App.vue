@@ -25,9 +25,7 @@
   color: #fff;
 }
 .fondo{
-  /* background-color: #63d471;
-  background-image: linear-gradient(315deg, #63d471 20%, #003c57 60%); */
-  background-color: black;
+  background-color: #14181C;
 }
 </style>
 <template>
