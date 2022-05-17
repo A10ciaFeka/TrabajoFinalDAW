@@ -83,6 +83,19 @@ usuarioController.listarAmigos = (req,res) =>{
     });
 }
 
+usuarioController.listarIdAmigos = (req,res) => {
+
+    Usuario.listarIdAmigos(req, (err,resultado)=>{
+        if(err) res.json(err);
+
+        let arrayId = [];
+        resultado.forEach(usuario => {
+            arrayId.push(usuario.id_usuario);
+        });
+        res.json(arrayId);
+    })
+}
+
 /** --- POST REQUESTS --- */
 /**
  * Crear un nuevo usuario

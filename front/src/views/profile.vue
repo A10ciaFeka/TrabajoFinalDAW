@@ -64,7 +64,7 @@
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -88,11 +88,10 @@ export default {
   name: 'profile_page',
   data(){
     return{
-      usuario:{},
-      reviews:[],
-      amigos:[],
+      usuario:null,
+      reviews:null,
+      amigos:null,
       prefijo: 'http://',
-      id_usuario:null
     }
   },
   components: {
@@ -102,9 +101,19 @@ export default {
   },
   mounted(){
     this.crearPagina();
-    this.getUsuario();
     this.getReviewsUsuario();
     this.getAmigos();
+    if(sessionStorage.info == null){
+        let v = this
+      setTimeout(function () {    
+
+        v.comprobar();                       
+      },500)
+      }
+      else{
+        this.usuario = JSON.parse(sessionStorage.info);
+        console.log(this.usuario.usuario_apodo);
+      }
   },
   methods:{
     getUsuario(){

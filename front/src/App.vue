@@ -4,6 +4,10 @@
   font-family: fuenteCuerpo;
   src: url(assets/font/Futura\ Light\ Condensed\ Regular.otf);
 }
+@font-face {
+  font-family: fuenteElden;
+  src: url(assets/font/Mantinia\ Regular.otf);
+}
 .contenedor{
   display:flex;
   justify-content: space-between;
@@ -21,8 +25,7 @@
   color: #fff;
 }
 .fondo{
-  background-color: #63d471;
-  background-image: linear-gradient(315deg, #63d471 20%, #003c57 60%);
+  background-color: #14181C;
 }
 </style>
 <template>

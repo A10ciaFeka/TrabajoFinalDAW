@@ -26,7 +26,7 @@
     justify-content: center;  
 }
 .bg-dark{
-  background-color: #000000F2 !important;
+  /* background-color: #000000F2 !important; */
 }
 span{
     width: 200px !important;

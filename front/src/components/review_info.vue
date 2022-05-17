@@ -129,7 +129,7 @@ p {
                       <h5 class="mt-4">Sinopsis</h5>
                       <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                   </div>
-                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-light mt-3" value="Escribir review" @click="crear()">
+                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-success mt-3" value="Escribir review" @click="crear()">
                   <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
               </div>
             </div>
@@ -215,11 +215,9 @@ export default {
         crear(){
           if(this.escribir){
             this.escribir = false;
-            console.log(this.escribir);
           }
           else{
             this.escribir = true;
-            console.log(this.escribir);
           }
       },
       enviar(e){
@@ -242,14 +240,12 @@ export default {
         });
       },
       comprobar(){
-      console.log('lo intento');
       if(sessionStorage.info == null){
-      console.log('fallo');
+        console.log();
       }
       else{
         this.sesion = true
         this.usuario = JSON.parse(sessionStorage.info)
-        console.log('Lo logre '+ this.usuario);
       }
     }
     

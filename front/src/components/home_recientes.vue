@@ -7,6 +7,7 @@
 }
 .card-title{
   overflow: hidden !important;
+  
 
 }
 .routerstyle{
@@ -30,8 +31,15 @@
   width:200px;
   height:270px;
 }
-.card{
+.cards{
   max-width: 255px !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cards:hover{
+
+  box-shadow: 9px 10px 10px 5px #151515;
+  transform: scale(1.1);
 }
 .card-body{
   padding: 0 1rem 1rem 1rem !important;
@@ -39,6 +47,11 @@
 .nombre{
   text-align: center;
 }
+
+.bg-dark{
+  background-color: #445566 !important;
+}
+
 @media (max-width: 576px){
   h4{
     text-align: center !important;
@@ -93,14 +106,14 @@ span{
         <h4 class="caca ms-2">SALIDAS RECIENTES</h4>
         <div class="row">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
-            <div class="card bg-dark">
+            <div class="cards bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                 <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>
               </router-link>
               <div class="card bg-dark">
                 <div class="nombre mt-3">
                   <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                  <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
+                    <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                   </router-link>
                 </div>
                 <div class="card-body align-self-center">
@@ -131,7 +144,7 @@ span{
       }
     },
     mounted () {
-      axios.get('http://localhost:3000/producto/listar_recientes/6')
+      axios.get('http://localhost:3000/producto/listar_recientes/5')
         .then((response) => {
             this.productos = response.data; 
         });
