@@ -16,7 +16,7 @@
                                     width="130" height="130">
                             </div>
 
-                            <div class="col-7 mt-2">
+                            <!--<div class="col-7 mt-2">
                                 <h2 class="fw-bold">{{usuario.usuario_apodo}}</h2>
 
                                 <button type="button" class="btn btn-secondary bg-secondary rounded btn-sm">
@@ -80,7 +80,7 @@
 import navbar from '@/components/navbar.vue';
 import foter from '@/components/footer.vue';
 import axios from 'axios';
-import StarRating from 'vue-star-rating';
+//import StarRating from 'vue-star-rating';
 import moment from 'moment';
 
 
@@ -97,12 +97,12 @@ export default {
   components: {
     foter,
     navbar,
-    StarRating
+    //StarRating
   },
   mounted(){
-    this.crearPagina();
-    this.getReviewsUsuario();
-    this.getAmigos();
+    // this.crearPagina();
+    // this.getReviewsUsuario();
+    // this.getAmigos();
     if(sessionStorage.info == null){
         let v = this
       setTimeout(function () {    
@@ -142,6 +142,36 @@ export default {
       let res=fecha;
       res= moment(res).format('DD-MM-YYYY');
       return res;
+    },
+    // getReviewsUsuario(){
+    //   axios.get(`http://localhost:3000/review/usuario/5`)
+    //     .then((response)=>{
+    //       console.log(response.data);
+    //       this.reviews=response.data;
+    //   })
+    // },
+    // getAmigos(){
+    //   axios.get(`http://localhost:3000/usuario/5/amigos`)
+    //     .then((response)=>{
+    //       this.amigos=response.data;
+    //   })
+    // },
+    // crearPagina(){
+    //   this.id_usuario= this.$route.query.id_usuario;
+    // },
+    comprobar(){
+      console.log('lo intento');
+      if(sessionStorage.info == null){
+      console.log('fallo');
+      }
+      else{
+        this.sesion = true;
+        this.usuario = JSON.parse(sessionStorage.info);
+        if(this.usuario.usuario_administrador == 0){
+          this.admin = true;
+        }
+        console.log('Lo logre '+ this.usuario);
+      }
     }
   }
     
