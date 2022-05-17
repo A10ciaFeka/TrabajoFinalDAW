@@ -7,15 +7,57 @@
     border-radius: 4px;
     box-shadow: 2px 2px rgb(96, 96, 96);
   } */
+hr{
+  border: 3px solid green ;
+}
 
 </style>
 <template>
     
     <section class="container mb-3 bg-dark">
+      <div v-show="sesion">
         <div class="mt-2">
-          <h4 class="p-2 text-center">Reviews: {{this.maxItems}}</h4>
+          <h4 class="p-2 text-center">Reviews de amigos</h4>
         </div>
 
+        <div class="m-4 border-top" v-for="revamigo in revamigos" :key="revamigo">
+          <div class="mt-3 mb-4 d-flex flex-row comentario">
+            <div class="col-2">
+                <div class="mb-2 ms-3">
+                  <img :src="`usuarios/${revamigo.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
+                </div>
+                <p class="mb-1 ms-2 col-6 text-center">
+                  <strong>{{revamigo.usuario_apodo}}</strong>
+                </p>
+            </div>
+
+            <div class="col-10">
+            
+                <div class=" d-flex flex-column">
+                  <div>
+                    <span class="me-2"><u class=" fs-5">{{revamigo.review_nombre}}</u></span>
+                  </div>
+                  <div class="d-flex">
+                    <div>
+                      <star-rating :rating="revamigo.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+                    </div>
+                    <div class="ms-2">
+                      <span class="text-muted fs-6">{{revamigo.review_fecha}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-lighter" v-if="revamigo.review_texto!='null'">
+                  {{revamigo.review_texto}}
+                </div>
+            </div>
+          </div>
+        </div>
+        <hr class="bg-success mt-5">
+      </div>
+
+        <div class="mt-5">
+          <h4 class="p-2 text-center">Reviews: {{this.maxItems}}</h4>
+        </div>
 
         <div class="m-4 border-top" v-for="review in reviews" :key="review">
           <div class="mt-3 mb-4 d-flex flex-row comentario">
@@ -86,21 +128,39 @@ export default {
           rows: 0,
           sesion: false,
           usuario: null,
-          idamigos: null
+          idamigos: null,
+          cajon: null,
+          revamigos: []
         }
     },
     mounted(){
-      this.listarReviews();
       if(sessionStorage.info == null){
-        let v = this
-      setTimeout(function () {    
-        v.comprobar();                       
-      },500)
+        let v = this;
+        setTimeout(function () {    
+          v.comprobar()               
+        },500);
       }
       else{
         this.sesion = true;
         this.usuario = JSON.parse(sessionStorage.info);
       }
+      if(this.sesion){
+      axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos_id`)
+      .then((response)=>{
+        this.idamigos = response.data
+
+        
+      });
+      axios.get(`http://localhost:3000/review/producto/${this.producto_id}`)
+      .then((response)=>{
+        this.cajon = response.data.resultados
+        this.reviewsamigos()
+      });
+      }
+    this.listarReviews();
+
+      
+
     },
     methods: {
       listarReviews(){
@@ -115,19 +175,38 @@ export default {
             this.rows = Math.ceil((this.maxItems/this.perPage));
             for (const review in this.reviews) {
               this.reviews[review].review_fecha = moment(this.reviews[review].review_fecha).format('DD-MM-YYYY');
-              }
-            
-          });
-          // axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos_id`)
-          //   .then((response)=>{
-          //     this.idamigos = response.data
-          //     console.log(this.idamigos);
-          // });
+              }    
+        });
       },
       onPageChange(page) {
         this.currentPage = page
         this.listarReviews();
       },
+      comprobar(){
+      console.log('lo intento');
+      if(sessionStorage.info == null){
+      console.log('');
+      }
+      else{
+        this.sesion = true;
+        this.usuario = JSON.parse(sessionStorage.info);
+        if(this.usuario.usuario_administrador == 0){
+          this.admin = true;
+        }
+      }
+    },
+    reviewsamigos(){
+      for (const caja in this.cajon) {
+        for (const id in this.idamigos) {
+
+          if(this.idamigos[id] == this.cajon[caja].id_usuario){
+            this.revamigos.push(this.cajon[caja])     
+          }
+        }
+      }
+      console.log('array completa' + this.revamigos);
+    }
+    
 
     },
     props:{

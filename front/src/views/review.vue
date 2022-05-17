@@ -1,4 +1,10 @@
 <style>
+.fondo2{
+  background-image: url('../../public/productos/fondoProduct.png');
+  background-attachment: fixed;
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+}
 </style>
 <template>
   <div>
@@ -35,6 +41,9 @@ export default {
     crearPagina(){
       return this.$route.query.id_producto;
     }
+  },
+  beforeCreate () {
+    document.querySelector('body').classList.add('fondo2');
   }
     
 }

@@ -90,6 +90,9 @@ h3 {
 p {
     color: #22e83a
 }
+.fondo{
+  background-color: #14181C;
+}
 
 </style>
 <template>
@@ -147,7 +150,10 @@ export default {
                         }
                 })
             }
-        }  
+        },
+  beforeCreate () {
+    document.querySelector('body').classList.remove('fondo2');
+  }  
 }
 
 </script>

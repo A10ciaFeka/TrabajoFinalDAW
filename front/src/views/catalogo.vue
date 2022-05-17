@@ -1,3 +1,8 @@
+<style scoped>
+.fondo{
+  background-color: #14181C;
+}
+</style>
 <template>
 <div>
   <navbar_first/>
@@ -21,6 +26,9 @@ export default {
     catalogo_productos,
     navbar_first,
     footer_down
+  },
+  beforeCreate () {
+    document.querySelector('body').classList.remove('fondo2');
   }
 }
 </script>

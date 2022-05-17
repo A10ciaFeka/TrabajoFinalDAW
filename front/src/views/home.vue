@@ -39,17 +39,24 @@ section{
   background-position: center;
 
 }
+.row{
+      --bs-gutter-x: 0 !important;
+}
 .routerstyle{
   text-decoration: none;
   padding: 0;
   margin: 0;
+}
+.fondo{
+  background-color: #14181C;
+  background-image: none !important;
 }
 
 </style>
 <template>
 <div>
   <navbar_first />
-    <section class="pt-5  pb-5 mt-0 mb-5  d-flex row bg-dark" style="height:85vh; background-size: cover;;">
+    <section class="pt-5  pb-5 mt-0 mb-5  d-flex row bg-dark" style="height:85vh; background-size: cover;">
       <div class="d-flex justify-content-center">
         <img :src="`productos/elden.png`" alt="" height="230">
       </div>
@@ -114,6 +121,9 @@ export default {
   },
   methods:{
     
+  },
+  beforeCreate () {
+    document.querySelector('body').classList.remove('fondo2');
   }
 }
 </script>

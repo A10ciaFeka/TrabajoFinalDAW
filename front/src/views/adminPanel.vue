@@ -99,6 +99,9 @@
 label{
   width: 115px;
 }
+.fondo{
+  background-color: #14181C;
+}
 </style>
 <template>
 <div>
@@ -441,6 +444,9 @@ label{
           cogerImagen(e){
             this.imagen = e.target.files[0].name;
           }
+        },
+        beforeCreate () {
+          document.querySelector('body').classList.remove('fondo2');
         }
         
   }

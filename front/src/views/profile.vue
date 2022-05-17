@@ -1,4 +1,7 @@
 <style scoped>
+.fondo{
+  background-color: #14181C;
+}
 </style>
 <template>
   <div>
@@ -173,6 +176,9 @@ export default {
         console.log('Lo logre '+ this.usuario);
       }
     }
+  },
+  beforeCreate () {
+    document.querySelector('body').classList.remove('fondo2');
   }
     
 }

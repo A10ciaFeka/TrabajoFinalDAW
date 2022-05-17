@@ -14,27 +14,20 @@
   height:255px;
 }
 @media (max-width: 576px){
-.card-img-top{
-  width:132px !important;
-  height:185px !important;
-  
-}
-.bg-image{
-  width:132px !important;
-  height:185px !important;
-  
-}
-
-.routerstyle{
-  text-decoration: none !important;
-}
-a{
-  text-decoration: none !important;
-}
+  .card-img-top{
+    width:132px !important;
+    height:185px !important;
+    
+  }
+  .bg-image{
+    width:132px !important;
+    height:185px !important;
+    
+  }
 }
 .row {
-    --bs-gutter-x: 0rem;
-    justify-content: space-around;
+  --bs-gutter-x: 0rem;
+  justify-content: space-around;
 }
 .margenabajo{
   margin-bottom: 2em;
@@ -45,7 +38,6 @@ a{
   cursor: pointer;
 }
 .cards:hover{
-
   box-shadow: 9px 10px 10px 5px #151515;
   transform: scale(1.05);
 } 
@@ -66,7 +58,7 @@ a{
               </router-link>
               <div class="card bg-dark">
                 <div class="nombre mt-3">
-                  <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                  <router-link style="text-decoration: none" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                     <div class="card-title"><span>{{producto.producto_nombre}}</span></div>
                   </router-link>
                 </div>
