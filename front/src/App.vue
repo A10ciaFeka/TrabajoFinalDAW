@@ -5,8 +5,8 @@
   src: url(assets/font/Futura\ Light\ Condensed\ Regular.otf);
 }
 @font-face {
-  font-family: fuenteElden;
-  src: url(assets/font/Mantinia\ Regular.otf);
+  font-family: fuenteGorda;
+  src: url(assets/font/GraphikBold.otf);
 }
 .contenedor{
   display:flex;

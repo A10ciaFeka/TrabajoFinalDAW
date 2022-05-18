@@ -16,13 +16,11 @@
   overflow: hidden;
 }
 .cards{
-  transition: all 0.2s ease;
-  cursor: pointer;
-} 
-.cards:hover{
-
-  box-shadow: 5px 6px 6px 2px #151515;
-  transform: scale(1.05);
+  margin: 8px;
+  border-bottom: 1px solid #198754;
+}
+.imgBorder{
+  border: 0.1px solid #6E7C7C;
 }
 hr{
   margin: 0;
@@ -39,7 +37,7 @@ hr{
         <div class="d-flex">
           <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:item.id_producto}}">
             <div>
-              <img class="m-3" :src="`productos/${item.producto_imagen}`" width="60" height="85">
+              <img class="m-3 imgBorder" :src="`productos/${item.producto_imagen}`" width="60" height="85">
             </div>
           </router-link>
           <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:item.id_producto}}">
@@ -53,7 +51,6 @@ hr{
             </div>
           </router-link>
         </div>
-        <hr class="bg-danger">
         
       </div>
       

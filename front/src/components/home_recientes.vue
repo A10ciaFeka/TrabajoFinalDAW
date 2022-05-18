@@ -52,6 +52,8 @@
   background-color: #445566 !important;
 }
 
+ 
+
 @media (max-width: 576px){
   h4{
     text-align: center !important;
@@ -98,13 +100,16 @@ span{
 @media (max-width: 1100px){
 
 }
-
+hr{
+    background-color: #22e83a; height: 1.5px; border: 0;
+}
 </style>
 <template>
     <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
       <div class="container pt-3">
         <h4 class="caca ms-2">SALIDAS RECIENTES</h4>
-        <div class="row">
+        <hr>  
+        <div class="row pt-2">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
             <div class="cards bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">

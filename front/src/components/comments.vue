@@ -11,6 +11,11 @@ hr{
   border: 3px solid green ;
 }
 
+.titulo{
+  font-size: 20px !important;
+  font-family: fuenteGorda !important;
+}
+
 </style>
 <template>
     
@@ -73,10 +78,10 @@ hr{
             <div class="col-10">
             
                 <div class=" d-flex flex-column">
-                  <div>
-                    <span class="me-2"><u class=" fs-5">{{review.review_nombre}}</u></span>
-                  </div>
                   <div class="d-flex">
+                    <div>
+                      <span class="me-2 titulo">{{review.review_nombre}}</span>
+                    </div>
                     <div>
                       <star-rating :rating="review.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                     </div>
@@ -85,7 +90,7 @@ hr{
                     </div>
                   </div>
                 </div>
-                <div class="text-lighter" v-if="review.review_texto!='null'">
+                <div class="text-lighter mt-2" v-if="review.review_texto!='null'">
                   {{review.review_texto}}
                 </div>
             </div>

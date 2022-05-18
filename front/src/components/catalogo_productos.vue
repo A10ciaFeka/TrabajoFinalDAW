@@ -66,6 +66,23 @@ span{
   min-height: 950px;
   max-height: 1100px;
 }
+.imgBorder{
+  border: 0.1px solid #6E7C7C;
+  border-bottom: 0;
+}
+.cards{
+  max-width: 255px !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.cards:hover{
+
+  box-shadow: 9px 10px 10px 5px #151515;
+  transform: scale(1.1);
+}
+.bg-dark{
+  background-color: #445566 !important;
+}
 </style>
 
 <template>
@@ -75,10 +92,10 @@ span{
       <div class="row">
 
         <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
-          <div class="card bg-dark">
+          <div class="cards bg-dark">
             
             <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-              <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt="" width="200" height="255"/>
+              <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top imgBorder" alt="" width="200" height="255"/>
             </router-link>
             <div class="card-body">
               <router-link class="router-link" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">

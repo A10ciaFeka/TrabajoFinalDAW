@@ -52,7 +52,10 @@ p {
   color: orange;
 }
 
-
+.imgBorder{
+  border: 0.1px solid #6E7C7C;
+  box-shadow: 0px 0px 5px #6E7C7C;
+}
 </style>
 <template>
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
@@ -109,7 +112,7 @@ p {
         <div class="row align-items-center">
             <div class="card mb-5 mt-4 bg-dark d-flex flex-row">
               <div class="card-body">
-                <img :src="`productos/${item.producto_imagen}`" class="mt-2" height="450" width="300"/>
+                <img :src="`productos/${item.producto_imagen}`" class="mt-2 imgBorder" height="450" width="300"/>
               </div>
 
               <div class="p-2 ms-2 ms-0">
@@ -117,6 +120,7 @@ p {
 
                     <h2 class="card-title mt-4 me-3">{{item.producto_nombre}}</h2> 
                     <star-rating :rating=item.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" class="mt-2"></star-rating>
+                    <span class="ms-2 mt-4 pt-1">{{item.producto_puntuacionMedia}}</span>
                   </div>
                   <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
                   <p>Platatormas: {{item.producto_plataforma}}</p>

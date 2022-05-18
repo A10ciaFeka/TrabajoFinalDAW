@@ -44,14 +44,21 @@
 .bg-dark{
   background-color: #445566 !important;
 }
+h4{
+  font-family: fuenteGorda !important;
+}
+hr{
+    background-color: #22e83a; height: 2px; border: 0;
+}
 </style>
 
 <template>
-  <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+  <div class="carousel slide carousel-dark" data-mdb-ride="carousel">
       <div class="container pt-3">
-        <h4 class="caca ms-2">MEJOR VALORADOS</h4>
+        <h4 class="ms-2">MEJOR VALORADOS</h4>
+        <hr>
         <div class="row">
-          <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
+          <div class="col-md-4 col-lg-2 col-6 margenabajo text-center" v-for="producto in productos" :key="producto">
             <div class="cards bg-dark">
               <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
                 <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top" alt=""/>

@@ -51,7 +51,10 @@ section{
   background-color: #14181C;
   background-image: none !important;
 }
-
+a{
+  font-size: 20px !important;
+  font-family: fuenteGorda !important;
+}
 </style>
 <template>
 <div>
@@ -66,7 +69,7 @@ section{
             
           </div>
           <div class="col-12 col-md-8  h-50 mt-5 pt-5">
-              <p class="lead mt-5 text-light mb-3">El nuevo juego de Hidetaka Miyazaki y George R.R Martin</p>
+              <p class="lead mt-5 text-light mb-3" style="font-family: fuenteGorda !important;font-size:18px">El nuevo juego de Hidetaka Miyazaki y George R.R Martin</p>
               <p>
                 <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:36}}">
                   <a href="" class="btn bg-success mt-1 shadow-lg btn-round text-light btn-lg btn-rised">Saber más</a>
@@ -81,21 +84,21 @@ section{
       <home_recientes/>
       <seccion />
     </div>
-    <div class="derecha">
+    <!-- <div class="derecha">
       <revAmigos/>
       <news_menu/>
-    </div>
+    </div> -->
   </div>
   <footer_down/>
 </div> 
 </template>
 
 <script>
-import revAmigos from '@/components/revAmigos.vue'
+// import revAmigos from '@/components/revAmigos.vue'
 import seccion from '@/components/seccion.vue'
 import home_recientes from '@/components/home_recientes.vue'
 import navbar_first from '@/components/navbar.vue'
-import news_menu from '@/components/proxLanzamientos.vue'
+// import news_menu from '@/components/proxLanzamientos.vue'
 import footer_down from '@/components/footer.vue'
 
 
@@ -104,9 +107,9 @@ export default {
   components: {
     seccion,
     home_recientes,
-    revAmigos,
+    // revAmigos,
     navbar_first,
-    news_menu,
+    // news_menu,
     footer_down
   },
   data(){
