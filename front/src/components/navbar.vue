@@ -177,6 +177,7 @@ export default {
       else{
         this.sesion = true;
         this.usuario = JSON.parse(sessionStorage.info);
+        console.log(this.usuario);
         if(this.usuario.usuario_administrador == 0){
           this.admin = true;
         }

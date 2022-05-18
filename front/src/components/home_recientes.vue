@@ -7,9 +7,9 @@
 }
 .card-title{
   overflow: hidden !important;
-  
 
 }
+
 .routerstyle{
   text-decoration: none;
   padding: 0;
@@ -101,7 +101,7 @@ span{
 
 }
 hr{
-    background-color: #22e83a; height: 1.5px; border: 0;
+  background-color: #22e83a; height: 1.5px; border: 0;
 }
 </style>
 <template>
