@@ -52,7 +52,9 @@
   background-color: #445566 !important;
 }
 
- 
+.fuente{
+  font-family: fuenteGorda !important;
+}
 
 @media (max-width: 576px){
   h4{
@@ -107,7 +109,7 @@ hr{
 <template>
     <div class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
       <div class="container pt-3">
-        <h4 class="caca ms-2">SALIDAS RECIENTES</h4>
+        <h4 class="caca ms-2 fuente">SALIDAS RECIENTES</h4>
         <hr>  
         <div class="row pt-2">
           <div class="col-md-4 col-lg-2 col-6 margenabajo" v-for="producto in productos" :key="producto">
