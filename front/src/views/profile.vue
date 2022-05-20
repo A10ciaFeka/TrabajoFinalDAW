@@ -123,65 +123,68 @@
             <div class="col-9">
                 <!-- Productos -->
                 <div class="d-flex mt-5">
-                    <div class="overflow-hiden text-center">
 
-                    <div class="text-center mt-3">
+                    <div class="overflow-hiden">
 
-                        <h4 class="fuente">JUEGOS VALORADOS</h4>
-                        <hr class="bg-success mx-2 me-5">
-                    </div>
-                    <div class="container pt-3">
-                        <div class="row">
+                        <div class="mt-3">
 
-                            <div class="col-1 " v-for="producto in productos" :key="producto">
-                                <div class="card bg-dark cards box bar products">
-                                    <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                                        <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top imgBorder" alt="" width="185" height="255"/>
-                                    </router-link>
-                                </div>
-                            </div>
+                            <h4 class="fuente ms-4">JUEGOS VALORADOS</h4>
+                            <hr class="bg-success mx-2 me-5">
                         </div>
-                    </div>
-                    </div>
-                </div>
+                        <div class="container pt-1">
+                            <div class="row">
 
-                <!-- reviews -->
-                <div class="text center mt-5 w-100">
-                    <h4 class="fuente text-center">REVIEWS RECIENTES</h4>
-                    <hr class="bg-success mx-2 me-5">
-                </div>
-                <div class="d-flex w-100 mb-5">
-
-                        <div class="pt-3 w-100">
-                            <div class="d-flex w-100 flex-column">
-                                <div class="w-100 ms-2 mt-3"  v-for="review in reviews" :key="review">
-                                    <div class="d-flex w-100" v-for="producto in productos" :key="producto">
-                                        <div v-if="producto.id_producto == review.id_producto" class="d-flex bordeabajo w-100 pb-3">
-                                            <div class="w-30">
-                                                <img v-bind:src="`productos/${producto.producto_imagen}`" class="comment imgBorder" alt="" width="185" height="255"/>
-                                            </div>
-                                            <div class="d-flex w-70 flex-column ms-5">
-                                                <div>
-                                                    <h5 class="nombre fuente">{{producto.producto_nombre}}</h5>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <!-- <span>{{review.review_nombre}}</span> -->
-                                                        <star-rating :rating="review.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
-                                                    </div>
-                                                    <div class="mx-2">
-                                                        <span class="text-muted">{{review.review_fecha}}</span>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <span>{{review.review_texto}}</span>
-                                                </div>
-                                            </div>
-                                        </div>     
+                                <div class="col-1 " v-for="producto in productos" :key="producto">
+                                    <div class="card bg-dark cards box bar products">
+                                        <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
+                                            <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top imgBorder" alt="" width="185" height="255"/>
+                                        </router-link>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- reviews -->
+
+                <div class="mt-5 w-100">
+                    <h4 class="fuente ms-4">REVIEWS RECIENTES</h4>
+                    <hr class="bg-success mx-2 me-5">
+                </div>
+                <div class="d-flex w-100 mb-3">
+
+                    <div class="pt-3 w-100">
+                        <div class="d-flex w-100 flex-column">
+                            <div class="w-100 ms-2 mt-3"  v-for="review in reviews" :key="review">
+                                <div class="d-flex w-100" v-for="producto in productos" :key="producto">
+                                    <div v-if="producto.id_producto == review.id_producto" class="d-flex bordeabajo w-100 pb-3">
+                                        <div class="w-30">
+                                            <img v-bind:src="`productos/${producto.producto_imagen}`" class="comment imgBorder" alt="" width="185" height="255"/>
+                                        </div>
+                                        <div class="d-flex w-70 flex-column ms-5">
+                                            <div>
+                                                <h5 class="nombre fuente">{{producto.producto_nombre}}</h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div>
+                                                    <!-- <span>{{review.review_nombre}}</span> -->
+                                                    <star-rating :rating="review.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
+                                                </div>
+                                                <div class="mx-2">
+                                                    <span class="text-muted">{{review.review_fecha}}</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>{{review.review_texto}}</span>
+                                            </div>
+                                        </div>
+                                    </div>     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- <div class="d-flex mb-4">
                     <div class="overflow-auto text-center">
