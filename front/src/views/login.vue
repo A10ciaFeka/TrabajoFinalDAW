@@ -5,8 +5,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
-    min-height: 200px;
+    width: 550px;
+    min-height: 500px;
     background: #000000;
     border-radius: 10px;
     padding: 40px;
@@ -28,18 +28,19 @@ h3 {
 
 .loginBox input {
     width: 100%;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    margin-top: 1em;
 }
 
 .loginBox input[type="text"],
 .loginBox input[type="password"] {
     border: none;
     border-bottom: 2px solid #262626;
+    font-size: 25px;
     outline: none;
     height: 40px;
     color: #fff;
     background: transparent;
-    font-size: 16px;
     padding-left: 20px;
     box-sizing: border-box
 }
@@ -67,10 +68,11 @@ h3 {
 }
 
 .loginBox input[type="submit"] {
+    margin-top: 1em;
     border: none;
     outline: none;
     height: 40px;
-    font-size: 16px;
+    font-family: fuenteGorda !important;
     background: #22e83a;
     color: black;
     border-radius: 20px;
@@ -78,12 +80,12 @@ h3 {
 }
 
 .loginBox a {
-    color: #00ffff;
-    font-size: 14px;
+    color: #1cbfbf;
     font-weight: bold;
     text-decoration: none;
     text-align: center;
-    display: block
+    display: block;
+    font-size: 25px;
 }
 
 
@@ -93,19 +95,21 @@ p {
 .fondo{
   background-color: #14181C;
 }
-
+.fuente{
+    font-family: fuenteGorda !important;
+}
 </style>
 <template>
     <div class="loginBox">
          <!--Logo  -->
         <!-- <img class="user" src="" height="100px" width="100px">  -->
-        <h3>Iniciar sesión</h3>
+        <h3 class="fuente">Iniciar sesión</h3>
         <form v-on:submit.prevent="login">
             <div class="inputBox"> 
                 <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
                 <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
             </div> 
-            <input type="submit" name="" value="Entrar">
+            <input  type="submit" name="" value="Entrar">
         </form>
         <router-link to="/register"> 
             <a href="#">¿No tienes cuenta? Registrate<br></a>

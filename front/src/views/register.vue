@@ -5,8 +5,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 350px;
-    min-height: 200px;
+    width: 550px;
+    min-height: 500px;
     background: #000000;
     border-radius: 10px;
     padding: 40px;
@@ -28,7 +28,8 @@ h3 {
 
 .loginBox input {
     width: 100%;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    margin-top: 1em;
 }
 
 .loginBox input[type="text"],
@@ -39,7 +40,7 @@ h3 {
     height: 40px;
     color: #fff;
     background: transparent;
-    font-size: 16px;
+    font-size: 25px;
     padding-left: 20px;
     box-sizing: border-box
 }
@@ -70,8 +71,9 @@ h3 {
     border: none;
     outline: none;
     height: 40px;
-    font-size: 16px;
+    font-size: 25px;
     background: #22e83a;
+    font-family: fuenteGorda !important;
     color: black;
     border-radius: 20px;
     cursor: pointer
@@ -79,7 +81,7 @@ h3 {
 
 .loginBox a {
     color: #00ffff;
-    font-size: 14px;
+    font-size: 25px;
     font-weight: bold;
     text-decoration: none;
     text-align: center;
@@ -90,6 +92,64 @@ p {
 }
 .fondo{
   background-color: #14181C;
+}
+input[type=checkbox] {
+    display:none;
+
+}
+input[type=checkbox]:checked + label {
+    border: 1px solid green;
+    box-shadow: 2px 3px 3px 0px rgb(1, 99, 1);
+}
+input#thing1[type=checkbox] + label
+{
+    background-image: url("../../public/usuarios/user1.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+input#thing2[type=checkbox] + label
+{
+    background-image: url("../../public/usuarios/user2.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+input#thing3[type=checkbox] + label
+{
+    background-image: url("../../public/usuarios/user3.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+input#thing4[type=checkbox] + label
+{
+    background-image: url("../../public/usuarios/user4.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+}
+input#thing5[type=checkbox] + label
+{
+    background-image: url("../../public/usuarios/user5.jpg");
+    background-size: cover;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display:inline-block;
+    padding: 0 0 0 0px;
 }
 </style>
 <template>
@@ -106,6 +166,23 @@ p {
                 <input  type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
                 <!-- <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña">  -->
             </div> 
+            <div class="inputBox mb-2">
+                <p>Imagen perfil:</p>
+                <div class="d-flex justify-content-between mx-3" >
+
+                        <input type="checkbox" name='foto' id="thing1" required value="1"/><label for="thing1"></label>
+
+                        <input type="checkbox" name='foto' id="thing2" required value="2"/><label for="thing2"></label>
+
+                        <input type="checkbox" name='foto' id="thing3" required value="3"/><label for="thing3"></label>
+
+                        <input type="checkbox" name='foto' id="thing4" required value="4"/><label for="thing4"></label>
+
+                        <input type="checkbox" name='foto' id="thing5" required value="5"/><label for="thing5"></label>
+
+                </div>
+                
+            </div>
             <input type="submit" name="" value="Registrarse">
         </form>
         <router-link to="/login"> 
@@ -138,15 +215,14 @@ export default {
                 axios.post('http://localhost:3000/usuario/crear',json)
                 .then( response => {
                     console.log(response);
-                    if(response.data.statusText == 'OK'){
-                        console.log("Entra");
-                        localStorage.token = response.data.result.token;
-                        this.$router.push('home');
-                    }
-                    else{
-                        console.log("Falla")
-                        this.error = true;
-                    }
+                    if(!response.data.Error){
+                            this.$router.push('login');
+                        }
+                        else{
+                            console.log("Falla")
+                            alert('El usuario ya esta cogido')
+                            this.error = true;
+                        }
                 })
             }
         },
