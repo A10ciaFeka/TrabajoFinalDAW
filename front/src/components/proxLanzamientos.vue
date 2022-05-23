@@ -4,6 +4,9 @@
     vertical-align: middle;
 
 }
+.fuente{
+  font-family: fuenteGorda !important;
+}
 @media (max-width: 1400px){
 .centrar {
    flex-direction: column; 
@@ -26,7 +29,7 @@
     justify-content: center;  
 }
 .bg-dark{
-  /* background-color: #000000F2 !important; */
+  background-color: #445566 !important;
 }
 span{
     width: 200px !important;
@@ -45,21 +48,30 @@ hr{
     /* color: #22e83a; */
     background-color: #22e83a; height: 1.5px; border: 0;
 }
+.card{
+    cursor: pointer;
+}
+.routerstyle{
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
 </style>
 <template>
     <div class="container bcontent pt-3">
-    <h4>PROXIMOS LANZAMIENTOS</h4>
+    <h4 class="fuente">PROXIMOS LANZAMIENTOS</h4>
     <hr />
     <div class="card mb-3 bg-dark" v-for="proximo in proximos" :key="proximo" >
+        <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:proximo.id_producto}}">
         <div class="alinear ">
             <div class="iz">
-                <img class="m-3" :src="`productos/${proximo.producto_imagen}`" width="60" height="85">
+                <img class="m-3" :src="`productos/${proximo.producto_imagen}`" width="80" height="120">
                 <!-- <span class="mx-3 pb-1">{{review.name}}</span> -->
             </div>
             <div class="dr">
                 <div class="card-body">
                     <div class="centrar">
-                        <div><h6 class="card-title">{{proximo.producto_nombre}}</h6></div>
+                        <div><h6 class="card-title fuente">{{proximo.producto_nombre}}</h6></div>
                     </div>
                     <p class="">Fecha de lanzamiento: {{proximo.producto_fechaSalida}} </p>
                     <p class=" overflow-hidden text-nowrap">Plataforma: {{proximo.producto_plataforma}}</p>
@@ -67,6 +79,7 @@ hr{
                 </div>
             </div>
         </div>
+        </router-link>
     </div>
 </div>
 </template>

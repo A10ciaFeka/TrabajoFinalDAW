@@ -84,10 +84,10 @@ a{
       <home_recientes/>
       <seccion />
     </div>
-    <!-- <div class="derecha">
-      <revAmigos/>
+    <div class="derecha">
+      <!-- <revAmigos/> -->
       <news_menu/>
-    </div> -->
+    </div>
   </div>
   <footer_down/>
 </div> 
@@ -98,7 +98,7 @@ a{
 import seccion from '@/components/seccion.vue'
 import home_recientes from '@/components/home_recientes.vue'
 import navbar_first from '@/components/navbar.vue'
-// import news_menu from '@/components/proxLanzamientos.vue'
+import news_menu from '@/components/proxLanzamientos.vue'
 import footer_down from '@/components/footer.vue'
 
 
@@ -109,7 +109,7 @@ export default {
     home_recientes,
     // revAmigos,
     navbar_first,
-    // news_menu,
+    news_menu,
     footer_down
   },
   data(){
