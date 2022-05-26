@@ -6,6 +6,7 @@ import Register from '@/views/register.vue'
 import AdminPanel from '@/views/adminPanel.vue'
 import review from '@/views/review.vue'
 import profile from '@/views/profile.vue'
+import premium from '@/views/premium.vue'
 
 const routes = [
     {
@@ -43,6 +44,12 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: profile
+    }
+    ,
+    {
+        path: '/premium',
+        name: 'Premium',
+        component: premium
     }
 ]
 
