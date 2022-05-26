@@ -39,10 +39,10 @@ hr{
             <div class="col-10">
             
                 <div class=" d-flex flex-column">
-                  <div>
-                    <span class="me-2"><u class=" fs-5">{{revamigo.review_nombre}}</u></span>
-                  </div>
                   <div class="d-flex">
+                    <div>
+                      <span class="me-2 titulo">{{revamigo.review_nombre}}</span>
+                    </div>
                     <div>
                       <star-rating :rating="revamigo.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                     </div>
@@ -159,6 +159,9 @@ export default {
       axios.get(`http://localhost:3000/review/producto/${this.producto_id}`)
       .then((response)=>{
         this.cajon = response.data.resultados
+        for (const caja in this.cajon) {
+              this.cajon[caja].review_fecha = moment(this.cajon[caja].review_fecha).format('DD-MM-YYYY');
+            } 
         this.reviewsamigos()
       });
       }
