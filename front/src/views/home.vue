@@ -40,7 +40,7 @@ section{
 
 }
 .row{
-      --bs-gutter-x: 0 !important;
+  --bs-gutter-x: 0 !important;
 }
 .routerstyle{
   text-decoration: none;

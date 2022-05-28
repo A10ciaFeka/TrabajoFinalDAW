@@ -1,4 +1,10 @@
 <style scoped>
+
+@font-face {
+  font-family: fuenteGorda;
+  src: url(../assets/font/GraphikBold.otf);
+}
+
 .mmm{
     margin-left: 10px;
 }
@@ -15,9 +21,16 @@
   max-height: 500px;
   overflow: hidden;
 }
+
+.fuente{
+  font-family: fuenteGorda !important;
+}
 .cards{
   margin: 8px;
   border-bottom: 1px solid #198754;
+}
+.cards:hover h6{
+  color: #237A58 !important;
 }
 .imgBorder{
   border: 0.1px solid #6E7C7C;
@@ -34,7 +47,7 @@ hr{
 </style>
 <template>
 <div class="modal mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
-  <div  class="modal-dialog mt-5">
+  <div class="modal-dialog mt-5">
     <div class="modal-content bg-dark p-3 ms-4 mt-5">
       <div class="cards bg-dark" v-for="item in items" v-bind:key="item.id" >
         <div class="d-flex">
@@ -47,7 +60,7 @@ hr{
             <div class="card-body overflow-hidden">
               <div class="centrar">
                 <div>
-                  <h6 class="card-title">{{item.producto_nombre}}</h6>
+                  <h6 class="card-title fuente">{{item.producto_nombre}}</h6>
                 </div>
               </div>
               <p class=" overflow-hidden text-nowrap">Plataforma: {{item.producto_plataforma}}</p>
