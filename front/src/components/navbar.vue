@@ -95,7 +95,9 @@ hr{
         </router-link>
       </div>
       <div v-if="sesion" class="mx-2  mt-3">
-        <span>Amigos</span>
+        <router-link to="/premium" class="routerstyle">
+          <span>Premium</span>
+        </router-link>
       </div>
       <div v-if="admin" class="mx-2  mt-3">
         <router-link to="/AdminPanel" class="routerstyle">

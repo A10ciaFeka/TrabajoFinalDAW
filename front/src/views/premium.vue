@@ -5,13 +5,6 @@
 .tarjeta{
     background-color: #545454;
 }
-
-.bg-success{
-  background-color: #22e83a !important;
-}
-.btn-success{
-  background-color: #22e83a !important;
-}
 section{
   background: radial-gradient(rgba(255, 255, 255, 0) 20%, #212529 73%), url('../../public/productos/premiumPortada.jpg');
   background-position: center;
@@ -39,7 +32,7 @@ section{
                                 <div class="col-12 col-md-8  h-50 mt-5 pt-5">
                                     <br>
                                     <h1 class="letras fw-bold display-3 pt-5">Mejora tu cuenta</h1>
-                                    <h5 class="">Los suscriptores disfrutaran de ventajas exclusivas</h5> 
+                                    <h5 class="">Suscríbete para mostrar tu apoyo a Gameboxd</h5> 
                                 </div>
                                 </div>
                             </div>
@@ -50,11 +43,10 @@ section{
                             <div class="col-4 mt-2 me-4 tarjeta d-flex flex-column rounded border border-danger">
                                 <div class="m-3">
                                     <h3 class="bg-danger text-center mb-3">FREE</h3>
-                                    <p>Cuenta de usuario básica para comenzar a disfrutar de Gameboxd.</p>
                                     <p>Posee los siguientes beneficios:</p>
                                     <ul class="d-grid gap-3">
                                         <li>Crea reviews de los videojuegos que quieras</li>
-                                        <li>Ve reviews de tus amigos y otros usuarios</li>
+                                        <li>Sigue a tus amigos y ve sus reviews</li>
                                     </ul>
                                     
                                 </div>
@@ -62,17 +54,13 @@ section{
                                 <div class="mt-auto">
                                     <p class="text-center" v-if="!sesion">
                                         <router-link class="routerstyle" to="/register">
-                                        <a href="" class="btn btn-danger mt-1 shadow-lg btn-round text-light btn-lg btn-rised">REGISTRARSE</a>
-                                        </router-link>
-                                        <br>o
-                                        <router-link class="routerstyle" to="/login">
-                                        <a href="" class="text-info">Iniciar Sesion</a>
+                                        <a href="" class="btn btn-danger mt-1 shadow-lg btn-round text-light btn-lg ">REGISTRARSE</a>
                                         </router-link>
                                     </p>  
 
                                     <p class="text-center" v-else>
                                         <router-link class="routerstyle" to="">
-                                        <a class="btn btn-secondary mt-1 shadow-lg btn-round text-light btn-lg btn-rised disabled">CONSEGUIDO</a>
+                                        <a class="btn btn-secondary mt-1 shadow-lg btn-round text-light btn-lg  disabled">CONSEGUIDO</a>
                                         </router-link>
                                     </p>  
                                 </div>
@@ -81,7 +69,6 @@ section{
                             <div class="col-4 mt-2 tarjeta d-flex flex-column rounded border border-success">
                                 <div class="m-3">
                                     <h3 class="bg-success text-center mb-3" >PREMIUM</h3>
-                                    <p>Cuenta otorgada a los usuarios que apoyen de forma activa a Gameboxd, con una serie de ventajas exclusivas.</p>
                                     <p>Posee los siguientes beneficios:</p>
                                     <ul class="d-grid gap-3">
                                         <li>Todo lo que hay en el FREE</li>
@@ -96,11 +83,7 @@ section{
                                 <div class="mt-auto mb-auto">
                                     <p class="text-center">
                                         <router-link class="routerstyle" to="">
-                                        <a href="" class="btn btn-success mt-1 shadow-lg btn-round text-light btn-lg btn-rised">3.99 $/mes</a>
-                                        </router-link>
-                                        <br>o
-                                        <router-link class="routerstyle" to="">
-                                        <a href="" class="text-info">Pagar Anualmente</a>
+                                        <a href="" class="btn btn-success mt-1 shadow-lg btn-round text-light btn-lg">3.99 $/mes</a>
                                         </router-link>
                                     </p>  
                                 </div>
