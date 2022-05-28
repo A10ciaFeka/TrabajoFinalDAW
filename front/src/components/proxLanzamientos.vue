@@ -66,7 +66,6 @@ hr{
         <div class="alinear ">
             <div class="iz">
                 <img class="m-3" :src="`productos/${proximo.producto_imagen}`" width="80" height="120">
-                <!-- <span class="mx-3 pb-1">{{review.name}}</span> -->
             </div>
             <div class="dr">
                 <div class="card-body">
