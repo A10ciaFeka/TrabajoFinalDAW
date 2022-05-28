@@ -49,8 +49,11 @@
 .bordeabajo{
     border-bottom: 1px solid gray;
 }
-.nombre:hover{
-    color: #40BCF4 !important;
+.nombre{
+    text-decoration: none !important;
+}
+.hoverClass:hover .nombre{
+    color: #198754 !important;
 }
 .perfil{
   border: 2px solid #6E7C7C;
@@ -134,10 +137,10 @@
                         <div class="container pt-1">
                             <div class="row">
 
-                                <div class="col-1 ms-3" v-for="producto in productos" :key="producto">
+                                <div class="col-1 ms-3" v-for="review in reviews" :key="review">
                                     <div class="card bg-dark cards box bar products">
-                                        <router-link :to="{path:'/producto',query:{id_producto:producto.id_producto}}">
-                                            <img v-bind:src="`productos/${producto.producto_imagen}`" class="card-img-top imgBorder" alt="" width="185" height="255"/>
+                                        <router-link :to="{path:'/producto',query:{id_producto:review.id_producto}}">
+                                            <img v-bind:src="`productos/${review.producto_imagen}`" class="card-img-top imgBorder" alt="" width="185" height="255"/>
                                         </router-link>
                                     </div>
                                 </div>
@@ -156,31 +159,35 @@
 
                     <div class="pt-3 w-100">
                         <div class="d-flex w-100 flex-column">
-                            <div class="w-100 ms-2 mt-3 border-bottom"  v-for="review in reviews" :key="review">
-                                <div class="d-flex w-100" v-for="producto in productos" :key="producto">
-                                        <div class="w-30">
-                                            <img v-bind:src="`productos/${producto.producto_imagen}`" class="comment imgBorder" alt="" width="185" height="255"/>
+                            <div class="w-100 ms-4 my-3 border-bottom pb-4 hoverClass"  v-for="review in reviews" :key="review">
+                                <div class="d-flex">
+                                    <div class="w-30">
+                                        <router-link :to="{path:'/producto',query:{id_producto:review.id_producto}}">
+                                            <img v-bind:src="`productos/${review.producto_imagen}`" class="comment imgBorder" alt="" width="185" height="255"/>
+                                        </router-link>
+                                    </div>
+                                    <div class="d-flex w-70 flex-column ms-4">
+                                        <div>
+                                            <router-link class="nombre" :to="{path:'/producto',query:{id_producto:review.id_producto}}">
+                                                <h5 class="nombre fuente">{{review.producto_nombre}}</h5>
+                                            </router-link>
                                         </div>
-                                        <div class="d-flex w-70 flex-column ms-4">
+                                        <div class="d-flex">
                                             <div>
-                                                <h5 class="nombre fuente">{{producto.producto_nombre}}</h5>
+                                                <h5 class="me-2">{{review.review_nombre}}</h5>
                                             </div>
-                                            <div class="d-flex">
-                                                <div>
-                                                    <h5 class="me-2">{{review.review_nombre}}</h5>
-                                                </div>
-                                                <div>
-                                                    <star-rating :rating="review.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
-                                                </div>
-                                                <div class="mx-2">
-                                                    <span class="text-muted">{{review.review_fecha}}</span>
-                                                </div>
+                                            <div>
+                                                <star-rating :rating="review.review_estrellas" :show-rating="false" :star-size="13" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]"></star-rating>
                                             </div>
-                            
-                                            <div v-if="review.review_texto!='null'">
-                                                <span>{{review.review_texto}}</span>
+                                            <div class="mx-2">
+                                                <span class="text-muted">{{review.review_fecha}}</span>
                                             </div>
                                         </div>
+                        
+                                        <div v-if="review.review_texto!='null'">
+                                            <span>{{review.review_texto}}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,12 +208,14 @@
                             <div class="col-4 ms-2 text-center mb-3 me-2"  v-for="idamigo in idamigos" :key="idamigo">
 
                                 <div class="mx-5 d-flex w-100 flex-column text-center">
-                                    <div>
-                                        <img v-bind:src="`usuarios/${idamigo.usuario_fotoPerfil}`" class="rounded-circle perfil2" height="100" width="100" background-size="100% auto" background-position="50%" alt="">
-                                    </div>
-                                    <div class="text-center">
-                                        <span>{{idamigo.usuario_apodo}}</span>
-                                    </div>
+                                    <router-link class="nombre" :to="{path:'/usuario',query:{id_usuario:idamigo.id_usuario}}">
+                                        <div>
+                                            <img v-bind:src="`usuarios/${idamigo.usuario_fotoPerfil}`" class="rounded-circle perfil2" height="100" width="100" background-size="100% auto" background-position="50%" alt="">
+                                        </div>
+                                        <div class="text-center">
+                                            <span>{{idamigo.usuario_apodo}}</span>
+                                        </div>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -262,16 +271,11 @@ export default {
       this.usuario = JSON.parse(sessionStorage.info);
       this.imagen = this.usuario.usuario_fotoPerfil
     }
-    
-    axios.get(`http://localhost:3000/producto/listar/7/0`)
-        .then((response)=>{
-            this.productos = response.data.resultados
-            
-        });
 
     axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos`)
         .then((response)=>{
             this.idamigos = response.data
+            console.log(this.idamigos);
         }); 
 
     axios.get(`http://localhost:3000/review/usuario/${this.usuario.id_usuario}`)

@@ -56,6 +56,9 @@ p {
   border: 0.1px solid #6E7C7C;
   box-shadow: 0px 0px 5px #6E7C7C;
 }
+.cursor{
+  cursor: not-allowed !important;
+}
 </style>
 <template>
     <!-- nombre sinopsis fsalida disp pu plat img etiq -->
@@ -133,8 +136,13 @@ p {
                       <h5 class="mt-4">Sinopsis</h5>
                       <p class="card-text mb-3">{{item.producto_sinopsis}}</p>
                   </div>
-                  <input v-if="item.producto_disponible==1" type="button" class="btn btn-success mt-3" value="Escribir review" @click="crear()">
-                  <input v-else type="button" class="btn btn-light mt-3" value="Escribir review" disabled>
+                  <input v-if="item.producto_disponible==1 && !this.tieneReview" type="button" class="btn btn-success mt-3" value="Escribir review" @click="crear()">
+                  <div class="alert alert-danger mt-3" v-else-if="item.producto_disponible==0" role="alert">
+                    Producto no disponible para review
+                  </div>
+                  <div v-else class="cursor">
+                    <button type="button" class="btn btn-success mt-3" disabled>Escribir review</button>
+                  </div>
               </div>
             </div>
         </div>
@@ -168,7 +176,8 @@ export default {
             texto: null,
             maxItems: null,
             usuario: null,
-            sesion: false
+            sesion: false,
+            tieneReview: false
             
         }
     },
@@ -191,6 +200,11 @@ export default {
           this.sesion = true
           this.usuario = JSON.parse(sessionStorage.info)
         }
+
+        axios.get(`http://localhost:3000/review/usu_prod/${this.usuario.id_usuario}/${this.producto_id}`)
+          .then((response)=>{
+            this.tieneReview = response.data.length>0 ? true : false;
+          })
 
     },
     methods: {
