@@ -56,19 +56,22 @@ hr{
   padding: 0;
   margin: 0;
 }
+.letrapasar:hover h6{
+    color: #198754 !important;
+}
 </style>
 <template>
     <div class="container bcontent pt-3">
     <h4 class="fuente">PROXIMOS LANZAMIENTOS</h4>
     <hr />
-    <div class="card mb-3 bg-dark" v-for="proximo in proximos" :key="proximo" >
+    <div class="card mb-3 bg-dark letrapasar" v-for="proximo in proximos" :key="proximo" >
         <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:proximo.id_producto}}">
         <div class="alinear ">
             <div class="iz">
                 <img class="m-3" :src="`productos/${proximo.producto_imagen}`" width="80" height="120">
                 <!-- <span class="mx-3 pb-1">{{review.name}}</span> -->
             </div>
-            <div class="dr">
+            <div class="dr ">
                 <div class="card-body">
                     <div class="centrar">
                         <div><h6 class="card-title fuente">{{proximo.producto_nombre}}</h6></div>

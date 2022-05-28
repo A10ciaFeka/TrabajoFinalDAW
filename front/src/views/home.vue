@@ -72,7 +72,7 @@ a{
               <p class="lead mt-5 text-light mb-3" style="font-family: fuenteGorda !important;font-size:18px">El nuevo juego de Hidetaka Miyazaki y George R.R Martin</p>
               <p>
                 <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:36}}">
-                  <a href="" class="btn bg-success mt-1 shadow-lg btn-round text-light btn-lg btn-rised">Saber más</a>
+                  <a href="" class="btn btn-success mt-1 shadow-lg btn-round text-light btn-lg btn-rised">Saber más</a>
                 </router-link>
               </p>  
           </div>
