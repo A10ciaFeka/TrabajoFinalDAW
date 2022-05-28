@@ -28,6 +28,9 @@ hr{
 .alargar{
   width: 200px;
 }
+.navbar{
+  box-shadow: 0 5px 5px -5px black;
+}
 </style>
 <template>
 <div class="modal mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
