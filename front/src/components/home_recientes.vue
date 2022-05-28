@@ -134,6 +134,7 @@ hr{
     </div>
 </template>
 
+
 <script>
   import StarRating from 'vue-star-rating';
   import axios from 'axios';

@@ -5,7 +5,10 @@ const Review = {
 
     reviewPorUsuario: (req, callback) => {
 
-        const sql = 'SELECT * FROM review WHERE id_usuario='+req.params.id_usuario+' ORDER BY review_fecha DESC';
+        const sql = `SELECT rev.*, prod.producto_nombre, prod.producto_imagen  FROM review rev
+                        INNER JOIN producto prod on prod.id_producto = rev.id_producto
+                        WHERE rev.id_usuario='${req.params.id_usuario}'
+                        ORDER BY review_fecha DESC`;
 
         req.getConnection((err,conn)=>{
             if(err) {
