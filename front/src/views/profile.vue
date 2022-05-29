@@ -97,7 +97,7 @@
         <div class="d-flex mt-4" style="height: 70px;">
             <div class="d-flex  flex-column text-center borde">
                 <div>
-                    <Span>4</Span>
+                    <Span>{{this.reviews.length}}</Span>
                 </div>
                 <div>
                     <span>REVIEWS</span>
@@ -105,7 +105,7 @@
             </div>
             <div class="d-flex ms-3 flex-column text-center borde">
                 <div>
-                    <Span>4</Span>
+                    <Span>{{this.seguidos.length}}</Span>
                 </div>
                 <div>
                     <span>SEGUIDOS</span>
@@ -113,7 +113,7 @@
             </div>
             <div class="d-flex ms-3 me-5 flex-column text-center">
                 <div>
-                    <Span>4</Span>
+                    <Span>{{this.idamigos.length}}</Span>
                 </div>
                 <div>
                     <span>SEGUIDORES</span>
@@ -198,7 +198,7 @@
             </div>
             <div class="col-3 mt-3">
                 <div class="text center mt-5 w-100">
-                    <h4 class="fuente text-center">SEGUIDOS</h4>
+                    <h4 class="fuente text-center">SEGUIDORES</h4>
                     <hr class="bg-success mx-4">
                 </div>
                 <div class="container pt-3">
@@ -224,7 +224,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="text center mt-5 w-100">
+                    <h4 class="fuente text-center">SEGUIDOS</h4>
+                    <hr class="bg-success mx-4">
+                </div>
+                <div class="container pt-3">
+                    <div class="row">
+                        <div v-if="seguidos.length!==0">
+
+                            <div class="col-4 ms-2 text-center mb-3 me-2"  v-for="idamigo in seguidos" :key="idamigo">
+
+                                <div class="mx-5 d-flex w-100 flex-column text-center">
+                                    <router-link class="nombre" :to="{path:'/usuario',query:{id_usuario:idamigo.id_usuario}}">
+                                        <div>
+                                            <img v-bind:src="`usuarios/${idamigo.usuario_fotoPerfil}`" class="rounded-circle perfil2" height="100" width="100" background-size="100% auto" background-position="50%" alt="">
+                                        </div>
+                                        <div class="text-center">
+                                            <span>{{idamigo.usuario_apodo}}</span>
+                                        </div>
+                                    </router-link>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <h5 class="text-center">No sigues a ningún usuario</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
         </div>
         
 
@@ -259,7 +287,8 @@ export default {
         imagen: null,
         productos: [],
         idamigos:[],
-        reviews:[]
+        reviews:[],
+        seguidos:[]
       }
   },
   mounted(){
@@ -272,7 +301,7 @@ export default {
       this.imagen = this.usuario.usuario_fotoPerfil
     }
 
-    axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/amigos`)
+    axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/seguidores`)
         .then((response)=>{
             this.idamigos = response.data
             console.log(this.idamigos);
@@ -285,6 +314,11 @@ export default {
                 this.reviews[review].review_fecha = moment(this.reviews[review].review_fecha).format('DD-MM-YYYY');
             }
             console.log('review del usuario: ',response.data);
+        });
+    
+    axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/seguidos`)
+        .then((response)=>{
+            this.seguidos = response.data;
         });
     
                 // let json ={

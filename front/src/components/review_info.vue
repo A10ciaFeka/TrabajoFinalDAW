@@ -15,6 +15,9 @@
         height:185px !important;
     }
 }
+.fuente{
+  font-family: fuenteGorda !important;
+}
 .modal{
 
   display: block !important;
@@ -121,16 +124,19 @@ p {
               <div class="p-2 ms-2 ms-0">
                   <div class="d-flex">
 
-                    <h2 class="card-title mt-4 me-3">{{item.producto_nombre}}</h2> 
+                    <h2 class="card-title mt-4 me-3 fuente">{{item.producto_nombre}}</h2> 
                     <star-rating :rating=item.producto_puntuacionMedia :show-rating="false" :star-size="20" :read-only="true" :increment="0.01" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" class="mt-2"></star-rating>
-                    <span class="ms-2 mt-4 pt-1">{{item.producto_puntuacionMedia}}</span>
+                    <span class="ms-2 mt-4 pt-1">{{this.puntuacionMedia}}</span>
                   </div>
                   <div class="small text-muted mb-3">Fecha de lanzamiento: {{this.fecha}}</div>
-                  <p>Platatormas: {{item.producto_plataforma}}</p>
+                  <p>
+                    Platatormas: 
+                    <span v-for="plataforma in item.producto_plataforma" :key="plataforma">{{plataforma  }} </span>
+                  </p>
 
                   <div class="d-flex">
                       <span class="me-2">Etiqueta(s):</span>
-                      <span class="bg-secondary me-1 rounded-pill col-2 text-center text-nowrap" v-for="tag in tags" :key="tag">{{tag}}</span>
+                      <span class="bg-secondary me-1 rounded-pill col-2 text-center text-wrap" v-for="tag in tags" :key="tag">{{tag}}</span>
                   </div>
                   <div class="border-bottom">
                       <h5 class="mt-4">Sinopsis</h5>
@@ -177,7 +183,8 @@ export default {
             maxItems: null,
             usuario: null,
             sesion: false,
-            tieneReview: false
+            tieneReview: false,
+            puntuacionMedia: null,
             
         }
     },
@@ -212,6 +219,7 @@ export default {
         axios.get(`http://localhost:3000/producto/${this.producto_id}`)
             .then((response)=>{
                 this.item=response.data;
+                this.puntuacionMedia =  (this.item.producto_puntuacionMedia.toFixed(1)*10)%10>0 ? this.item.producto_puntuacionMedia.toFixed(1) : this.item.producto_puntuacionMedia;
                 this.separar();
                 this.date();
             })
