@@ -141,7 +141,7 @@ p {
                     Producto no disponible para review
                   </div>
                   <div v-else class="cursor">
-                    <button type="button" class="btn btn-success mt-3" disabled>Escribir review</button>
+                    <button  type="button" class="btn btn-success mt-3" disabled>Escribir review</button>
                   </div>
               </div>
             </div>
