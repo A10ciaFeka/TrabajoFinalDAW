@@ -208,10 +208,12 @@ export default {
           this.usuario = JSON.parse(sessionStorage.info)
         }
 
-        axios.get(`http://localhost:3000/review/usu_prod/${this.usuario.id_usuario}/${this.producto_id}`)
+        if(this.usuario != null){
+          axios.get(`http://localhost:3000/review/usu_prod/${this.usuario.id_usuario}/${this.producto_id}`)
           .then((response)=>{
             this.tieneReview = response.data.length>0 ? true : false;
           })
+        }
 
     },
     methods: {

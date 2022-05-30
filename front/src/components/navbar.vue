@@ -44,6 +44,9 @@ hr{
 .navbar{
   box-shadow: 0 5px 5px -5px black;
 }
+.tamm{
+  max-width: 300px;
+}
 </style>
 <template>
 <div class="modal mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
@@ -63,7 +66,7 @@ hr{
                   <h6 class="card-title fuente">{{item.producto_nombre}}</h6>
                 </div>
               </div>
-              <p class=" overflow-hidden text-nowrap">Plataforma: {{item.producto_plataforma}}</p>
+              <p class="tamm overflow-hidden text-nowrap">Plataforma: {{item.producto_plataforma}}</p>
             </div>
           </router-link>
         </div>

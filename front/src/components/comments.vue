@@ -19,10 +19,34 @@ hr{
 .fuente{
   font-family: fuenteGorda !important;
 }
-
+.modal{
+  display: block !important;
+  /* margin: 5rem ; */
+  background: rgba(125, 125, 125, .8);
+}
+.negro{
+  color: black !important;
+}
 </style>
 <template>
-    
+    <div class="modal"  tabindex="-1" v-if="create">
+        <div  class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-4">
+            <div class="my-4 text-center">
+              <h4 class="negro">¿Estas seguro de eliminar la review?</h4>
+            </div>
+            <div class="d-flex justify-content-around">
+              <div>
+                 <button class="btn mx-1  btn-danger " @click="enviar()">Eliminar</button>
+              </div>
+              <div>
+                <button class="btn mx-1  btn-success " @click="eliminar()">Salir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <section class="container mb-3 bg-dark">
       <div v-show="sesion" class="border-bottom">
         <div class="pt-3 mt-2">
@@ -60,7 +84,7 @@ hr{
                 </div>
             </div>
             <div v-if="this.usuario.id_usuario==revamigo.id_usuario" class="col-1">
-              <button class="btn btn-success">
+              <button class="btn btn-success" @click="eliminar(review.id_review)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -105,15 +129,17 @@ hr{
                   {{review.review_texto}}
                 </div>
             </div>
-            
-            <div v-if="this.usuario.id_usuario==review.id_usuario" class="col-1">
-              <button class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                </svg>  
-              </button>
+            <div v-if="this.usuario != null">
+              <div v-if="this.usuario.id_usuario==review.id_usuario" class="col-1">
+                <button class="btn btn-success" @click="eliminar(review.id_review)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>  
+                </button>
+              </div>
             </div>
+            
             
           </div>
         </div>
@@ -156,7 +182,9 @@ export default {
           usuario: null,
           idamigos: null,
           cajon: null,
-          revamigos: []
+          revamigos: [],
+          create: false,
+          objeto: null
         }
     },
     mounted(){
@@ -234,6 +262,35 @@ export default {
         }
       }
       console.log('array completa' + this.revamigos);
+    },
+    eliminar(e){
+      if(this.create){
+        this.create = false;
+      }
+      else{
+        this.create = true;
+      }
+      for (let review in this.reviews) {
+        if(this.reviews[review].id_review == e){
+          this.objeto = this.reviews[review]
+        }
+      }
+    },
+    enviar(){
+      let json = {
+              "review_estrellas": this.objeto.review_estrellas,
+              "review_total":  this.maxItems,
+              "id_producto":  this.objeto.id_producto,
+              "id_review":  this.objeto.id_review,
+            };
+            axios.delete(`http://localhost:3000/review/eliminar`, json)
+            .then((response)=>{
+              console.log(response);
+              this.$router.go();
+            })
+            .catch((error)=>{
+              console.log(error);
+            });
     }
     
 
