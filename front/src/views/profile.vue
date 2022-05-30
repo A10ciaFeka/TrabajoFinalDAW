@@ -361,22 +361,23 @@ export default {
           if(sessionStorage.info!=null){
               let usuarioActual = JSON.parse(sessionStorage.info);
               let json = {
-                  "id_usuario": usuarioActual.id_usuario, // Usuario que sigue
-                  "id_amigo": this.usuario.id_usuario // Usuario seguido
+                  "id_usuario": parseInt(usuarioActual.id_usuario), // Usuario que sigue
+                  "id_amigo": parseInt(this.usuario.id_usuario) // Usuario seguido
               }
-              axios.post(`http://localhost:3000/usuario/seguir_usuario`, json);
-              this.$router.go();
+              axios.post(`http://localhost:3000/usuario/seguir_usuario`, json)
+                .then(()=>{this.$router.go();})
+
           }
       },
       dejarSeguir(){
           if(sessionStorage.info!=null){
               let usuarioActual = JSON.parse(sessionStorage.info);
               let json = {
-                  "id_usuario": usuarioActual.id_usuario, // Usuario que sigue
-                  "id_amigo": this.usuario.id_usuario // Usuario seguido
+                  "id_usuario": parseInt(usuarioActual.id_usuario), // Usuario que sigue
+                  "id_amigo": parseInt(this.usuario.id_usuario) // Usuario seguido
               }
-              axios.delete(`http://localhost:3000/usuario/dejar_seguir_usuario`, {data:json});
-              this.$router.go();
+              axios.delete(`http://localhost:3000/usuario/dejar_seguir_usuario`, {data:json})
+                .then(()=>{this.$router.go();})
           }
       }
   },

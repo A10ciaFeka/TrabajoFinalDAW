@@ -27,6 +27,12 @@ hr{
 .negro{
   color: black !important;
 }
+.nombre{
+  text-decoration: none;
+}
+.nombre:hover strong{
+  color: #237A58 !important;
+}
 </style>
 <template>
     <div class="modal"  tabindex="-1" v-if="create">
@@ -102,14 +108,16 @@ hr{
         <div class="mx-3 border-top" v-for="review in reviews" :key="review">
           <div class="mt-3 mb-2 d-flex flex-row comentario">
             <div class="col-2 d-flex flex-column justify-content-center">
-              <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:review.id_usuario}}">
-                <div class="mx-auto">
-                  <img :src="`usuarios/${review.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
+              <div class="mx-auto">
+                  <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:review.id_usuario}}">
+                    <img :src="`usuarios/${review.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
+                  </router-link>
                 </div>
                 <p class="mx-auto">
-                  <strong>{{review.usuario_apodo}}</strong>
+                  <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:review.id_usuario}}">
+                    <strong>{{review.usuario_apodo}}</strong>
+                  </router-link>
                 </p>
-                </router-link>
             </div>
 
             <div class="col-9">

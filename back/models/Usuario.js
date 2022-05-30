@@ -261,7 +261,7 @@ const Usuario = {
 
     seguirUnUsuario: (req,callback) => {
         const {id_usuario, id_amigo} = req.body;
-
+        console.log(id_usuario);
         req.getConnection((err,conn)=>{
             if(err){
                return callback(err);

@@ -127,6 +127,7 @@ usuarioController.crearUsuario = (req, res) => {
 usuarioController.seguirUnUsuario = (req, res) => {
 
     Usuario.seguirUnUsuario(req,(err,resultado)=>{
+        console.log(resultado);
         mostrarResultados(err,resultado,res);
     });
 }
