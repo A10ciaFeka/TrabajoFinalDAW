@@ -11,15 +11,15 @@
 .routerstyle{
   text-decoration: none;
 }
-.modal{
+.modal2{
   display: block !important;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
 }
-.modal-content{
-  height: fit-content;
-  max-height: 500px;
-  overflow: hidden;
+.modal-content2{
+  height: fit-content !important;
+  max-height: 500px !important;
+  overflow: hidden !important;
 }
 
 .fuente{
@@ -30,6 +30,9 @@
   border-bottom: 1px solid #198754;
 }
 .cards:hover h6{
+  color: #237A58 !important;
+}
+.nav_items:hover{
   color: #237A58 !important;
 }
 .imgBorder{
@@ -47,11 +50,37 @@ hr{
 .tamm{
   max-width: 300px;
 }
+
+.rueda:hover {
+  fill: #237A58 !important;
+}
+.modal3{
+  display: block !important;
+  /* margin: 5rem ; */
+  background: rgba(125, 125, 125, .8);
+}
 </style>
 <template>
-<div class="modal mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
+    <div class="modal3 modal"  tabindex="-1" v-if="create">
+        <div  class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-4 bg-dark">
+            <div class="my-4 text-center">
+              <h4>¿Estás seguro de cerrar sesión?</h4>
+            </div>
+            <div class="d-flex justify-content-around">
+              <div>
+                <button class="btn mx-1  btn-success " @click="dameloPapi()">Cancelar</button>
+              </div>
+              <div>
+                 <button class="btn mx-1  btn-danger " @click="salir()">Cerrar Sesión</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<div class="modal modal2 mt-3"  tabindex="-1" v-if="buscar" @click="cerrar()">
   <div class="modal-dialog mt-5">
-    <div class="modal-content bg-dark p-3 ms-4 mt-5">
+    <div class="modal-content modal-content2 bg-dark p-3 ms-4 mt-5">
       <div class="cards bg-dark" v-for="item in items" v-bind:key="item.id" >
         <div class="d-flex">
           <router-link class="routerstyle" :to="{path:'/producto',query:{id_producto:item.id_producto}}">
@@ -94,17 +123,17 @@ hr{
       <!-- Aqui tengo que poner cosas -->
       <div class="mx-2 ms-4 mt-3">
         <router-link to="/catalogo" class="routerstyle">
-        <span>Catalogo</span>
+        <span class="nav_items">Catalogo</span>
         </router-link>
       </div>
       <div v-if="sesion" class="mx-2  mt-3">
         <router-link to="/premium" class="routerstyle">
-          <span>Premium</span>
+          <span class="nav_items">Premium</span>
         </router-link>
       </div>
       <div v-if="admin" class="mx-2  mt-3">
         <router-link to="/AdminPanel" class="routerstyle">
-          <span>Panel Administrador</span>
+          <span class="nav_items">Panel Administrador</span>
         </router-link>
       </div>
     <!-- </div> -->
@@ -122,20 +151,20 @@ hr{
     <!-- Right elements -->
       <ul v-if="sesion" class="navbar-nav flex-row">
         <li class="nav-item d-sm-flex align-items-sm-center">
-          <span  class="d-none d-sm-block ms-1">{{usuario.usuario_apodo}}</span>
+          <span class="d-none d-sm-block ms-1">{{usuario.usuario_apodo}}</span>
         </li>
         <li class="nav-item d-sm-flex align-items-sm-center">
           <img :src="`usuarios/${usuario.usuario_fotoPerfil}`" class="rounded-circle mmm" height="45" width="45" background-size="100% auto" background-position="50%" alt="">
         </li>
         <li class="nav-item d-sm-flex align-items-sm-center mx-2">
           <router-link to="/profile" class="routerstyle">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear-fill rueda" viewBox="0 0 16 16">
             <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
           </svg>
           </router-link>
         </li>
-        <li class="nav-item d-sm-flex align-items-sm-center ms-3" style="cursor: pointer;" v-on:click="salir()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+        <li class="nav-item d-sm-flex align-items-sm-center ms-2 mt-1" style="cursor: pointer;" v-on:click="dameloPapi()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right rueda" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
             <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
           </svg>
@@ -180,7 +209,8 @@ export default {
         usuario: null,
         buscar: false,
         search: '',
-        products: null
+        products: null,
+        create: false,
       }
   },
   mounted(){
@@ -231,6 +261,14 @@ export default {
     cerrar(){
       this.buscar = false
     },
+    dameloPapi(){
+      if(this.create){
+        this.create = false;
+      }
+      else{
+        this.create = true;
+      }
+    }
     // caca(){
     //   var key = this.search
     //   var response = [];

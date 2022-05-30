@@ -31,16 +31,16 @@ hr{
 <template>
     <div class="modal"  tabindex="-1" v-if="create">
         <div  class="modal-dialog modal-dialog-centered">
-          <div class="modal-content p-4">
+          <div class="modal-content p-4 bg-dark">
             <div class="my-4 text-center">
-              <h4 class="negro">¿Estas seguro de eliminar la review?</h4>
+              <h4>¿Estas seguro de eliminar la review?</h4>
             </div>
             <div class="d-flex justify-content-around">
               <div>
-                 <button class="btn mx-1  btn-danger " @click="enviar()">Eliminar</button>
+                <button class="btn mx-1  btn-success " @click="eliminar()">Cancelar</button>
               </div>
               <div>
-                <button class="btn mx-1  btn-success " @click="eliminar()">Salir</button>
+                 <button class="btn mx-1  btn-danger " @click="enviar()">Eliminar</button>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ hr{
                 </div>
             </div>
             <div v-if="this.usuario.id_usuario==revamigo.id_usuario" class="col-1">
-              <button class="btn btn-success" @click="eliminar(review.id_review)">
+              <button class="btn btn-success" @click="eliminar(revamigo.id_review)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                   <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -102,12 +102,14 @@ hr{
         <div class="mx-3 border-top" v-for="review in reviews" :key="review">
           <div class="mt-3 mb-2 d-flex flex-row comentario">
             <div class="col-2 d-flex flex-column justify-content-center">
+              <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:review.id_usuario}}">
                 <div class="mx-auto">
                   <img :src="`usuarios/${review.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
                 </div>
                 <p class="mx-auto">
                   <strong>{{review.usuario_apodo}}</strong>
                 </p>
+                </router-link>
             </div>
 
             <div class="col-9">
@@ -278,12 +280,13 @@ export default {
     },
     enviar(){
       let json = {
-              "review_estrellas": this.objeto.review_estrellas,
-              "review_total":  this.maxItems,
-              "id_producto":  this.objeto.id_producto,
-              "id_review":  this.objeto.id_review,
+              "review_estrellas": parseInt(this.objeto.review_estrellas),
+              "review_total":  parseInt(this.maxItems),
+              "id_producto":  parseInt(this.objeto.id_producto),
+              "id_review":  parseInt(this.objeto.id_review),
             };
-            axios.delete(`http://localhost:3000/review/eliminar`, json)
+            console.log(json);
+            axios.delete(`http://localhost:3000/review/eliminar`, {data: json})
             .then((response)=>{
               console.log(response);
               this.$router.go();

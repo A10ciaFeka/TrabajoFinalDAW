@@ -4,6 +4,7 @@ productoHelper.recalcularPuntuacion = (add,conn, review_estrellas, review_total,
 
     let puntuacionNuevaProducto = 0;
 
+    console.log(id_producto);
     const sqlMediaProd = `SELECT review_estrellas FROM review WHERE id_producto=${id_producto}`;
     conn.query(sqlMediaProd,(err,resultado)=>{
         if(err) return callback(err);

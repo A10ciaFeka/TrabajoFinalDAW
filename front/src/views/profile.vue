@@ -91,7 +91,14 @@
                 <img v-bind:src="'usuarios/' + imagen" class="rounded-circle perfil" height="150" width="150" background-size="100% auto" background-position="50%" alt="">
             </div>
             <div>
-                <h2 class="mt-4 ms-3 fuente">{{usuario.usuario_apodo}}</h2>
+                <h2 class="mt-5 ms-3 fuente">{{usuario.usuario_apodo}}</h2>
+            </div>
+            <div v-if="this.id_usuarioExterno==null">
+                <button class="mt-5 ms-3 btn btn-success">Editar</button>
+            </div>
+            <div v-else>
+                <button class="mt-5 ms-3 btn btn-success" v-if="!this.seguido" @click="seguir()">+ Seguir</button>
+                <button class="mt-5 ms-3 btn btn-danger" v-else @click="dejarSeguir()">- Dejar de seguir</button>
             </div>
         </div>
         <div class="d-flex mt-4" style="height: 70px;">
@@ -123,16 +130,16 @@
       </div>
 
         <div class="d-flex">
-            <div class="col-9">
+            <div class="col-9 ">
                 <!-- Productos -->
-                <div class="d-flex mt-5">
+                <div class="d-flex mt-5 w-100">
 
                     <div class="overflow-hiden">
 
                         <div class="mt-3">
 
                             <h4 class="fuente ms-4">JUEGOS VALORADOS</h4>
-                            <hr class="bg-success mx-2 me-5">
+                            <hr class="bg-success mx-2 me-5 w-100">
                         </div>
                         <div class="container pt-1">
                             <div class="row">
@@ -198,17 +205,17 @@
             </div>
             <div class="col-3 mt-3">
                 <div class="text center mt-5 w-100">
-                    <h4 class="fuente text-center">SEGUIDORES</h4>
+                    <h4 class="fuente text-center">SEGUIDOS</h4>
                     <hr class="bg-success mx-4">
                 </div>
                 <div class="container pt-3">
                     <div class="row">
-                        <div v-if="idamigos.length!==0">
+                        <div class="d-flex justify-content-center" v-if="seguidos.length!==0">
 
-                            <div class="col-4 ms-2 text-center mb-3 me-2"  v-for="idamigo in idamigos" :key="idamigo">
+                            <div class="col-4 ms-2 d-flex text-center mb-3 me-2"  v-for="idamigo in seguidos" :key="idamigo">
 
-                                <div class="mx-5 d-flex w-100 flex-column text-center">
-                                    <router-link class="nombre" :to="{path:'/usuario',query:{id_usuario:idamigo.id_usuario}}">
+                                <div class="d-flex w-100 flex-column text-center">
+                                    <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:idamigo.id_usuario}}">
                                         <div>
                                             <img v-bind:src="`usuarios/${idamigo.usuario_fotoPerfil}`" class="rounded-circle perfil2" height="100" width="100" background-size="100% auto" background-position="50%" alt="">
                                         </div>
@@ -225,17 +232,17 @@
                     </div>
                 </div>
                 <div class="text center mt-5 w-100">
-                    <h4 class="fuente text-center">SEGUIDOS</h4>
+                    <h4 class="fuente text-center">SEGUIDORES</h4>
                     <hr class="bg-success mx-4">
                 </div>
                 <div class="container pt-3">
                     <div class="row">
-                        <div v-if="seguidos.length!==0">
+                        <div class="d-flex justify-content-center" v-if="idamigos.length!==0">
 
-                            <div class="col-4 ms-2 text-center mb-3 me-2"  v-for="idamigo in seguidos" :key="idamigo">
+                            <div class="col-4 ms-2 d-flex text-center mb-3 me-2"  v-for="idamigo in idamigos" :key="idamigo">
 
-                                <div class="mx-5 d-flex w-100 flex-column text-center">
-                                    <router-link class="nombre" :to="{path:'/usuario',query:{id_usuario:idamigo.id_usuario}}">
+                                <div class="d-flex w-100 flex-column text-center">
+                                    <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:idamigo.id_usuario}}">
                                         <div>
                                             <img v-bind:src="`usuarios/${idamigo.usuario_fotoPerfil}`" class="rounded-circle perfil2" height="100" width="100" background-size="100% auto" background-position="50%" alt="">
                                         </div>
@@ -247,7 +254,7 @@
                             </div>
                         </div>
                         <div v-else>
-                            <h5 class="text-center">No sigues a ningún usuario</h5>
+                            <h5 class="text-center">Ningún usuario te sigue</h5>
                         </div>
                     </div>
                 </div>
@@ -288,68 +295,90 @@ export default {
         productos: [],
         idamigos:[],
         reviews:[],
-        seguidos:[]
+        seguidos:[],
+        id_usuarioExterno: null,
+        seguido: false
       }
   },
   mounted(){
+    this.id_usuarioExterno = this.$route.query.id_usuario;
+    if(this.id_usuarioExterno != null){
+        axios.get(`http://localhost:3000/usuario/${parseInt(this.id_usuarioExterno)}`)
+            .then((response)=>{
+                this.usuario = response.data;
+                this.imagen = this.usuario.usuario_fotoPerfil;
+                this.obtenerDatosUsuario(this.usuario.id_usuario);
+                
+                if(sessionStorage.info!=null) {
+                    let usuarioActual = JSON.parse(sessionStorage.info);
+                    axios.get(`http://localhost:3000/usuario/${usuarioActual.id_usuario}/seguidos`)
+                    .then((response)=>{
+                        let respuesta = response.data;
+                        for (const objeto in respuesta) {
+                            if(!this.seguido){
+                                this.seguido = respuesta[objeto].id_usuario == this.usuario.id_usuario ? true : false; 
+                            }                                
+                        }
+                    });
+                }
 
-    if (sessionStorage.info == null) {
-      console.log('No hay usuario');
+            });
     }
     else{
-      this.usuario = JSON.parse(sessionStorage.info);
-      this.imagen = this.usuario.usuario_fotoPerfil
+        if (sessionStorage.info == null) {
+            this.$router.push('/')
+        }
+        else{
+            this.usuario = JSON.parse(sessionStorage.info);
+            this.imagen = this.usuario.usuario_fotoPerfil;
+            this.obtenerDatosUsuario(this.usuario.id_usuario);
+        }
     }
-
-    axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/seguidores`)
-        .then((response)=>{
-            this.idamigos = response.data
-            console.log(this.idamigos);
-        }); 
-
-    axios.get(`http://localhost:3000/review/usuario/${this.usuario.id_usuario}`)
-        .then((response)=>{
-            this.reviews = response.data
-            for (const review in this.reviews) {
-                this.reviews[review].review_fecha = moment(this.reviews[review].review_fecha).format('DD-MM-YYYY');
-            }
-            console.log('review del usuario: ',response.data);
-        });
     
-    axios.get(`http://localhost:3000/usuario/${this.usuario.id_usuario}/seguidos`)
-        .then((response)=>{
-            this.seguidos = response.data;
-        });
-    
-                // let json ={
-                //     "id_usuario" : '7',
-                //     "id_amigo" : '4',
-
-                // };
-                // axios.post('http://localhost:3000/usuario/seguir_usuario',json)
-                // .then( response => {
-                //     console.log(response);
-                //     if(response.data.statusText == 'OK'){
-                //         console.log("Entra");
-
-                //     }
-                //     else{
-                //         console.log("Falla")
-                //     }
-                // })
             
   },
   methods:{
-    //   obtenerproduct(){
-    //       for (const review in this.reviews) {
-    //           for (const producto in this.productos) {
-    //               if(this.reviews[review].id_producto == this.productos ){
+      obtenerDatosUsuario(id_usuario){
+        axios.get(`http://localhost:3000/usuario/${id_usuario}/seguidores`)
+            .then((response)=>{
+                this.idamigos = response.data
+            }); 
 
-    //         }
-    //           }
-            
-    //       }
-    //   }
+        axios.get(`http://localhost:3000/review/usuario/${id_usuario}`)
+            .then((response)=>{
+                this.reviews = response.data
+                for (const review in this.reviews) {
+                    this.reviews[review].review_fecha = moment(this.reviews[review].review_fecha).format('DD-MM-YYYY');
+                }
+            });
+        
+        axios.get(`http://localhost:3000/usuario/${id_usuario}/seguidos`)
+            .then((response)=>{
+                this.seguidos = response.data;
+            });
+      },
+      seguir(){
+          if(sessionStorage.info!=null){
+              let usuarioActual = JSON.parse(sessionStorage.info);
+              let json = {
+                  "id_usuario": usuarioActual.id_usuario, // Usuario que sigue
+                  "id_amigo": this.usuario.id_usuario // Usuario seguido
+              }
+              axios.post(`http://localhost:3000/usuario/seguir_usuario`, json);
+              this.$router.go();
+          }
+      },
+      dejarSeguir(){
+          if(sessionStorage.info!=null){
+              let usuarioActual = JSON.parse(sessionStorage.info);
+              let json = {
+                  "id_usuario": usuarioActual.id_usuario, // Usuario que sigue
+                  "id_amigo": this.usuario.id_usuario // Usuario seguido
+              }
+              axios.delete(`http://localhost:3000/usuario/dejar_seguir_usuario`, {data:json});
+              this.$router.go();
+          }
+      }
   },
   beforeCreate () {
     document.querySelector('body').classList.remove('fondo2');

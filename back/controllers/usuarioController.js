@@ -76,9 +76,22 @@ usuarioController.usuarioPorApodo = (req,res) => {
  * @param {*} req 
  * @param {*} res 
  */
-usuarioController.listarAmigos = (req,res) =>{
+usuarioController.listarSeguidores = (req,res) =>{
     
-    Usuario.listarAmigos(req, (err,resultado)=>{
+    Usuario.listarSeguidores(req, (err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    });
+}
+
+/**
+ * Listar los seguidos de un usuario.
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+ usuarioController.listarSeguidos = (req,res) =>{
+    
+    Usuario.listarSeguidos(req, (err,resultado)=>{
         mostrarResultados(err,resultado,res);
     });
 }
@@ -128,6 +141,20 @@ usuarioController.seguirUnUsuario = (req, res) => {
 usuarioController.editarUsuario = (req,res) => {
 
     Usuario.editarUsuario(req,(err,resultado)=>{
+        mostrarResultados(err,resultado,res);
+    })
+}
+
+/** --- DELETE REQUESTS --- */
+/**
+ * Dejar de seguir a un usuario.
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+ usuarioController.dejarDeSeguirUsuario = (req,res) => {
+
+    Usuario.dejarDeSeguirUsuario(req,(err,resultado)=>{
         mostrarResultados(err,resultado,res);
     })
 }

@@ -54,7 +54,7 @@ const Usuario = {
 
     },
 
-    listarAmigos: (req, callback) => {
+    listarSeguidores: (req, callback) => {
 
         const sql = `SELECT usu.*
                         FROM usuario usu
@@ -76,12 +76,34 @@ const Usuario = {
 
     },
 
+    listarSeguidos: (req, callback) => {
+
+        const sql = `SELECT usu.*
+                        FROM usuario usu
+                        INNER JOIN lista_amigos amigo on amigo.id_usuario = usu.id_usuario
+                        WHERE amigo.id_amigo = ${req.params.id_usuario}`;
+        
+        req.getConnection((err,conn)=>{
+
+            if(err){
+                return callback(err);
+            }else{
+                conn.query(sql, (err, resultado)=>{
+                    return callback(err,resultado);
+
+                });
+            }
+
+        });
+
+    },
+
     listarIdAmigos: (req, callback) => {
 
         const sql = `SELECT usu.id_usuario
                         FROM usuario usu
-                        INNER JOIN lista_amigos amigo on amigo.id_amigo = usu.id_usuario
-                        WHERE amigo.id_usuario = ${req.params.id_usuario}`;
+                        INNER JOIN lista_amigos amigo on amigo.id_usuario = usu.id_usuario
+                        WHERE amigo.id_amigo = ${req.params.id_usuario}`;
         
         req.getConnection((err,conn)=>{
 
@@ -245,14 +267,27 @@ const Usuario = {
                return callback(err);
             }else{
                 
-                const sql = `INSERT INTO lista_amigos VALUES(${id_usuario},${id_amigo})`;
+                const sql = `INSERT INTO lista_amigos VALUES(${id_amigo},${id_usuario})`;
 
-                conn.query(sql,(err,resultado)=>{
+                conn.query(sql,(err)=>{
                     return callback(err,{"Resultado": "Usuario actualizado con éxito"});
                 });
             }
         });
 
+    },
+
+    dejarDeSeguirUsuario: (req,callback)=>{
+        const {id_usuario, id_amigo} = req.body;
+
+        req.getConnection((err,conn)=>{
+            if(err) return callback(err);
+
+            const sql = `DELETE FROM lista_amigos WHERE id_amigo=${id_usuario} and id_usuario=${id_amigo}`;
+            conn.query(sql,(err)=>{
+                return callback(err,{"Resultado": "Usuario actualizado con éxito"});
+            });
+        })
     }
 
 }

@@ -176,11 +176,12 @@ const Review = {
         req.getConnection((err,conn)=>{
             if(err) return callback(err);
 
+
             productoHelper.recalcularPuntuacion(false,conn,review_estrellas,review_total,id_producto,(err)=>{
                 if(err) return callback(err);
             });
 
-            conn.query(sql,(err,resultado)=>{
+            conn.query(sql,(err)=>{
                 return callback(err,{'Resultado': 'Review borrada'});
             });
         });
