@@ -6,9 +6,9 @@
     background-color: #545454;
 }
 section{
-  background: radial-gradient(rgba(255, 255, 255, 0) 20%, #212529 73%), url('../../public/productos/premiumPortada.jpg');
+  background: radial-gradient(rgba(255, 255, 255, 0) 20%, #212529 73%), url('../../public/productos/premiumPortada.jpeg');
   background-position: center;
-  background-size:contain;
+  background-size:cover;
 }
 .letras{
     text-shadow: 5px 0 black, 0 3px black;
