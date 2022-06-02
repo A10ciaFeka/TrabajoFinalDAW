@@ -102,7 +102,7 @@ hr{
       </div>
 
         <div class="mt-5 mb-3">
-          <h4 class="p-2 text-center fuente" style="font-size: 120%">Reviews: {{this.maxItems}}</h4>
+          <h4 class="p-2 pt-4 text-center fuente" style="font-size: 120%">Reviews: {{this.maxItems}}</h4>
         </div>
 
         <div class="mx-3 border-top" v-for="review in reviews" :key="review">
