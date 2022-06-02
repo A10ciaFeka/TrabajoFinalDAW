@@ -126,7 +126,8 @@ const Usuario = {
         
         const {usuario_apodo,
                usuario_contrasena,
-               usuario_email} = req.body;
+               usuario_email,
+               usuario_fotoPerfil} = req.body;
         console.log();
         const hashedPwd = passwordValidator.setPassword(usuario_contrasena);
 
@@ -136,7 +137,7 @@ const Usuario = {
                         '${hashedPwd}',
                         '${usuario_email}',
                         '0',
-                        '',
+                        '${usuario_fotoPerfil}',
                         '0')`;
         
         req.getConnection((err,conn) => {
