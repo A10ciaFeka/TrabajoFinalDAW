@@ -33,12 +33,6 @@
   width: 100%;
 }
 }
-section{
-  background: linear-gradient(rgba(255,255,255,0) 20%, #14181C), url('../../public/productos/eldenPortada.jpg');
-  /* background-image: url('../../public/productos/eldenPortada.jpg'); */
-  background-position: center;
-
-}
 .row{
   --bs-gutter-x: 0 !important;
 }
@@ -59,15 +53,12 @@ a{
 <template>
 <div>
   <navbar_first />
-    <section class="pt-5  pb-5 mt-0 mb-5  d-flex row bg-dark" style="height:85vh; background-size: cover;">
+    <section class="pt-5  pb-5 mt-0 mb-5  d-flex row bg-dark carrusel" style="height:95vh; background-size: cover;">
       <div class="d-flex justify-content-center">
         <img :src="`productos/elden.png`" alt="" height="230">
       </div>
       <div class="container-fluid">
         <div class="row  justify-content-center align-items-end d-flex text-center h-100">
-          <div>
-            
-          </div>
           <div class="col-12 col-md-8  h-50 mt-5 pt-5">
               <p class="lead mt-5 text-light mb-3" style="font-family: fuenteGorda !important;font-size:18px">El nuevo juego de Hidetaka Miyazaki y George R.R Martin</p>
               <p>
@@ -114,19 +105,33 @@ export default {
   },
   data(){
     return{
-
+      imgIndex: 0,
+      imagenesCarrusel: ['productos/eldenPortada.jpg','productos/eldenPortada2.jpg','productos/eldenPortada3.jpg'],
+      intervalo: null
     }
   },
   mounted(){
-
-
+    document.querySelector('.carrusel').style.backgroundImage = `linear-gradient(rgba(255,255,255,0) 70%, #14181C), url('${this.imagenesCarrusel[0]}')`;
+    this.intervalo = 
+      setInterval(()=>{
+        this.imgIndex = (this.imgIndex+1)==this.imagenesCarrusel.length ? 0 : this.imgIndex+1;
+        this.cambiarImagen(this.imgIndex);
+      },12000);
       
   },
   methods:{
     
+    cambiarImagen(indexActual){
+      document.querySelector('.carrusel').style.backgroundImage = `linear-gradient(rgba(255,255,255,0) 70%, #14181C), url('${this.imagenesCarrusel[indexActual]}')`;
+    }
   },
   beforeCreate () {
     document.querySelector('body').classList.remove('fondo2');
+  },
+  watch: {
+    $route () {
+      clearInterval(this.intervalo);
+    }
   }
 }
 </script>

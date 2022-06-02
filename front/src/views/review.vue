@@ -1,8 +1,8 @@
 <style>
 .fondo2{
-  background-image: url('../../public/productos/fondoProduct.png');
+  background-image: url('../../public/productos/fondoProduct3.jpg');
   background-attachment: fixed;
-  /* background-size: cover; */
+  background-size: cover;
   background-repeat: no-repeat;
 }
 </style>

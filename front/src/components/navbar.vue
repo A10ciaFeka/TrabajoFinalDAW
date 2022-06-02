@@ -181,10 +181,10 @@ hr{
       <li  class="nav-item me-3 me-lg-1">
         <div class="nav-link d-sm-flex align-items-sm-center">
           <router-link to="/login" class="routerstyle">
-            <a class="nav-link d-sm-flex align-items-sm-center" href="">Login</a>
+            <a class="nav-link d-sm-flex align-items-sm-center" href="">Entrar</a>
           </router-link>
           <router-link to="/register" class="routerstyle">
-            <a class="nav-link d-sm-flex align-items-sm-center" href="">Sing Up</a>
+            <a class="nav-link d-sm-flex align-items-sm-center" href="">Registro</a>
           </router-link>
           <img src="../assets/img/user.svg" class="rounded-circle mmm" height="35" width="35" background-size="100% auto" background-position="50%"/>
         </div>
