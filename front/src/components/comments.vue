@@ -39,7 +39,7 @@ hr{
         <div  class="modal-dialog modal-dialog-centered">
           <div class="modal-content p-4 bg-dark">
             <div class="my-4 text-center">
-              <h4>¿Estas seguro de eliminar la review?</h4>
+              <h4>¿Estás seguro de eliminar la review?</h4>
             </div>
             <div class="d-flex justify-content-around">
               <div>
@@ -56,7 +56,7 @@ hr{
     <section class="container mb-3 bg-dark">
       <div v-show="sesion" class="border-bottom">
         <div class="pt-3 mt-2">
-          <h4 class="p-2 text-center fuente" style="font-size: 120%">Reviews de amigos</h4>
+          <h4 class="p-2 text-center fuente" style="font-size: 120%">Mi review/Reviews de amigos</h4>
         </div>
 
         <div class="m-4 border-top" v-for="revamigo in revamigos" :key="revamigo">
