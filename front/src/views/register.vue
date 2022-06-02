@@ -170,15 +170,15 @@ input#thing5[type=checkbox] + label
                 <p>Imagen perfil:</p>
                 <div class="d-flex justify-content-between mx-3" >
 
-                        <input type="checkbox" name='foto' id="thing1" required value="1"/><label for="thing1"></label>
+                        <input type="checkbox" name='foto' id="thing1" v-bind:class = "{seleccionado: foto1}" required value="1" @change="uniqueCheck"/><label for="thing1"></label>
 
-                        <input type="checkbox" name='foto' id="thing2" required value="2"/><label for="thing2"></label>
+                        <input type="checkbox" name='foto' id="thing2" required value="2" @change="uniqueCheck"/><label for="thing2"></label>
 
-                        <input type="checkbox" name='foto' id="thing3" required value="3"/><label for="thing3"></label>
+                        <input type="checkbox" name='foto' id="thing3" required value="3" @change="uniqueCheck"/><label for="thing3"></label>
 
-                        <input type="checkbox" name='foto' id="thing4" required value="4"/><label for="thing4"></label>
+                        <input type="checkbox" name='foto' id="thing4" required value="4" @change="uniqueCheck"/><label for="thing4"></label>
 
-                        <input type="checkbox" name='foto' id="thing5" required value="5"/><label for="thing5"></label>
+                        <input type="checkbox" name='foto' id="thing5" required value="5" @change="uniqueCheck"/><label for="thing5"></label>
 
                 </div>
                 
@@ -202,7 +202,9 @@ export default {
                 error: false,
                 usuario_apodo: '',
                 usuario_contrasena: '',
-                usuario_email: ''
+                usuario_email: '',
+                additional_grouped: null,
+                foto1: false,
             }
         },
         methods:{
@@ -224,10 +226,29 @@ export default {
                             this.error = true;
                         }
                 })
+            },
+            uniqueCheck(e){
+                this.additional_grouped = null;
+                if (e.target.checked) {
+                    this.additional_grouped = e.target.value;
+                    let caca = document.querySelectorAll('input[type=checkbox]');
+                    for (let i = 0; i < caca.length; i++) {
+                        if(caca[i].value != e.target.value){
+                            caca[i].checked = false
+                        }
+                        
+                    }
+                    
+                }
+                this.foto1 = true
+                console.log(this.additional_grouped);
             }
         },
   beforeCreate () {
     document.querySelector('body').classList.remove('fondo2');
   } 
 }
+
 </script>
+
+
