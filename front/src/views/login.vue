@@ -22,7 +22,7 @@
 h3 {
     margin: 0;
     padding: 0 0 20px;
-    color: #22e83a;
+    color: #198754;
     text-align: center
 }
 
@@ -73,7 +73,7 @@ h3 {
     outline: none;
     height: 40px;
     font-family: fuenteGorda !important;
-    background: #22e83a;
+    background: #198754;
     color: black;
     border-radius: 20px;
     cursor: pointer
@@ -90,7 +90,7 @@ h3 {
 
 
 p {
-    color: #22e83a
+    color: #198754
 }
 .fondo{
   background-color: #14181C;
@@ -100,31 +100,36 @@ p {
 }
 </style>
 <template>
-    <div class="loginBox">
-         <!--Logo  -->
-        <!-- <img class="user" src="" height="100px" width="100px">  -->
-        <h3 class="fuente">Iniciar sesión</h3>
-        <form v-on:submit.prevent="login">
-            <div class="inputBox"> 
-                <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
-                <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
-            </div> 
-            <input  type="submit" name="" value="Entrar">
-        </form>
-        <router-link to="/register"> 
-            <a href="#">¿No tienes cuenta? Registrate<br></a>
-        </router-link>
-    </div>
+    <navbar />
+    <section>
+        <div class="loginBox">
+            <!--Logo  -->
+            <!-- <img class="user" src="" height="100px" width="100px">  -->
+            <h3 class="fuente">Iniciar sesión</h3>
+            <form v-on:submit.prevent="login">
+                <div class="inputBox"> 
+                    <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
+                    <input id="pass" type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
+                </div> 
+                <input  type="submit" name="" value="Entrar">
+            </form>
+            <router-link to="/register"> 
+                <a href="#">¿No tienes cuenta? Registrate<br></a>
+            </router-link>
+        </div>
+    </section>
+    
      
 </template>
 <script>
 
     import axios from 'axios';
+    import navbar from '@/components/navbar.vue';
 
 export default {
     name: 'login-firts',
     components: {
-
+        navbar
         },
         data(){
             return{
@@ -156,7 +161,10 @@ export default {
             }
         },
   beforeCreate () {
+    document.querySelector('body').classList.add('fondo3');
     document.querySelector('body').classList.remove('fondo2');
+    
+  
   }  
 }
 

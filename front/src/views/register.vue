@@ -22,10 +22,12 @@
 h3 {
     margin: 0;
     padding: 0 0 20px;
-    color: #22e83a;
+    color: #198754;
     text-align: center
 }
-
+.fuente{
+    font-family: fuenteGorda !important;
+}
 .loginBox input {
     width: 100%;
     margin-bottom: 20px;
@@ -72,7 +74,7 @@ h3 {
     outline: none;
     height: 40px;
     font-size: 25px;
-    background: #22e83a;
+    background: #198754;
     font-family: fuenteGorda !important;
     color: black;
     border-radius: 20px;
@@ -88,7 +90,7 @@ h3 {
     display: block
 }
 p {
-    color: #22e83a
+    color: #198754
 }
 .fondo{
   background-color: #14181C;
@@ -153,49 +155,55 @@ input#thing5[type=checkbox] + label
 }
 </style>
 <template>
-    <div class="loginBox">
-         <!--Logo  -->
-        <!-- <img class="user" src="" height="100px" width="100px">  -->
-        <h3>Registrarse</h3>
-        <form v-on:submit.prevent="register">
-            <div class="inputBox"> 
-                <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
-                <input id="pass" type="text" v-model="usuario_email" placeholder="Email"> 
-            </div> 
-            <div class="inputBox"> 
-                <input  type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
-                <!-- <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña">  -->
-            </div> 
-            <div class="inputBox mb-2">
-                <p>Imagen perfil:</p>
-                <div class="d-flex justify-content-between mx-3" >
+    <navbar />
+    <section>
+        <div class="loginBox">
+            <!--Logo  -->
+            <!-- <img class="user" src="" height="100px" width="100px">  -->
+            <h3 class="fuente">Registrarse</h3>
+            <form v-on:submit.prevent="register">
+                <div class="inputBox"> 
+                    <input id="name" type="text" v-model="usuario_apodo" placeholder="Usuario"> 
+                    <input id="pass" type="text" v-model="usuario_email" placeholder="Email"> 
+                </div> 
+                <div class="inputBox"> 
+                    <input  type="password" v-model="usuario_contrasena" placeholder="Contraseña"> 
+                    <!-- <input id="pass" type="password" v-model="repetir_contrasena" placeholder="Repetir contraseña">  -->
+                </div> 
+                <div class="inputBox mb-2">
+                    <p>Imagen perfil:</p>
+                    <div class="d-flex justify-content-between mx-3" >
 
-                        <input type="checkbox" name='foto' id="thing1" v-bind:class = "{seleccionado: foto1}" required value="1" @change="uniqueCheck"/><label for="thing1"></label>
+                            <input type="checkbox" id="thing1"  value="user1.jpg" @change="uniqueCheck"/><label for="thing1"></label>
 
-                        <input type="checkbox" name='foto' id="thing2" required value="2" @change="uniqueCheck"/><label for="thing2"></label>
+                            <input type="checkbox" id="thing2"  value="user2.jpg" @change="uniqueCheck"/><label for="thing2"></label>
 
-                        <input type="checkbox" name='foto' id="thing3" required value="3" @change="uniqueCheck"/><label for="thing3"></label>
+                            <input type="checkbox" id="thing3"  value="user3.jpg" @change="uniqueCheck"/><label for="thing3"></label>
 
-                        <input type="checkbox" name='foto' id="thing4" required value="4" @change="uniqueCheck"/><label for="thing4"></label>
+                            <input type="checkbox" id="thing4"  value="user4.jpg" @change="uniqueCheck"/><label for="thing4"></label>
 
-                        <input type="checkbox" name='foto' id="thing5" required value="5" @change="uniqueCheck"/><label for="thing5"></label>
+                            <input type="checkbox"  id="thing5"  value="user5.jpg" @change="uniqueCheck"/><label for="thing5"></label>
 
+                    </div>
+                    
                 </div>
-                
-            </div>
-            <input type="submit" name="" value="Registrarse">
-        </form>
-        <router-link to="/login"> 
-            <a href="#">¿Ya tienes cuenta? Iniciar sesion<br></a>
-        </router-link>
-    </div>
+                <input type="submit" name="" value="Registrarse">
+            </form>
+            <router-link to="/login"> 
+                <a href="#">¿Ya tienes cuenta? Iniciar sesion<br></a>
+            </router-link>
+        </div>
+    </section>
+    
      
 </template>
 <script>
     import axios from 'axios';
+    import navbar from '@/components/navbar.vue';
 export default {
     name: 'register-firts',
     components: {
+        navbar
         },
         data(){
             return{
@@ -212,7 +220,8 @@ export default {
                 let json ={
                     "usuario_apodo" : this.usuario_apodo,
                     "usuario_contrasena" : this.usuario_contrasena,
-                    "usuario_email" : this.usuario_email
+                    "usuario_email" : this.usuario_email,
+                    "usuario_fotoPerfil" : this.additional_grouped
                 };
                 axios.post('http://localhost:3000/usuario/crear',json)
                 .then( response => {
@@ -245,6 +254,7 @@ export default {
             }
         },
   beforeCreate () {
+    document.querySelector('body').classList.add('fondo3');
     document.querySelector('body').classList.remove('fondo2');
   } 
 }

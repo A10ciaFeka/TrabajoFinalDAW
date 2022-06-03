@@ -145,6 +145,7 @@ export default {
   },
     NavbareforeCreate () {
     document.querySelector('body').classList.remove('fondo2');
+    document.querySelector('body').classList.remove('fondo3');
   }
 }
 </script>

@@ -5,6 +5,12 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.fondo3{
+  background-image: url('../../public/productos/fondoProduct2.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 </style>
 <template>
   <div>
@@ -43,6 +49,7 @@ export default {
     }
   },
   beforeCreate () {
+    document.querySelector('body').classList.remove('fondo3');
     document.querySelector('body').classList.add('fondo2');
   }
     
