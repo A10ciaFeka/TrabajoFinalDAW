@@ -63,10 +63,14 @@ hr{
           <div class="mt-3 mb-2 d-flex flex-row comentario">
             <div class="col-2 d-flex flex-column justify-content-center">
                 <div class="mx-auto">
-                  <img :src="`usuarios/${revamigo.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
+                  <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:revamigo.id_usuario}}">
+                    <img :src="`usuarios/${revamigo.usuario_fotoPerfil}`" class="rounded-circle" height="50" width="50">
+                  </router-link>
                 </div>
                 <p class="mx-auto">
-                  <strong>{{revamigo.usuario_apodo}}</strong>
+                  <router-link class="nombre" :to="{path:'/profile',query:{id_usuario:revamigo.id_usuario}}">
+                    <strong>{{revamigo.usuario_apodo}}</strong>
+                  </router-link>
                 </p>
             </div>
 
